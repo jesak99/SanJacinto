@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>
+    <span>Crear publicación</span>
+    <mat-icon mat-dialog-close matTooltip="Cancelar">cancel</mat-icon>
+</h1>
+<div mat-dialog-content>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Administrador</mat-card-subtitle>
+    </mat-card-header>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripción de la publicación</mat-label>
+            <textarea matInput rows="3"
+                placeholder="El H. Ayuntamiento de San Jacinto Amilpas ha realizado ..."></textarea>
+        </mat-form-field>
+        <mat-tab-group headerPosition="below">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">add_photo_alternate</mat-icon>
+                    Foto/video
+                </ng-template>
+                <div class="dropzone">
+                    <!--<input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)"/>-->
+                    <input type="file" #fileDropRef id="fileDropRef" multiple />
+                    <img src="https://www.freeiconspng.com/thumbs/upload-icon/upload-icon-22.png" alt="" height="60"
+                        width="60">
+                    <h3>Arrastra y suelte el archivo aquí</h3>
+                    <h3>o</h3>
+                    <label for="fileDropRef">Agregar foto/video</label>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">code</mat-icon>
+                    Insertar
+                </ng-template>
+                Content 1
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close cdkFocusInitial>Publicar</button>
+</div>

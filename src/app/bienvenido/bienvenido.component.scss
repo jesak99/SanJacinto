@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Passions+Conflict&family=Qwitcher+Grypen:wght@400;700&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&family=Montserrat:wght@100;200;300&display=swap');
+
+.carousel {
+    margin: auto;
+    max-width: 1280px;
+    max-height: 400px;
+    //filter: grayscale(1.0);
+
+    .carousel-inner {
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+
+        .carousel-item {
+            //background: url("https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/04/fondo-3.jpg") center / cover no-repeat;
+            //background-color: gray !important;
+            img {
+                height: 400px;
+                //filter: grayscale(1.0);
+            }
+
+            .carousel-caption {
+                h1 {
+                    font-family: 'Sacramento', cursive;
+                    font-size: calc(4em + 2vw);
+                    font-weight: bolder;
+                }
+
+                p{
+                    font-size: medium;
+                    font-weight: lighter;
+                    /*
+                    border-radius: 25px;
+	                -webkit-backdrop-filter: blur(10px);
+                    backdrop-filter: blur(10px);
+                    width: fit-content;
+                    margin: auto;*/
+                }
+            }
+        }
+    }
+}
+
+.container-fluid{
+    //background: url("./../../assets/image832.png") center / contain no-repeat;
+    //background: url("./../../assets/image832.png") center / cover no-repeat;
+    max-width: 1280px;
+    margin-top: 20px;
+    .info-sanjacinto{
+        h1 {
+            //font-family: 'Passions Conflict', cursive;
+            font-family: 'Exo 2', sans-serif;
+            font-size: calc(4em + 1vw);
+            font-weight: bolder;
+            justify-content: center;
+            text-align: center;
+            line-height: 0.8em;
+            color: rgb(98, 17, 50);
+        }
+
+        p{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: large;
+            line-height: normal;
+            text-align: center;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        .color{
+            color: rgb(98, 17, 50);
+        }
+    }
+
+    .imagen-promocional{
+        min-width: 150px;
+        
+        .img-fluid{
+            border-radius: 30px;
+        }
+    }
+
+    .titulo-seccion{
+        font-family: 'Exo 2', sans-serif;
+        text-transform: uppercase;
+        font-size: calc(1em + 1vw);
+        font-weight: bolder;
+        text-align: center;
+        color: rgb(98, 17, 50);
+    }
+}
+
+.box p {
+    color: var(--grayishBlue);
+}
+
+.box {
+    border-radius: 5px;
+    box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+    padding: 30px;
+    margin: 20px;  
+}
+
+img {
+    float: right;
+}
+
+@media (max-width: 450px) {
+    .box {
+        height: 200px;
+    }
+}
+
+@media (max-width: 950px) and (min-width: 450px) {
+    .box {
+        text-align: center;
+        height: 180px;
+    }
+}
+
+.cyan {
+    border-top: 3px solid var(--cyan);
+}
+.red {
+    border-top: 3px solid var(--red);
+}
+.blue {
+    border-top: 3px solid var(--blue);
+}
+.orange {
+    border-top: 3px solid var(--orange);
+}
+
+h2 {
+    color: var(--varyDarkBlue);
+    font-weight: var(--weight3);
+}
+
+
+@media (min-width: 950px) {
+    .row1-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .row2-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .box-down {
+        position: relative;
+        top: 150px;
+    }
+    .box {
+        width: 20%;
+     
+    }
+    .header p {
+        width: 30%;
+    }
+    
+}

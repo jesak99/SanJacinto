@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&family=Montserrat:wght@100;200;300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.pg-footer {
+    font-family: 'Roboto', sans-serif;
+    //filter: grayscale(1.0);
+}
+
+.footer {
+    background: url("https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/06/fondo-4.jpg") center / cover no-repeat;
+    color: #fff;
+    max-width: 1280px;
+    margin: auto;
+    height: fit-content;
+}
+
+.footer-wave-svg {
+    background-color: transparent;
+    display: block;
+    height: 30px;
+    position: relative;
+    top: -1px;
+    width: 100%;
+}
+
+.footer-wave-path {
+    fill: #fff;
+}
+
+.footer-logo{
+    max-width: 400px;
+    min-width: 100px;
+}
+
+.footer-logo-link {
+    display: inline-block;
+}
+
+.footer-menu {
+    margin-top: 10px;
+}
+
+.footer-menu-name {
+    color: #fffff2;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    line-height: 18px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.titulo{
+    font-size: 16px;
+    //font-weight: 800;
+    //letter-spacing: .1em;
+    line-height: 18px;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.informacion{
+    font-size: 16px;
+    //font-weight: 800;
+    //letter-spacing: .1em;
+    line-height: 18px;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.emergencia{
+    line-height: 30px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-family: 'Exo 2', sans-serif;
+    text-align: center;
+}
+
+.numero{
+    font-size: calc(1em + 4vw);
+    font-weight: 800;
+    letter-spacing: .1em;
+}
+
+.texto{
+    font-size: calc(2em + 1vw);
+}
+
+.servicios{
+    font-size: small;
+}
+
+.facebook :hover{
+    color: #3c5a99;
+    transition: all 0.5ms;
+}
+
+.footer-menu-list {
+    list-style: none;
+    margin-bottom: 0;
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+.footer-menu-list li {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.footer-copyright {
+    background-color: rgb(34, 34, 34);
+    color: #fff;
+    padding: 15px 30px;
+    text-align: center;
+}
+
+.footer-copyright-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+}
+
+.footer-copyright-text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.footer-copyright-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Media Query For different screens */
+@media (min-width:320px) and (max-width:479px) {
+
+    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+    }
+}
+
+@media (min-width:480px) and (max-width:599px) {
+
+    /* smartphones, Android phones, landscape iPhone */
+    .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+    }
+}
+
+@media (min-width:600px) and (max-width: 800px) {
+
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 1050px;
+        position: relative;
+    }
+}
+
+@media (min-width:801px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+
+}
+
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+
+}
+
+@media (min-width:1281px) {
+    /* hi-res laptops and desktops */
+
+}
+
+
+
+
+@media (min-width: 760px) {
+    .footer-content {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1230px;
+        padding: 40px 15px 450px;
+        position: relative;
+    }
+
+    .footer-wave-svg {
+        height: 50px;
+    }
+
+    .footer-content-column {
+        width: 24.99%;
+    }
+}
+
+@media (min-width: 568px) {
+    /* .footer-content-column {
+        width: 49.99%;
+    } */
+}

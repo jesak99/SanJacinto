@@ -1,0 +1,35 @@
+<mat-toolbar class="navbar navbar-expand-md fixed-top" [class.oscuro]="estilo" [scrollTop]="onWindowScroll()">
+  <mat-toolbar-row class="normal">
+    <span class="titulo">H. Ayuntamiento de San Jacinto Amilpas</span>
+    <a routerLink="bienvenido"><img src="./assets/logoSoloImg.png" height="70" width="100" alt=""></a>
+    <span class="titulo">Tiempos de Cambio y Bienestar</span>
+    <button mat-button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <mat-icon class="icono">menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="menu">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['leyes-y-reglamentos']" [routerLinkActive]="['is-active']">Leyes y Reglamentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['seguridad']" [routerLinkActive]="['is-active']">Seguridad</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['casa-de-cultura']" [routerLinkActive]="['is-active']">Casa de cultura</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['comunicacion']" [routerLinkActive]="['is-active']">Comunicación</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['contacto']" [routerLinkActive]="['is-active']">Contacto</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
