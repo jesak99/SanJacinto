@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "SanJacinto"
+  "defaultProject": "SanJacinto",
+  "cli": {
+    "analytics": "c9089768-234a-43df-9952-abb898ec00f1"
+  }
 }

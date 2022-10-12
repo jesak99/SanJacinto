@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +20,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { BienvenidoComponent } from './bienvenido/bienvenido.component';
 import { FooterComponent } from './footer/footer.component';
@@ -33,12 +35,9 @@ import { ContactoComponent } from './contacto/contacto.component';
 
 const routes : Routes=[
   {path: '', redirectTo: '/bienvenido', pathMatch: 'full'},
+  {path: 'pagina/:id', component: PublicacionesComponent},
   {path: 'bienvenido', component: BienvenidoComponent},
-  {path: 'contacto', component: ContactoComponent}, 
-  {path: 'leyes-y-reglamentos', component: PublicacionesComponent},
-  {path: 'seguridad', component: PublicacionesComponent},
-  {path: 'casa-de-cultura', component: PublicacionesComponent},
-  {path: 'comunicacion', component: PublicacionesComponent}
+  {path: 'contacto', component: ContactoComponent}
 ];
 
 @NgModule({
@@ -56,6 +55,11 @@ const routes : Routes=[
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -70,10 +74,8 @@ const routes : Routes=[
     MatTooltipModule,
     MatDatepickerModule,
     MatTabsModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
+    MatNativeDateModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

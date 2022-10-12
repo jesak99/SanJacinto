@@ -1,15 +1,12 @@
-<div class="container-fluid">
-  <header style="
-  background: url('https://i0.wp.com/lopezdoriga.com/wp-content/uploads/2018/11/identidad-gobierno-federal.jpg?fit=1200%2C645&ssl=1');
-  background-size: cover;
-  background-attachment: fixed;">
+<div class="container-fluid"   style="background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;">
+  <header style="background: rgba(0, 0, 0, 0.2) url('{{pagina?.fondo}}');">
     <div class="overlay">
-      <h1>Leyes y Reglamentos</h1>
-      <h3>Reasons for Choosing US</h3>
+      <h1>{{pagina?.nombre}}</h1>
+      <h3>{{pagina?.descripcion}}</h3>
     </div>
   </header>
   <app-nueva-publicacion></app-nueva-publicacion>
-  <app-card-publicacion></app-card-publicacion>
+  <app-card-publicacion *ngFor="let publicacion of listPublicaciones" [publicacion]="publicacion"></app-card-publicacion>
   <button mat-fab color="primary" matTooltip="Nueva publicación" aria-label="Example icon button with a delete icon"
     (click)="openDialog()">
     <mat-icon>add</mat-icon>

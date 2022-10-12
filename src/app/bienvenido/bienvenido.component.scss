@@ -43,7 +43,7 @@
 
 .container-fluid{
     //background: url("./../../assets/image832.png") center / contain no-repeat;
-    //background: url("./../../assets/image832.png") center / cover no-repeat;
+    background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
     max-width: 1280px;
     margin-top: 20px;
     .info-sanjacinto{
