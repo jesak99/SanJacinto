@@ -11,7 +11,7 @@
             <mat-card-header mat-card-image class="author">
                 <div mat-card-avatar class="image-perfil"></div>
                 <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>{{publicacion?.fecha_pub}}</mat-card-subtitle>
+                <mat-card-subtitle>{{publicacion?.fecha_pub | date:'medium'}}</mat-card-subtitle>
             </mat-card-header>
             
             <img *ngIf="publicacion?.tipo_pub=='foto'||publicacion?.tipo_pub=='foto-src'" mat-card-image src="{{publicacion?.multimedia}}" alt="">

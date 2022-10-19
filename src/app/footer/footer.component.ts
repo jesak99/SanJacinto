@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Principal } from '../model/principal.model';
+import { PrincipalService } from '../service/principal.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  infoPrincipal !: Principal;
 
-  constructor() { }
+  constructor(private principalService: PrincipalService) { }
 
   ngOnInit(): void {
+    this.infoPrincipal = this.principalService.getInfo();
+    this.principalService.newInfo.subscribe((datosPrincipales : Principal)=>{
+      this.infoPrincipal = this.principalService.getInfo();
+    });
   }
 
 }

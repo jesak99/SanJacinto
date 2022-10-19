@@ -1,48 +1,86 @@
-<!--
-<app-header></app-header>
-<div class="container-fluid">
-    <app-bienvenido></app-bienvenido>
-    <app-publicaciones></app-publicaciones>
-</div>
-<app-footer></app-footer>
--->
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="container-side" [class.veda]="infoPrincipal.tema_pagi">
     <mat-sidenav #sidenav mode="over">
-        <p class="imagen"><img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="100" width="100" alt="Black and White Portrait of a Man" loading="lazy"/></p>
+        <p class="imagen">
+            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" 
+            class="rounded-circle" 
+            height="100" width="100" 
+            alt="Black and White Portrait of a Man" 
+            loading="lazy"/>
+        </p>
         <p class="usuario">Jesús Cruz Morales</p>
         <p class="rol">Administrador</p>
         <mat-divider></mat-divider>
         <mat-nav-list>
             <div mat-subheader>Página</div>
-            <a mat-list-item href="..."><mat-icon>dashboard</mat-icon> Dashboard</a>
-            <a mat-list-item href="..."><mat-icon>info</mat-icon> Información de la página</a>
-            <a mat-list-item href="..."><mat-icon><mat-icon>add_alert</mat-icon></mat-icon> Nueva notificación</a>
-            <a mat-list-item href="..."><mat-icon><mat-icon>group</mat-icon></mat-icon> Usuarios</a>
+
+            <mat-list-item [routerLink]="['/dashboard']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>dashboard</mat-icon>
+                <a matLine>Dashboard</a>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/info-pagina']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>info</mat-icon>
+                <a matLine>Información de la Página</a>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/notificaciones']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>add_alert</mat-icon>
+                <a matLine>Nueva Notificación</a>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/usuarios']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>group</mat-icon>
+                <a matLine>Usuarios</a>
+            </mat-list-item>
+
             <mat-divider></mat-divider>
             <div mat-subheader>Cuenta</div>
-            <a mat-list-item href="..."><mat-icon>settings</mat-icon> General</a>
-            <a mat-list-item href="..."><mat-icon>notifications</mat-icon> Notificaciones</a>
-            <a mat-list-item href="..."><mat-icon>history</mat-icon> Registro de actividad</a>
+            <mat-list-item [routerLink]="['/ajustes']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>settings</mat-icon>
+                <a matLine>Ajustes de Cuenta</a>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/ajustes']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>notifications</mat-icon>
+                <a matLine>Notificaciones</a>
+            </mat-list-item>
+
+            <mat-list-item [routerLink]="['/mensajes']" [routerLinkActive]="['active']">
+                <mat-icon matListIcon>message</mat-icon>
+                <a matLine>Mensajes</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListIcon>exit_to_app</mat-icon>
+                <a matLine>Cerrar Sesión</a>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item (click)="sidenav.toggle()">
+                <mat-icon matListIcon>arrow_back_ios</mat-icon>
+                <a matLine>Ocultar Menú</a>
+            </mat-list-item>
+            <!--
+            <a mat-list-item [routerLink]="['dashboard']" [routerLinkActive]="['active']"><mat-icon>settings</mat-icon> General</a>
+            <a mat-list-item [routerLink]="['dashboard']" [routerLinkActive]="['active']"><mat-icon>notifications</mat-icon> Notificaciones</a>
+            <a mat-list-item [routerLink]="['dashboard']" [routerLinkActive]="['active']"><mat-icon>history</mat-icon> Registro de actividad</a>
             <button mat-list-item (click)="sidenav.toggle()">
                 <mat-icon>exit_to_app</mat-icon>Cerrar Sesión
             </button>
             <mat-divider></mat-divider>
             <button mat-list-item (click)="sidenav.toggle()">
                 <mat-icon>arrow_back_ios</mat-icon>Ocultar Menú
-            </button>
-         </mat-nav-list>
+            </button>-->
+        </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
         <app-header></app-header>
         <div class="container-fluid">
             <router-outlet></router-outlet>
-            <!--
-            <app-bienvenido></app-bienvenido>
-            <app-publicaciones></app-publicaciones>-->
-            
         </div>
         <app-footer></app-footer>
-        <button  *ngIf="false" mat-button (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon>Mostrar menú</button>
+        <button mat-fab *ngIf="true" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
     </mat-sidenav-content>
 </mat-sidenav-container>

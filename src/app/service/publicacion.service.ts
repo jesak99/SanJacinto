@@ -5,10 +5,10 @@ import { Publicacion } from "../model/publicacion.model";
 export class PublicacionService{
     listChangedEvent: EventEmitter<Publicacion[]> = new EventEmitter();
     listaPublicaciones : Publicacion[] = [
-        new Publicacion("Esta es una imagen subida", new Date, new Date, new Date, "foto", "https://scontent.fmid1-3.fna.fbcdn.net/v/t39.30808-6/310602583_492580822761972_2291567422932397640_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=730e14&_nc_ohc=N_THXuiQDA4AX8YBQHh&_nc_ht=scontent.fmid1-3.fna&oh=00_AT_iyZFjUcf-X23RIaK4oCpf3fAQlvmdzBY3HY1qfIvsYA&oe=63449423", "leyes-y-reglamentos"),
-        new Publicacion("Este es un video subido", new Date, new Date, new Date, "video","./../../assets/test.mp4","leyes-y-reglamentos"),
-        new Publicacion("Imagen insertada con un link", new Date, new Date, new Date, "foto-src", "https://scontent.fmid1-4.fna.fbcdn.net/v/t39.30808-6/310839909_492417959444925_1351976808452900793_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=zW-RDVw0UlYAX9WSeBR&tn=S90yGZp3ne1nQvJH&_nc_ht=scontent.fmid1-4.fna&oh=00_AT8a5wFlXn9mZHN2gZJiqKqAw4imOhx7W1E2Xrf3GN0LsA&oe=634A030F","leyes-y-reglamentos"),
-        new Publicacion("Video insertado con un link", new Date, new Date, new Date, 'iframe', "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FMunicipioSanJacintoAmilpas%2Fvideos%2F601195294979365%2F&show_text=true&width=560&t=0","leyes-y-reglamentos"),
+        new Publicacion("Esta es una imagen subida", new Date, new Date("2019-01-16"), new Date, "foto", "../../assets/test.jpeg", true, "leyes-y-reglamentos"),
+        new Publicacion("Este es un video subido", new Date, new Date, new Date, "video","./../../assets/test.mp4",false, "leyes-y-reglamentos"),
+        new Publicacion("Imagen insertada con un link", new Date, new Date, new Date, "foto-src", "https://scontent.fmid1-2.fna.fbcdn.net/v/t39.30808-6/312261399_505274218159299_8083809260020635668_n.png?stp=dst-png_p526x296&_nc_cat=105&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeELomaGsX5iWECH1u_UuoPDJTCE5KUU39klMITkpRTf2SwZMypFUH6ReW3p1qK4kqAu3yqu9t3zBgsMVREi9l6M&_nc_ohc=cE3LDE501NkAX9jRDTl&_nc_ht=scontent.fmid1-2.fna&oh=00_AT9XtEJ9d51a7Bi9CHXXQ0RRJGjGiGlSZ7E_uDnhJ2wMLw&oe=635637AB", false, "leyes-y-reglamentos"),
+        new Publicacion("Video insertado con un link", new Date, new Date, new Date, 'iframe', "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FMunicipioSanJacintoAmilpas%2Fvideos%2F601195294979365%2F&show_text=true&width=560&t=0", true,"leyes-y-reglamentos"),
     ];
 
     getPublicaciones(){

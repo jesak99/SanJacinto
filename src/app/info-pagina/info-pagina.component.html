@@ -1,0 +1,210 @@
+<div class="container-fluid">
+    <h1>Informarción de la página</h1>
+    <p><mat-icon>info</mat-icon>Contenido que se muestra a los usuarios</p>
+    <form class="formulario" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
+                <h2>General</h2>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Frase de encabezado izquierdo</mat-label>
+                            <input matInput type="text" placeholder="H. Ayuntamiento de San Jacinto Amilpas" formControlName="frase_izq">
+                            <mat-error *ngIf="form.get('frase_izq')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Frase de encabezado derecho</mat-label>
+                            <input matInput type="text" placeholder="Tiempos de Cambio y Bienestar" formControlName="frase_der">
+                            <mat-error *ngIf="form.get('frase_der')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Frase de pie de página</mat-label>
+                            <input matInput type="text" placeholder="Gobierno de San Jacinto Amilpas 2022-2024" formControlName="frase_inf">
+                            <mat-error *ngIf="form.get('frase_inf')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-slide-toggle [checked]="infoPrincipal.tema_pagi" color="primary" formControlName="tema_pagi">Tema veda electoral</mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <mat-form-field class="full-width">
+                                <mat-label>Icono de encabezado</mat-label>
+                                <input matInput type="text" placeholder="" formControlName="icono_enc">
+                                <mat-error *ngIf="form.get('icono_enc')?.hasError('required')">Este campo es requerido</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <img class="img-fluid" src="{{infoPrincipal.icono_enc}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <mat-form-field class="full-width">
+                                <mat-label>Icono principal</mat-label>
+                                <input matInput type="text" placeholder="" formControlName="icono_pri">
+                                <mat-error *ngIf="form.get('icono_pri')?.hasError('required')">Este campo es requerido</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <img class="img-fluid" src="{{infoPrincipal.icono_pri}}" alt="">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Contacto</h2>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Horario de atención</mat-label>
+                            <span matPrefix><mat-icon>access_time</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="Lun.-Vie. 09:00-17:00 hrs" formControlName="horario_1">
+                            <mat-error *ngIf="form.get('horario_1')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Horario de atención (Opcional)</mat-label>
+                            <span matPrefix><mat-icon>access_time</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="Lun.-Vie. 09:00-17:00 hrs" formControlName="horario_2">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Teléfono</mat-label>
+                            <span matPrefix><mat-icon>phone</mat-icon> &nbsp;</span>
+                            <input matInput type="tel" #telefono1 maxlength="10" placeholder="1234567890" formControlName="telefono1">
+                            <mat-hint align="end">{{telefono1.value.length}} / 10</mat-hint>
+                            <mat-error *ngIf="form.get('telefono1')?.hasError('required')">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="form.get('telefono1')?.hasError('pattern')">Revise en número ingresado solo números sin espacios</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Teléfono (Opcional)</mat-label>
+                            <span matPrefix><mat-icon>phone</mat-icon> &nbsp;</span>
+                            <input matInput type="tel" #telefono2 maxlength="10" placeholder="1234567890" formControlName="telefono2">
+                            <mat-hint align="end">{{telefono2.value.length}} / 10</mat-hint>
+                            <mat-error *ngIf="form.get('telefono2')?.hasError('pattern')">Revise en número ingresado solo números sin espacios</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Email</mat-label>
+                            <span matPrefix><mat-icon>email</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="ejemplo@gmail.com" formControlName="email1">
+                            <mat-error *ngIf="form.get('email1')?.hasError('required')">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="form.get('email1')?.hasError('email')">Ingrese un email válido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Email (Opcional)</mat-label>
+                            <span matPrefix><mat-icon>email</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="ejemplo@gmail.com" formControlName="email2">
+                            <mat-error *ngIf="form.get('email2')?.hasError('email')">Ingrese un email válido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Ubicación</h2>
+                <mat-form-field class="full-width">
+                    <mat-label>Dirección</mat-label>
+                    <span matPrefix><mat-icon>location_on</mat-icon> &nbsp;</span>
+                    <input matInput  type="text" placeholder="" formControlName="direccion">
+                    <mat-error *ngIf="form.get('direccion')?.hasError('required')">Este campo es requerido</mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Link de Google Maps</mat-label>
+                    <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                    <input matInput  type="text" placeholder="" formControlName="direccion_link">
+                    <mat-error *ngIf="form.get('direccion_link')?.hasError('required')">Este campo es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <h2>Redes sociales</h2>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Facebook</mat-label>
+                            <span matPrefix><i class="fab fa-facebook-f fa-lg"></i> &nbsp;</span>
+                            <input matInput type="text" formControlName="facebook">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Link a facebook</mat-label>
+                            <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                            <input matInput type="text" formControlName="facebook_link">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Twitter</mat-label>
+                            <span matPrefix><i class="fab fa-twitter fa-lg"></i> &nbsp;</span>
+                            <input matInput type="text" formControlName="twitter">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Link a twitter</mat-label>
+                            <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                            <input matInput type="text" formControlName="twitter_link">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Instragram</mat-label>
+                            <span matPrefix><i class="fab fa-instagram fa-lg"></i> &nbsp;</span>
+                            <input matInput type="text" formControlName="instragram">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Link a instragram</mat-label>
+                            <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                            <input matInput type="text" formControlName="instragram_link">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Youtube</mat-label>
+                            <span matPrefix><i class="fab fa-youtube fa-lg"></i> &nbsp;</span>
+                            <input matInput type="text" value="{{infoPrincipal.youtube}}" formControlName="youtube">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Link a youtube</mat-label>
+                            <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                            <input matInput type="text" value="{{infoPrincipal.youtube_link}}" formControlName="youtube_link">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-raised-button type="submit" class="full-width" [disabled]="form.invalid"><mat-icon>save</mat-icon> Guardar cambios</button>
+    </form>      
+</div>

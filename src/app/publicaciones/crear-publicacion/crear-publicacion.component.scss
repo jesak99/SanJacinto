@@ -2,7 +2,8 @@
     font-weight: bold;
     display: flex;
     justify-content: space-between;
-    //color: rgb(98, 17, 50);
+    font-family: 'Exo 2', sans-serif;
+    color: rgb(98, 17, 50);
 
     .mat-icon {
         color: darkgray;
@@ -48,8 +49,14 @@
             padding: 0;
         }
     }
+
+    .tiempo{
+        max-width: fit-content;
+    }
 }
 
 .mat-raised-button{
     width: 100%;
+    background-color: rgb(98, 17, 50);
+    color: #fff;
 }

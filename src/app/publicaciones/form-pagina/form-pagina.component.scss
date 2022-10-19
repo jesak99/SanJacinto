@@ -1,0 +1,58 @@
+.mat-dialog-title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(98, 17, 50);
+
+    .mat-icon {
+        color: darkgray;
+        font-size: 30px;
+    }
+}
+
+.mat-dialog-content {
+    .mat-card-header {
+
+        .image-perfil {
+            background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+            background-size: cover;
+        }
+
+        .mat-card-title {
+            font-size: medium;
+        }
+
+        .mat-card-subtitle {
+            font-size: small;
+        }
+    }
+
+    .row{
+        max-width: 400px !important;
+    }
+
+    .personalizado{
+        max-width: 380px !important;
+    }
+
+    .radio-button {
+        margin: 5px;
+    }
+    
+    .mat-hint{
+        font-size: smaller;
+
+        .mat-icon{
+            font-size: large;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+.mat-raised-button{
+    width: 100%;
+    background-color: rgb(98, 17, 50);
+    color: #fff;
+}

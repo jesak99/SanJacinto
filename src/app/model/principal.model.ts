@@ -1,0 +1,26 @@
+export class Principal{
+    constructor(
+        public frase_izq : string,
+        public frase_der : string,
+        public frase_inf : string,
+        public icono_enc : string,
+        public icono_pri : string,
+        public tema_pagi : boolean,
+        public horario_1 : string,
+        public horario_2 : string,
+        public telefono1 : string,
+        public telefono2 : string,
+        public email1 : string,
+        public email2 : string,
+        public direccion : string,
+        public direccion_link : string,
+        public facebook : string,
+        public facebook_link : string,
+        public twitter : string,
+        public twitter_link : string,
+        public instragram : string,
+        public instragram_link : string,
+        public youtube : string,
+        public youtube_link : string,
+    ){}
+}

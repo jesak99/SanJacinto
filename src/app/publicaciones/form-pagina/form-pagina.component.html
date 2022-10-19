@@ -1,0 +1,41 @@
+<h1 mat-dialog-title><span>Ajustes de página</span><mat-icon mat-dialog-close matTooltip="Cancelar">cancel</mat-icon></h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Título de la página</mat-label>
+                <input matInput type="text" placeholder="Ej. Leyes y Reglamentos" formControlName="nombre">
+                <mat-error *ngIf="form.get('nombre')?.hasError('required')">Este campo es requerido</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Descripción de la página</mat-label>
+                <input matInput rows="3" placeholder="Ej. Conoce sobre las layes y reglamentos de nuestro municipio" formControlName="descripcion">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Imagen de fondo de encabezado</mat-label>
+                <input matInput type="text" placeholder="Ej. Leyes y Reglamentos" formControlName="fondoEncabezado">
+                <mat-error *ngIf="form.get('fondoEncabezado')?.hasError('required')">Este campo es requerido</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <img class="img-fluid" src="{{form.value.fondoEncabezado}}" alt="">
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Imagen de fondo de página</mat-label>
+                <input matInput type="text" placeholder="Ej. Leyes y Reglamentos" formControlName="fondoPagina">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <img class="img-fluid" src="{{form.value.fondoPagina}}" alt="">
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button type="submit" [disabled]="form.invalid" [mat-dialog-close]="true"><mat-icon>save</mat-icon>Guardar cambios</button>
+    </mat-dialog-actions>
+</form>

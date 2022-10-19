@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Passions+Conflict&family=Qwitcher+Grypen:wght@400;700&family=Sacramento&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&family=Montserrat:wght@100;200;300&display=swap');
+.container-fluid{
+    background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
+    max-width: 1920px;
+}
 
 .carousel {
     margin: auto;
-    max-width: 1280px;
+    max-width: 1920px;
     max-height: 400px;
-    //filter: grayscale(1.0);
 
     .carousel-inner {
         border-bottom-left-radius: 25px;
@@ -16,19 +17,19 @@
             //background-color: gray !important;
             img {
                 height: 400px;
-                //filter: grayscale(1.0);
             }
 
             .carousel-caption {
                 h1 {
-                    font-family: 'Sacramento', cursive;
-                    font-size: calc(4em + 2vw);
+                    font-family: 'Exo 2', sans-serif;
+                    font-size: calc(3em + 2vw);
                     font-weight: bolder;
                 }
 
                 p{
                     font-size: medium;
-                    font-weight: lighter;
+                    font-weight: bold;
+                    font-family: 'Montserrat', sans-serif;
                     /*
                     border-radius: 25px;
 	                -webkit-backdrop-filter: blur(10px);
@@ -41,10 +42,10 @@
     }
 }
 
-.container-fluid{
+.container-lg{
     //background: url("./../../assets/image832.png") center / contain no-repeat;
-    background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
-    max-width: 1280px;
+    //background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
+    //max-width: 1920px;
     margin-top: 20px;
     .info-sanjacinto{
         h1 {

@@ -18,45 +18,47 @@
         </div>
         <!-- Radio fecha -->
         <div class="row">
-            <div class="col">
-                <label id="example-radio-group-label">Duración de la publicación</label>
-                <mat-radio-group name="fecha" color="primary">
-                    <mat-radio-button name="fecha" class="radio-button" [value]="1" (click)="cambiar(false)" checked>Indeterminado</mat-radio-button>
-                    <mat-radio-button name="fecha" class="radio-button" [value]="2" (click)="cambiar(true)">Periodo de tiempo</mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <div class="col">
-                <label id="example-radio-group-label">Visibilidad de la publicación</label>
-                <button mat-button class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon><span *ngIf="!hide">Ocultar</span><span *ngIf="hide">Mostrar</span>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <mat-hint *ngIf="!opcionSelect"><mat-icon>info</mat-icon>La publicación se muestra hasta que decida ocultarla o eliminarla</mat-hint>
-            <mat-hint *ngIf="opcionSelect"><mat-icon>info</mat-icon>La publicación se muestra y oculta automáticamente de acuerdo a las fechas elegidas</mat-hint>
-        </div>
-        <!-- Input fecha -->
-        <div class="row">
-            <mat-form-field class="full-width" *ngIf="opcionSelect">
-                <mat-label>Duración de la publicación</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Inicio">
-                    <input matEndDate placeholder="Fin">
-                </mat-date-range-input>
-                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
+            <label id="example-radio-group-label">Duración de la publicación</label>
+            <mat-radio-group name="fecha" color="primary">
+                <div class="row">
+                    <div class="col">
+                        <mat-radio-button name="fecha" class="radio-button" [value]="1" (click)="cambiar(false)" checked>Indeterminado</mat-radio-button>
+                    </div>
+                    <div class="col">
+                        <button *ngIf="!opcionSelect" mat-button class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon><span *ngIf="!hide">Ocultar</span><span *ngIf="hide">Mostrar</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row"><mat-hint *ngIf="!opcionSelect"><mat-icon>info</mat-icon>La publicación se muestra hasta que decida ocultarla o eliminarla</mat-hint></div>
+                <div class="row">
+                    <div class="col tiempo">
+                        <mat-radio-button name="fecha" class="radio-button" [value]="2" (click)="cambiar(true)">Periodo de tiempo</mat-radio-button>
+                    </div>
+                    <div class="col tiempo">
+                        <mat-form-field class="full-width" *ngIf="opcionSelect">
+                            <mat-label>Duración de la publicación</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                                <input matStartDate formControlName="fecha_inicio" placeholder="Inicio">
+                                <input matEndDate formControlName="fecha_fin" placeholder="Fin">
+                            </mat-date-range-input>
+                            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row"><mat-hint *ngIf="opcionSelect"><mat-icon>info</mat-icon>La publicación se muestra y oculta automáticamente de acuerdo a las fechas elegidas</mat-hint></div>
+            </mat-radio-group>
         </div>
         <!-- Tabs -->
-        <mat-tab-group>
+        <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
             <mat-radio-group name="contenido" color="primary">
                 <mat-tab>
                     <ng-template mat-tab-label><mat-icon>cloud_upload</mat-icon>Foto/video</ng-template>
                     <!-- Radio button tipo publicación -->
-                    <mat-radio-button name="contenido" class="radio-button" value="foto" (click)="mostrar('foto')">Foto</mat-radio-button>
-                    <mat-radio-button name="contenido" class="radio-button" value="video" (click)="mostrar('video')">Video</mat-radio-button><br>
+                    <mat-radio-button name="contenido" class="radio-button" value="foto" (click)="mostrar('foto')" checked="{{selectedFoto}}">Foto</mat-radio-button>
+                    <mat-radio-button name="contenido" class="radio-button" value="video" (click)="mostrar('video')" checked="{{selectedVideo}}">Video</mat-radio-button><br>
                     <!-- Input de archivo -->
                     <input *ngIf="tipoPublicacion=='foto'||tipoPublicacion=='video'" type="file" name="Subir archivo" formControlName="multimedia"/>
                     <!-- Visualizador -->
@@ -70,16 +72,14 @@
                 <mat-tab>
                     <ng-template mat-tab-label><mat-icon>code</mat-icon>Insertar</ng-template>
                     <!-- Radio button tipo publicación -->
-                    <mat-radio-button name="contenido" class="radio-button" value="foto-src" (click)="mostrar('foto-src')">Foto</mat-radio-button>
-                    <mat-radio-button name="contenido" class="radio-button" value="iframe" (click)="mostrar('video-src')">Video/Red social</mat-radio-button>
+                    <mat-radio-button name="contenido" class="radio-button" value="foto-src" checked="{{selectedFotoSrc}}" (click)="mostrar('foto-src')">Foto</mat-radio-button>
+                    <mat-radio-button name="contenido" class="radio-button" value="iframe" checked="{{selectedIframe}}" (click)="mostrar('iframe')">Video/Red social</mat-radio-button>
                     <!-- Input de archivo -->
                     <div class="row personalizado">
                         <mat-form-field *ngIf="tipoPublicacion=='foto-src'||tipoPublicacion=='iframe'||tipoPublicacion=='iframe'" class="full-width">
                             <mat-label>Link de multimedia</mat-label>
-                            <input matInput type="text" [(ngModel)]="value" formControlName="multimedia">
-                            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                            <mat-icon>close</mat-icon>
-                            </button>
+                            <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                            <input matInput type="text" value="{{formPublicacion.value.multimedia}}" formControlName="multimedia">
                         </mat-form-field>
                     </div>
                     <!-- Visualizador -->
@@ -91,6 +91,6 @@
         </mat-tab-group>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button color="primary" [disabled]="formPublicacion.invalid" [mat-dialog-close]="true">Publicar</button>
+        <button mat-raised-button color="primary" [disabled]="formPublicacion.invalid" [mat-dialog-close]="true"><mat-icon>publish</mat-icon>Publicar</button>
     </mat-dialog-actions>
 </form>

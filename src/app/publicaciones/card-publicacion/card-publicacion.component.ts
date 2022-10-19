@@ -10,12 +10,13 @@ import { CrearPublicacionComponent } from '../crear-publicacion/crear-publicacio
   styleUrls: ['./card-publicacion.component.scss']
 })
 export class CardPublicacionComponent implements OnInit {
+  @Input() publicacion !: Publicacion;
   hide = false;
-  @Input() publicacion ?: Publicacion;
 
   constructor(private publicacionService : PublicacionService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
+    this.hide = this.publicacion?.oculto;
   }
 
   openEditPublicacion(publicacion:Publicacion){
@@ -27,6 +28,7 @@ export class CardPublicacionComponent implements OnInit {
         fecha_fin: publicacion.fecha_fin,
         tipo_pub: publicacion.tipo_pub,
         multimedia: publicacion.multimedia,
+        oculto: publicacion.oculto,
         pagina_id: publicacion.pagina_id,
       }
     });

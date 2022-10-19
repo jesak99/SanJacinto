@@ -7,6 +7,7 @@ export class Publicacion{
         public fecha_fin : Date,
         public tipo_pub : string,
         public multimedia : string,
+        public oculto: boolean,
         public pagina_id : string
     ){}
 }

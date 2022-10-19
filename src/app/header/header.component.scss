@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400&display=swap');
-
 mat-toolbar {
-    max-width: 1280px;
+    max-width: 1920px;
     display: flex;
     justify-content: center;
     margin: auto;
     padding-left: 20px;
     padding-right: 20px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 
     //background-color: rgba(0, 0, 0, .6);
     background-color: transparent !important;
@@ -34,32 +34,6 @@ mat-toolbar {
         font-family: 'Exo 2', sans-serif;
         font-size: small;
         font-weight: lighter;
-    }
-    /*
-    img{
-        filter: grayscale(1);
-    }*/
-    .navbar-toggler{
-        border-style: none!important;
-        border: none!important;
-        
-    }
-}
-
-.veda{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-evenly;
-    height: fit-content;
-    .titulo{
-        font-family: 'Dancing Script', cursive;
-        font-size: small;
-        font-weight: lighter;
-    }
-    
-    img{
-        filter: grayscale(1);
     }
     .navbar-toggler{
         border-style: none!important;
@@ -100,28 +74,11 @@ a{
     }
 }
 
-.transparente{
-    //background-color: rgba(0, 0, 0, .6);
-    background-color: transparent !important;
-	//-webkit-backdrop-filter: blur(10px);
-    //backdrop-filter: blur(10px);
-    color: white;
-    //filter: grayscale(1.0);
-    .menu{
-        background-color: rgba(0,0,0, 0.6);
-        //background-color: transparent;
-        border-radius: 50px;
-        //-webkit-backdrop-filter: blur(10px);
-        //backdrop-filter: blur(10px);
-    }
-}
-
 .oscuro{
     background-color: rgba(0, 0, 0, .6) !important;
 	-webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     color: white;
-    //filter: grayscale(1.0);
     .menu{
         background-color: transparent;
         border-radius: 50px;
@@ -133,17 +90,8 @@ a{
     border-bottom: 2px solid #fff;
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 655px) {
     .normal{
-        justify-content: space-between;
-        padding-left: 20px;
-        padding-right: 20px;
-        .titulo{
-            display: none;
-        }
-    }
-
-    .veda{
         justify-content: space-between;
         padding-left: 20px;
         padding-right: 20px;

@@ -10,7 +10,7 @@
             <div class="col">
                 <div class="footer-logo">
                     <a class="footer-logo-link" routerLink="bienvenido">
-                        <img class="img-fluid" src="./assets/logoPrincipal.png" alt="">
+                        <img class="img-fluid" src="{{infoPrincipal.icono_pri}}" alt="">
                     </a>
                 </div>
             </div>
@@ -21,22 +21,30 @@
                     <ul id="menu-contacto" class="footer-menu-list">
                         <span class="titulo"><i class="fas fa-clock fa-lg"></i> Horario</span><br>
                         <li>
-                            <span class="informacion">Lun.-Sab. 09:00 - 14:00 hrs</span>
+                            <span class="informacion">{{infoPrincipal.horario_1}}</span>
+                        </li>
+                        <li *ngIf="infoPrincipal.horario_2!=''">
+                            <span class="informacion">{{infoPrincipal.horario_2}}</span>
                         </li>
                         <br>
                         <span class="titulo"><i class="fas fa-phone-alt fa-lg"></i> Teléfono</span><br>
                         <li>
                             <p class="footer-call-to-action-link-wrapper">
-                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:951 524 2814" target="_self"> 951 524 2814</a></span>
+                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{infoPrincipal.telefono1}}" target="_self"> {{infoPrincipal.telefono1}}</a></span>
+                            </p>
+                        </li>
+                        <li *ngIf="infoPrincipal.telefono2!=''">
+                            <p class="footer-call-to-action-link-wrapper">
+                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{infoPrincipal.telefono2}}" target="_self"> {{infoPrincipal.telefono2}}</a></span>
                             </p>
                         </li>
                         <br>
                         <span class="titulo"><i class="fas fa-envelope fa-lg"></i> Email</span><br>
                         <li>
-                            <span class="informacion"><a href="mailto:sanjacintoamilpas2022@gmail.com" target="_blank" rel="noopener noreferrer">sanjacintoamilpas2022@gmail.com</a><br></span>
+                            <span class="informacion"><a href="mailto:{{infoPrincipal.email1}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal.email1}}</a><br></span>
                         </li>
-                        <li>
-                            <span class="informacion"><a href="mailto:sanjacinto2022.2024@gmail.com" target="_blank" rel="noopener noreferrer">sanjacinto2022.2024@gmail.com</a></span>
+                        <li *ngIf="infoPrincipal.email2!=''">
+                            <span class="informacion"><a href="mailto:{{infoPrincipal.email2}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal.email2}}</a></span>
                         </li>
                     </ul>
                 </div>
@@ -49,8 +57,8 @@
                         <li>
                             <span class="informacion">
                                 <i class="fas fa-map-marker-alt fa-lg"></i>
-                                <a href="https://goo.gl/maps/SMoYL5CUTSFqziM39" target="_blank" rel="noopener noreferrer">
-                                    Independencia #1, San Jacinto Amilpas, Oaxaca. C.P. 68285
+                                <a href="{{infoPrincipal.direccion_link}}" target="_blank" rel="noopener noreferrer">
+                                    {{infoPrincipal.direccion}}
                                 </a>
                             </span>
                         </li>
@@ -59,14 +67,17 @@
                 <div class="footer-menu">
                     <h2 class="footer-menu-name"> Redes sociales</h2>
                     <ul id="menu-redes" class="footer-menu-list">
-                        <li>
-                            <span class="informacion"><a href="https://www.facebook.com/MunicipioSanJacintoAmilpas" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-lg"></i> @MunicipioSanJacintoAmilpas</a></span>
+                        <li *ngIf="infoPrincipal.facebook!=''">
+                            <span class="informacion"><a href="{{infoPrincipal.facebook_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-lg"></i> {{infoPrincipal.facebook}}</a></span>
                         </li>
-                        <li>
-                            <span class="informacion instagram"><a href="https://www.instagram.com/ayuntamiento_sja/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i> @ayuntamiento_sja</a></span>
+                        <li *ngIf="infoPrincipal.twitter!=''">
+                            <span class="informacion instagram"><a href="{{infoPrincipal.twitter_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i> {{infoPrincipal.twitter}}</a></span>
                         </li>
-                        <li>
-                            <span class="informacion youtube"><a href="https://www.youtube.com/channel/UCs7OpQZELz6FyAzZ3nYixkw" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-lg"></i> Municipio San Jacinto Amilpas 2022</a></span>
+                        <li *ngIf="infoPrincipal.instragram!=''">
+                            <span class="informacion instagram"><a href="{{infoPrincipal.instragram_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i> {{infoPrincipal.instragram}}</a></span>
+                        </li>
+                        <li *ngIf="infoPrincipal.youtube!=''">
+                            <span class="informacion youtube"><a href="{{infoPrincipal.youtube_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-lg"></i> {{infoPrincipal.youtube}}</a></span>
                         </li>
                     </ul>
                 </div>
@@ -89,7 +100,7 @@
         <div class="footer-copyright">
             <div class="footer-copyright-wrapper">
                 <p class="footer-copyright-text">
-                    <a class="footer-copyright-link" routerLink="bienvenido" target="_self">Gobierno Municipal de San Jacinto Amilpas | 2022-2024</a>
+                    <a class="footer-copyright-link" routerLink="bienvenido" target="_self">{{infoPrincipal.frase_inf}}</a>
                 </p>
             </div>
         </div>

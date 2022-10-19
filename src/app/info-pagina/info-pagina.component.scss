@@ -1,0 +1,54 @@
+.container-fluid{
+    max-width: 1500px;
+    margin-bottom: 25px;
+}
+
+h1{
+    margin-top: 115px;
+    margin-bottom: 0;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(98, 17, 50);
+}
+
+h2{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: rgb(98, 17, 50);
+}
+
+p{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    .mat-icon{
+        font-size: larger;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.img-fluid{
+    max-width: 150px;
+}
+
+.mat-slide-toggle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mat-raised-button{
+    margin-top: 10px;
+    background-color: rgb(98, 17, 50);
+    color: #fff;
+}
+
+.formulario{
+    //max-width: 600px;
+    padding-bottom: 20px;
+    .full-width{
+        width: 100%;
+    }
+}

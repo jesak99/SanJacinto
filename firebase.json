@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "y",
+    "public": "dist/san-jacinto",
     "ignore": [
       "firebase.json",
       "**/.*",

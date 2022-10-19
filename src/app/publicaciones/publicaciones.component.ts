@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
@@ -6,12 +6,15 @@ import { Pagina } from '../model/pagina.model';
 import { PaginaService } from '../service/pagina.service';
 import { Publicacion } from '../model/publicacion.model';
 import { PublicacionService } from '../service/publicacion.service';
+import { FormPaginaComponent } from './form-pagina/form-pagina.component';
 
 @Component({
   selector: 'app-publicaciones',
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.scss']
 })
+
+@Injectable()
 export class PublicacionesComponent implements OnInit {
   @Input() pagina?: Pagina;
   @Input() id: string='';
@@ -37,8 +40,25 @@ export class PublicacionesComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
+  openCrearPublicacion(): void {
     this.dialog.open(CrearPublicacionComponent, {});
+  }
+
+  openEditarPagina(): void {
+    const dialogRef = this.dialog.open(FormPaginaComponent, {
+      data: {
+        id: this.pagina?.id,
+        nombre: this.pagina?.nombre, 
+        descripcion: this.pagina?.descripcion, 
+        fondoEncabezado: this.pagina?.fondoEncabezado,
+        fondoPagina: this.pagina?.fondoPagina
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.ngOnInit();
+    });
   }
 
 }

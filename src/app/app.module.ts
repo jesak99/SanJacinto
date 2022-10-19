@@ -22,6 +22,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -32,12 +37,21 @@ import { NuevaPublicacionComponent } from './publicaciones/nueva-publicacion/nue
 import { CrearPublicacionComponent } from './publicaciones/crear-publicacion/crear-publicacion.component';
 import { CardPublicacionComponent } from './publicaciones/card-publicacion/card-publicacion.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { InfoPaginaComponent } from './info-pagina/info-pagina.component';
+import { ModNotificacionesComponent } from './mod-notificaciones/mod-notificaciones.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { FormPaginaComponent } from './publicaciones/form-pagina/form-pagina.component';
 
 const routes : Routes=[
   {path: '', redirectTo: '/bienvenido', pathMatch: 'full'},
   {path: 'pagina/:id', component: PublicacionesComponent},
   {path: 'bienvenido', component: BienvenidoComponent},
-  {path: 'contacto', component: ContactoComponent}
+  {path: 'contacto', component: ContactoComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'info-pagina', component: InfoPaginaComponent},
+  {path: 'notificaciones', component: ModNotificacionesComponent},
+  {path: 'usuarios', component: UsuariosComponent} 
 ];
 
 @NgModule({
@@ -50,7 +64,12 @@ const routes : Routes=[
     NuevaPublicacionComponent,
     CrearPublicacionComponent,
     CardPublicacionComponent,
-    ContactoComponent
+    ContactoComponent,
+    DashboardComponent,
+    InfoPaginaComponent,
+    ModNotificacionesComponent,
+    UsuariosComponent,
+    FormPaginaComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +94,12 @@ const routes : Routes=[
     MatDatepickerModule,
     MatTabsModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

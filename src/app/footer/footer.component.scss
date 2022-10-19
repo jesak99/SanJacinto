@@ -18,7 +18,7 @@ a {
 .footer {
     background: url("https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/06/fondo-4.jpg") center / cover no-repeat;
     color: #fff;
-    max-width: 1280px;
+    max-width: 1920px;
     margin: auto;
     height: fit-content;
 }
@@ -34,6 +34,11 @@ a {
 
 .footer-wave-path {
     fill: #fff;
+}
+
+.col{
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .footer-logo{

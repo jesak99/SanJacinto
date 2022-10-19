@@ -1,35 +1,16 @@
-.example-container {
+.container-side {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    //max-width: 1920px;
+    width: 100%;
+    margin: auto;
 }
 
-.example-radio-group {
-    display: block;
-    border: 1px solid #555;
-    margin: 20px;
-    padding: 10px;
-}
-
-.mat-sidenav-content{
-    background-color: white;
-}
-
-.mat-toolbar {
-    background-color: transparent;
-}
-
-.mat-button {
-    border-radius: 25px;
-    background-color: rgba(0,0,0,0.6);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    //background-color: rgb(62,24,77);
-    //background-color: rgb(114, 13, 21);
-    //background-color: rgb(13,114,103);
-    color: white;
+.veda{
+    filter: grayscale(1);
 }
 
 p {
@@ -55,15 +36,32 @@ p {
     font-weight: bold;
 }
 
+.mat-sidenav-content{
+    background-color: white;
+}
+
+.mat-fab {
+    background-color: rgba(0,0,0,0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: white;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.mat-list-item.active{
+    color: #fff;
+    background-color: rgb(98, 17, 50);
+}
+
 .container-fluid {
     //background-color: rgb(105, 28, 32);
     width: 100%;
 }
 
 .mat-sidenav-content{
-    .mat-button{
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-    }
+    //max-width: 1280px !important;
+    width: 100%;
+    margin: auto;
 }
