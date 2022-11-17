@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { CrearPublicacionComponent } from './crear-publicacion/crear-publicacion.component';
 import { Pagina } from '../model/pagina.model';
 import { PaginaService } from '../service/pagina.service';

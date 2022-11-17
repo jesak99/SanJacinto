@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Publicacion } from 'src/app/model/publicacion.model';
 import { PublicacionService } from 'src/app/service/publicacion.service';
 import { CrearPublicacionComponent } from '../crear-publicacion/crear-publicacion.component';

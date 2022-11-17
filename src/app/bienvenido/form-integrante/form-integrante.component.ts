@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { Integrantes } from 'src/app/model/integrantes.model';
 import { BienvenidaService } from 'src/app/service/bienvenida.service';
 import { CardUsuarioComponent } from '../card-usuario/card-usuario.component';

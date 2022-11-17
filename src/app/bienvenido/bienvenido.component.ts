@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Banner } from '../model/banner.model';
 import { Bienvenida } from '../model/bienvenida.model';
 import { Integrantes } from '../model/integrantes.model';

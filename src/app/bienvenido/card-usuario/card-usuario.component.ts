@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Integrantes } from 'src/app/model/integrantes.model';
 import { BienvenidaService } from 'src/app/service/bienvenida.service';
 import { FormIntegranteComponent } from '../form-integrante/form-integrante.component';
