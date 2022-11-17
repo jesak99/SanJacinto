@@ -1,35 +1,16 @@
-<div class="container-fluid">
+<div class="container-fluid" style="background: url('{{bienvenida.imagen_fondo}}')center / cover no-repeat !important; background-attachment: fixed !important;">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li *ngFor="let banner of listaEncabezado; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.index" class="{{banner.class}}"></li>
-            <!--
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>-->
+            <li *ngFor="let banner of banners; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.posicion" class="{{banner.clase}}"></li>
         </ol>
         <div class="carousel-inner">
-            <div *ngFor="let banner of listaEncabezado; let i=index;" class="carousel-item {{banner.class}}" [style.background-color]="banner.colorFondo">
+            <div *ngFor="let banner of banners; let i=index;" class="carousel-item {{banner.clase}}" [style.background-color]="banner.color">
                 <img class="d-block" src="{{banner.imagen}}" alt="First {{i}}">
                 <div class="carousel-caption d-md-block">
                     <h1>{{banner.titulo}}</h1>
                     <p>{{banner.descripcion}}</p>
                 </div>
             </div>
-            <!--
-            <div class="carousel-item" style="background-color: #0d7267;">
-                <img class="d-block" src="./assets/banner-3.png" alt="Second slide">
-                <div class="carousel-caption d-md-block">
-                    <h1>Bienvenido</h1>
-                    <p>Pdsfdnsksndfnsdfkjsfndkdsnkjfsdnsdf sdfjsfdnjkfdnskjdfsnkjsdfnkjdsfnjkdfsnsdf
-                        dsfjnsdjknfsdksdfnkjsdfnjksdfnskdj jsdnkjsdfnfdksjnsknsfdknjs</p>
-                </div>
-            </div>
-            <div class="carousel-item" style="background-color: #3e184d;">
-                <img class="d-block" src="./assets/banner-4.png" alt="Third slide">
-                <div class="carousel-caption d-md-block">
-                    <h1>Bienvenido</h1>
-                    <p>Prueba 3</p>
-                </div>
-            </div>-->
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,50 +25,102 @@
         <div class="row">
             <div class="col info-sanjacinto">
                 <div class="row">
-                    <h1>San Jacinto Amilpas</h1>
+                    <h1>{{bienvenida.titulo}}</h1>
                 </div>
+                <p id="text"></p>
+                <!--
                 <p>
                     Es un municipio en la región de los valles centrales, parte central del estado de Oaxaca, México.<br>
                     <span class="color">Su nombre significa «Lugar sobre las cementeras», proveniente del
                         náhuatl.</span><br>
                     Conoce lo que San Jacinto Amilpas le ofrece culturalmente al Mundo.
-                </p>
+                </p>-->
             </div>
             <div class="col imagen-promocional">
-                <img class="img-fluid"
-                    src="https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/06/foto-fondo-01-2.jpg" alt="">
+                <a href="https://www.facebook.com/SanJacintoLate/videos/1260457144486327" target="_blank">
+                    <img class="img-fluid"
+                    src="{{bienvenida.imagen_bienvenida}}" alt="">
+                </a>
             </div>
         </div>
+
         <div class="row">
             <h2 class="titulo-seccion">Comunicate con nosotros</h2>
-
-
             <div class="row1-container">
-                <div class="box box-down cyan">
-                    <h2>Supervisor</h2>
-                    <p>Monitors activity to identify project roadblocks</p>
-                    <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+                <div class="box box-down verde">
+                    <h3>¿Quieres recibir información oficial?</h3>
+                    <ul>
+                        <li type="disc">Notificaciones oficiales</li>
+                        <li type="disc">Realizar un reporte</li>
+                        <li type="disc">Comunicación directa con nosotros</li>
+                        <li type="disc">Y más ...</li>
+                    </ul>
+                    <div class="row"><button mat-button class="boton-verde">¡Registrate!</button></div>
                 </div>
 
                 <div class="box red">
-                    <h2>Team Builder</h2>
-                    <p>Scans our talent network to create the optimal team for your project</p>
-                    <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+                    <h3>¿Quieres realizar un reporte o comunicarte con nosotros?</h3>
+                    <p>Nos pondremos en contacto contigo</p>
+                    <div class="row"><button mat-button class="boton-rojo">Escribir Mensaje</button></div>
                 </div>
 
                 <div class="box box-down blue">
-                    <h2>Calculator</h2>
-                    <p>Uses data from past projects to provide better delivery estimates</p>
-                    <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
+                    <h3>Visítanos</h3>
+                    <p>
+                        <a href="{{infoPrincipal.direccion_link}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal.direccion}}</a>
+                        en un horario de {{infoPrincipal.horario_1}} y {{infoPrincipal.horario_2}}
+                    </p>
+                    <div class="row">
+                        <a *ngIf="infoPrincipal.telefono1!=''" mat-icon-button href="tel:{{infoPrincipal.telefono1}}" target="_self" matTooltip="{{infoPrincipal.telefono1}}">
+                            <mat-icon class="boton-azul">call</mat-icon>
+                        </a>
+                        <a *ngIf="infoPrincipal.telefono2!=''" mat-icon-button href="tel:{{infoPrincipal.telefono2}}" target="_self" matTooltip="{{infoPrincipal.telefono2}}">
+                            <mat-icon class="boton-azul">call</mat-icon>
+                        </a>
+                        <a *ngIf="infoPrincipal.email1!=''" mat-icon-button href="mailto:{{infoPrincipal.email1}}" target="_self" matTooltip="{{infoPrincipal.email1}}">
+                            <mat-icon class="boton-azul">email</mat-icon>
+                        </a>
+                        <a *ngIf="infoPrincipal.email2!=''" mat-icon-button href="mailto:{{infoPrincipal.email2}}" target="_self" matTooltip="{{infoPrincipal.email2}}">
+                            <mat-icon class="boton-azul">email</mat-icon>
+                        </a>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="row">
+                        <a *ngIf="infoPrincipal.facebook_link!=''" mat-icon-button href="{{infoPrincipal.facebook_link}}" target="_blank" matTooltip="{{infoPrincipal.facebook}}"><i class="fab fa-facebook-f fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal.twitter_link!=''" mat-icon-button href="{{infoPrincipal.twitter_link}}" target="_blank" matTooltip="{{infoPrincipal.twitter}}"><i class="fab fa-twitter fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal.instagram_link!=''" mat-icon-button href="{{infoPrincipal.instagram_link}}" target="_blank" matTooltip="{{infoPrincipal.instagram}}"><i class="fab fa-instagram fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal.youtube_link!=''" mat-icon-button href="{{infoPrincipal.youtube_link}}" target="_blank" matTooltip="{{infoPrincipal.youtube}}"><i class="fab fa-youtube fa-lg boton-azul"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="row2-container">
                 <div class="box orange">
-                    <h2>Karma</h2>
-                    <p>Regularly evaluates our talent to ensure quality</p>
-                    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+                    <h3>Recuerda el número de emergencia único</h3>
+                    <h1><a href="tel:911" target="_self">911</a></h1>
+                    <p class="pequeño">CRUZ ROJA · BOMBEROS · TRÁNSITO· POLICÍA</p>
                 </div>
             </div>
         </div>
+        <div *ngIf="bienvenida.integrantes_gobierno.length>0" class="row">
+            <h2 class="titulo-seccion">Conoce a los integrantes de nuestro gobierno</h2>
+            <div class="cards">
+                <app-card-usuario *ngFor="let integrante of integrantesGobierno" [integrante]="integrante"></app-card-usuario>
+            </div>
+        </div>
     </div>
+    <button mat-fab [matMenuTriggerFor]="aboveMenu" matTooltip="Ajustes de página"><mat-icon>settings</mat-icon></button>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+        <button mat-menu-item (click)="openBanners()">
+          <mat-icon>edit</mat-icon>
+          <span>Editar encabezados</span>
+        </button>
+        <button mat-menu-item (click)="openIntegrante()">
+          <mat-icon>add</mat-icon>
+          <span>Nuevo integrante</span>
+        </button>
+        <button mat-menu-item (click)="openAjustes()">
+            <mat-icon>settings</mat-icon>
+            <span>Ajustes de página</span>
+          </button>
+    </mat-menu>
 </div>

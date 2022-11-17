@@ -6,7 +6,7 @@ export class Pagina{
         public nombre : string,
         public descripcion : string,
         public fondoEncabezado : string,
-        public fondoPagina : string
+        public fondoPagina : string,
         //public publicaciones : Publicacion[]
     ){}
 }

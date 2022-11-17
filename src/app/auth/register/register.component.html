@@ -1,0 +1,25 @@
+<form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="example@example.com" formControlName="email">
+        <mat-error *ngIf="formReg.get('email')?.hasError('required')">Este campo es requerido</mat-error>
+        <mat-error *ngIf="formReg.get('email')?.hasError('email')">Ingrese un email válido</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Ingresa tu contraseña</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseña" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="formReg.get('password')?.hasError('required')">Este campo es requerido</mat-error>
+        <mat-error *ngIf="formReg.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres</mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit" class="boton" [disabled]="formReg.invalid">Registrarme</button>
+</form>
+<div class="row">
+    <p>Únete o Inicia Sesión con:</p>
+</div>
+<button mat-button (click)="loginWithGoogle()"><img src="../../../assets/google.png" width="20" height="20" alt=""> Google</button>
+<button mat-button><img src="../../../assets/facebook.png" width="20" height="20" alt=""> Facebook</button>
+<button mat-button><img src="../../../assets/twitter.png" width="20" height="20" alt=""> Twitter</button>

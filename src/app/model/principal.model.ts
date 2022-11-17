@@ -18,8 +18,8 @@ export class Principal{
         public facebook_link : string,
         public twitter : string,
         public twitter_link : string,
-        public instragram : string,
-        public instragram_link : string,
+        public instagram : string,
+        public instagram_link : string,
         public youtube : string,
         public youtube_link : string,
     ){}

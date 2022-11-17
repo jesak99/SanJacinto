@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Banner } from '../model/banner.model';
+import { Bienvenida } from '../model/bienvenida.model';
+import { Integrantes } from '../model/integrantes.model';
+import { Principal } from '../model/principal.model';
+import { BienvenidaService } from '../service/bienvenida.service';
+import { PrincipalService } from '../service/principal.service';
+import { FormBannerComponent } from './form-banner/form-banner.component';
+import { FormBienvenidoComponent } from './form-bienvenido/form-bienvenido.component';
+import { FormIntegranteComponent } from './form-integrante/form-integrante.component';
 
 export interface Destacado {
   index: number;
@@ -14,20 +24,73 @@ export interface Destacado {
   templateUrl: './bienvenido.component.html',
   styleUrls: ['./bienvenido.component.scss']
 })
-export class BienvenidoComponent implements OnInit {
-  r=13;
-  g=114;
-  b=103;
+export class BienvenidoComponent implements OnInit, AfterViewInit {
+  infoPrincipal !: Principal;
+  banners !: Banner[];
+  integrantesGobierno !: Integrantes[];
+  bienvenida !: Bienvenida;
+  text !: string;
 
-  listaEncabezado : Destacado[]=[
-    {index:0,titulo:"Bienvenido",descripcion: "Te damos la bienvenida a nuestro sitio web", imagen:"./assets/banner-2.png", colorFondo:"#b00b5e",class:'active'},
-    {index:1,titulo:"Cultura",descripcion: "Conoce lo que ofrece nuestro municipio", imagen:"./assets/banner-3.png", colorFondo:"#0d7267",class:''},
-    {index:2,titulo:"Conocenos",descripcion: "Visita nuestro municipio", imagen:"./assets/banner-4.png", colorFondo:"#3e184d",class:''},
-  ]
-
-  constructor() { }
+  constructor(private principalService: PrincipalService, private bienvenidaService: BienvenidaService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    const text = document.getElementById("text");
+
+    this.bienvenida = this.bienvenidaService.getBienvenida();
+    this.bienvenidaService.newBienvenida.subscribe((bienvenida : Banner)=>{
+      this.bienvenida = this.bienvenidaService.getBienvenida();
+    });
+
+    text!.innerText = this.bienvenida.descripcion;
+
+    this.text=this.bienvenida.descripcion.replace(/\n/g,"<br>");
+
+    this.infoPrincipal = this.principalService.getInfo();
+    this.principalService.newInfo.subscribe((datosPrincipales : Principal)=>{
+      this.infoPrincipal = this.principalService.getInfo();
+    });
+
+    this.banners = this.bienvenidaService.getBanners();
+    this.bienvenidaService.newBienvenida.subscribe((banners : Banner)=>{
+      this.banners = this.bienvenidaService.getBanners();
+    });
+
+    this.integrantesGobierno = this.bienvenidaService.getIntegrantes();
+    this.bienvenidaService.newBienvenida.subscribe((integrantes : Integrantes)=>{
+      this.integrantesGobierno = this.bienvenidaService.getIntegrantes();
+    });
+  }
+
+  ngAfterViewInit(){
+    
+  }
+
+  openBanners(): void{
+    const dialogRef = this.dialog.open(FormBannerComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+  }
+
+  openIntegrante(): void{
+    this.dialog.open(FormIntegranteComponent,{});
+  }
+
+  openAjustes(): void{
+    const dialogRef = this.dialog.open(FormBienvenidoComponent,{
+      data:{
+        titulo: this.bienvenida.titulo,
+        descripcion: this.bienvenida.descripcion,
+        imagen_bienvenida: this.bienvenida.imagen_bienvenida,
+        imagen_fondo: this.bienvenida.imagen_fondo
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 
 }

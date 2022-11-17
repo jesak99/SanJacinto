@@ -1,6 +1,6 @@
 export class Publicacion{
     constructor(
-        //public id : string,
+        public id : string,
         public descripcion : string,
         public fecha_pub : Date,
         public fecha_inicio : Date,

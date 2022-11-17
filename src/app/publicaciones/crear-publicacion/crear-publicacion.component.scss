@@ -12,24 +12,8 @@
 }
 
 .mat-dialog-content {
-    .mat-card-header {
-
-        .image-perfil {
-            background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-            background-size: cover;
-        }
-
-        .mat-card-title {
-            font-size: medium;
-        }
-
-        .mat-card-subtitle {
-            font-size: small;
-        }
-    }
-
     .row{
-        max-width: 400px !important;
+        margin-bottom: 10px;
     }
 
     .personalizado{
@@ -37,7 +21,8 @@
     }
 
     .radio-button {
-        margin: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     
     .mat-hint{
@@ -49,10 +34,10 @@
             padding: 0;
         }
     }
-
+/*
     .tiempo{
         max-width: fit-content;
-    }
+    }*/
 }
 
 .mat-raised-button{

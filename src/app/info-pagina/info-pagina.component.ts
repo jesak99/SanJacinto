@@ -38,8 +38,8 @@ export class InfoPaginaComponent implements OnInit {
     let facebook_link=this.infoPrincipal.facebook_link;
     let twitter=this.infoPrincipal.twitter;
     let twitter_link=this.infoPrincipal.twitter_link;
-    let instragram=this.infoPrincipal.instragram;
-    let instragram_link=this.infoPrincipal.instragram_link;
+    let instagram=this.infoPrincipal.instagram;
+    let instagram_link=this.infoPrincipal.instagram_link;
     let youtube=this.infoPrincipal.youtube;
     let youtube_link=this.infoPrincipal.youtube_link;
 
@@ -62,8 +62,8 @@ export class InfoPaginaComponent implements OnInit {
       facebook_link : new FormControl(facebook_link),
       twitter : new FormControl(twitter),
       twitter_link : new FormControl(twitter_link),
-      instragram : new FormControl(instragram),
-      instragram_link : new FormControl(instragram_link),
+      instagram : new FormControl(instagram),
+      instagram_link : new FormControl(instagram_link),
       youtube : new FormControl(youtube),
       youtube_link : new FormControl(youtube_link)
     });
@@ -88,12 +88,12 @@ export class InfoPaginaComponent implements OnInit {
     const facebook_link=this.form.value.facebook_link;
     const twitter=this.form.value.twitter;
     const twitter_link=this.form.value.twitter_link;
-    const instragram=this.form.value.instragram;
-    const instragram_link=this.form.value.instragram_link;
+    const instagram=this.form.value.instagram;
+    const instagram_link=this.form.value.instagram_link;
     const youtube=this.form.value.youtube;
     const youtube_link=this.form.value.youtube_link;
 
-    const newInfo = new Principal(frase_izq,frase_der,frase_inf,icono_enc,icono_pri,tema_pagi,horario_1,horario_2,telefono1,telefono2,email1,email2,direccion,direccion_link,facebook,facebook_link,twitter,twitter_link,instragram,instragram_link,youtube,youtube_link);
+    const newInfo = new Principal(frase_izq,frase_der,frase_inf,icono_enc,icono_pri,tema_pagi,horario_1,horario_2,telefono1,telefono2,email1,email2,direccion,direccion_link,facebook,facebook_link,twitter,twitter_link,instagram,instagram_link,youtube,youtube_link);
     this.principalService.updateInfo(newInfo);
     console.log(newInfo)
   }

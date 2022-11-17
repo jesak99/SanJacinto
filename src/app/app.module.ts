@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -42,13 +45,25 @@ import { InfoPaginaComponent } from './info-pagina/info-pagina.component';
 import { ModNotificacionesComponent } from './mod-notificaciones/mod-notificaciones.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormPaginaComponent } from './publicaciones/form-pagina/form-pagina.component';
+import { FormBienvenidoComponent } from './bienvenido/form-bienvenido/form-bienvenido.component';
+import { CardUsuarioComponent } from './bienvenido/card-usuario/card-usuario.component';
+import { FormIntegranteComponent } from './bienvenido/form-integrante/form-integrante.component';
+import { FormBannerComponent } from './bienvenido/form-banner/form-banner.component';
+import { AuthComponent } from './auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routes : Routes=[
-  {path: '', redirectTo: '/bienvenido', pathMatch: 'full'},
+  {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
   {path: 'pagina/:id', component: PublicacionesComponent},
   {path: 'bienvenido', component: BienvenidoComponent},
   {path: 'contacto', component: ContactoComponent},
-  {path: 'dashboard', component: DashboardComponent},
+  {path: 'acceso', component: AuthComponent},
+  {path: 'dashboard', component: DashboardComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
   {path: 'info-pagina', component: InfoPaginaComponent},
   {path: 'notificaciones', component: ModNotificacionesComponent},
   {path: 'usuarios', component: UsuariosComponent} 
@@ -69,7 +84,14 @@ const routes : Routes=[
     InfoPaginaComponent,
     ModNotificacionesComponent,
     UsuariosComponent,
-    FormPaginaComponent
+    FormPaginaComponent,
+    FormBienvenidoComponent,
+    CardUsuarioComponent,
+    FormIntegranteComponent,
+    FormBannerComponent,
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +100,7 @@ const routes : Routes=[
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     MatFormFieldModule,
     MatToolbarModule,
     MatIconModule,
@@ -99,7 +122,10 @@ const routes : Routes=[
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]

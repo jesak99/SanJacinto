@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "SanJacinto:build:production",
+            "firebaseProject": "san-jacinto-amilpas",
+            "firebaseHostingSite": "san-jacinto-amilpas"
+          }
         }
       }
     }

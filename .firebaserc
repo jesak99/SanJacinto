@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "san-jacinto-amilpas"
+  },
+  "targets": {
+    "san-jacinto-amilpas": {
+      "hosting": {
+        "SanJacinto": [
+          "san-jacinto-amilpas"
+        ]
+      }
+    }
   }
 }

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pagina } from 'src/app/model/pagina.model';
+import { Publicacion } from 'src/app/model/publicacion.model';
 import { PaginaService } from 'src/app/service/pagina.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { PaginaService } from 'src/app/service/pagina.service';
 })
 export class FormPaginaComponent implements OnInit {
   form !: FormGroup;
+  publicaciones !: Publicacion[];
 
   constructor(
     public dialogRef: MatDialogRef<FormPaginaComponent>, 

@@ -1,0 +1,46 @@
+.mat-dialog-title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(98, 17, 50);
+
+    .mat-icon {
+        color: darkgray;
+        font-size: 30px;
+    }
+}
+
+.mat-dialog-content {
+
+    .full-width{
+        width: 100%;
+    }
+    
+    .mat-hint{
+        font-size: smaller;
+
+        .mat-icon{
+            font-size: large;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .imagen-preview{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+
+    .img-fluid{
+        max-width: 130px;
+        margin-bottom: 10px;
+    }
+}
+
+.mat-raised-button{
+    width: 100%;
+    background-color: rgb(98, 17, 50);
+    color: #fff;
+}

@@ -1,0 +1,35 @@
+<div class="our-team">
+    <div class="picture">
+        <img class="img-fluid" src="{{integrante.foto}}">
+    </div>
+    <div class="team-content">
+        <h3 class="name">{{integrante.nombre}}</h3>
+        <h4 class="title">{{integrante.puesto}}</h4>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button mat-icon-button color="warn" matTooltip="Eliminar" (click)="deleteIntegrante(integrante)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="col">
+            <button mat-icon-button matTooltip="Editar" (click)="openEdit(integrante)">
+                <mat-icon class="vino">edit</mat-icon>
+            </button>
+        </div>
+    </div>
+    <ul class="social">
+        <li *ngIf="integrante.facebook!=''">
+            <a href="{{integrante.facebook}}" target="_blank" class="fab fa-facebook-f" aria-hidden="true"></a>
+        </li>
+        <li *ngIf="integrante.twitter!=''">
+            <a href="{{integrante.twitter}}" target="_blank" class="fab fa-twitter" aria-hidden="true"></a>
+        </li>
+        <li *ngIf="integrante.telefono!=''">
+            <a href="tel:{{integrante.telefono}}" target="_self" class="fas fa-phone-alt" aria-hidden="true"></a>
+        </li>
+        <li *ngIf="integrante.email!=''">
+            <a href="mailto:{{integrante.email}}" target="_self" class="fas fa-envelope" aria-hidden="true"></a>
+        </li>
+    </ul>
+</div>

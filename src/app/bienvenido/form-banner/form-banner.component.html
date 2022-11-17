@@ -1,0 +1,102 @@
+<h1 mat-dialog-title><span>Encabezado</span>
+    <mat-icon mat-dialog-close matTooltip="Cancelar">cancel</mat-icon>
+</h1>
+
+<mat-dialog-content>
+    <mat-accordion class="headers-align">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header (click)="cambiarNuevo()">
+                <mat-panel-title>
+                    Nuevo Encabezado
+                </mat-panel-title>
+                <mat-panel-description>
+                    <mat-icon>add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <form class="nuevo" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Título</mat-label>
+                            <input matInput type="text" formControlName="titulo">
+                            <mat-error *ngIf="form.get('titulo')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field>
+                            <mat-label>Descripción</mat-label>
+                            <input matInput type="text" formControlName="descripcion">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="exampleColorInput" class="form-label">Color de fondo</label>
+                        <input type="color" class="form-control form-control-color" id="exampleColorInput" formControlName="color">
+                        <mat-error *ngIf="form.get('color')?.hasError('required')">Seleccione un color</mat-error>
+                    </div>
+                    <div class="col">
+                        <mat-label>Imagen</mat-label>
+                        <input #file type="file" accept='image/*' (change)="preview(file.files)" formControlName="imagen">
+                    </div>
+                </div>
+                <div class="row imagen-preview">
+                    <!--<img class="img-fluid" src="" alt="">-->
+                    <img class="img-fluid" [src]="imgURL" *ngIf="imgURL">
+                </div>
+                <button mat-raised-button type="submit" [disabled]="form.invalid"><mat-icon>add</mat-icon>Añadir</button>
+            </form>
+        </mat-expansion-panel>
+
+        <p *ngIf="banners.length>0">Arrastre y suelte para ordenar, una vez ordenado presione "Guardar"</p>
+
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" *ngIf="banners.length>0">
+            <mat-expansion-panel *ngFor="let banner of banners" cdkDrag>
+                <mat-expansion-panel-header (click)="cambiarFormulario(banner)">
+                    <mat-panel-title>
+                        {{banner.titulo}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>edit</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label>Título</mat-label>
+                                <input matInput type="text" formControlName="titulo">
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label>Descripción</mat-label>
+                                <input matInput type="text" formControlName="descripcion">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="exampleColorInput2" class="form-label">Color de fondo</label>
+                            <input type="color" class="form-control form-control-color" id="exampleColorInput2" formControlName="color">
+                        </div>
+                        <div class="col">
+                            <mat-label>Imagen</mat-label>
+                            <input #file type="file" accept='image/*' (change)="preview(file.files)" formControlName="imagen">
+                        </div>
+                    </div>
+                    <div class="row imagen-preview">
+                        <img class="img-fluid" [src]="imgURL" *ngIf="imgURL">
+                    </div>
+                    <button mat-raised-button class="delete" (click)="deleteBanner(banner)"><mat-icon>delete</mat-icon>Eliminar</button>
+                    <button mat-raised-button type="submit" [disabled]="form.invalid"><mat-icon>update</mat-icon>Actualizar</button>
+                </form>
+
+                <img *cdkDragPreview [src]="banner.imagen" [alt]="banner.titulo">
+            </mat-expansion-panel>
+            <button mat-raised-button (click)="guardarOrden()"><mat-icon>save</mat-icon>Guardar</button>
+        </div>
+    </mat-accordion>
+</mat-dialog-content>
