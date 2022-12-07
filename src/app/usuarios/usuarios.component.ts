@@ -2,54 +2,12 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { UsuarioService } from '../service/usuario.service';
+import { Usuario } from '../model/usuario.model';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-const FRUITS: string[] = [
+const ROLES: string[] = [
   'Administrador',
-  'Comunicación y difusión',
-  'Bienestar social y juventud',
-  'Seguridad pública',
-  'Casa de cultura',
-  'Obras públicas y desarrollo urbano',
-  'Juventud y deporte',
-  'Usuario normal',
-];
-const EMAILS: string[] = [
-  '17161090@itoaxaca.edu.mx',
-  'example_99@gmail.com',
-  'hello_world@hotmail.com',
-  'hi_123@gmail.com',
-  'sanjacintoamilpas2022@gmail.com',
-  'sanjacinto2022.2024@gmail.com',
-  'juventud_social@hotmail.com',
-  'gobierno_2022@hotmail.com',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
+  'Habitante',
 ];
 
 @Component({
@@ -58,24 +16,35 @@ const NAMES: string[] = [
   styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements OnInit {
-[x: string]: any;
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData>;
+  [x: string]: any;
+  displayedColumns: string[] = ['id', 'email', 'nombre', 'rol'];
+  dataSource: MatTableDataSource<Usuario>;
 
-  frutas = FRUITS;
-
-  selectedFood = FRUITS[0];
+  listUsuarios?: Usuario[]=[];
+  selectedRol = ROLES[1];
+  roles = ROLES;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() { 
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private userService:UsuarioService) {
+    this.dataSource = new MatTableDataSource(this.listUsuarios);
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.userService.getUsers().then(response=>{
+      response.forEach((doc) => {
+        if (doc.exists()) {
+          var userTem = new Usuario(doc.id,doc.data().nombre,doc.data().email,doc.data().fotoPerfil,doc.data().rol);
+          this.listUsuarios?.push(userTem);
+        } else {
+          console.log("No such document!");
+        }
+      });
+    }).catch(error=>console.log(error));
+    this.dataSource = new MatTableDataSource(this.listUsuarios);
+    this.ngAfterViewInit();
+    console.log(this.listUsuarios);
   }
 
   ngAfterViewInit() {
@@ -92,20 +61,4 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-}
-
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    //progress: Math.round(Math.random() * 100).toString(),
-    progress: EMAILS[(Math.round(Math.random() * (EMAILS.length - 1)))],
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
 }

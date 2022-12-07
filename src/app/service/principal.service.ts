@@ -1,40 +1,148 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { Principal } from "../model/principal.model";
+import { Firestore, setDoc, doc, getDoc, query, where, getDocs, onSnapshot } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
-export class PrincipalService{
+export class PrincipalService {
     newInfo: EventEmitter<Principal> = new EventEmitter();
-    datosPrincipales : Principal = new Principal(
-        "H. Ayuntamiento de San Jacinto Amilpas",
-        "Tiempos de Cambio y Bienestar",
-        "Gobierno Municipal de San Jacinto Amilpas | 2022-2024",
-        "../../assets/logoSoloImg.png",
-        "../../assets/logoPrincipal.png",
-        false,
-        "Lun.-Vie. 09:00-17:00 hrs",
-        "Sab. 09:00-14:00 hrs",
-        "9515242814",
-        "",
-        "sanjacintoamilpas2022@gmail.com",
-        "sanjacinto2022.2024@gmail.com",
-        "Independencia #1, San Jacinto Amilpas, Oaxaca. C.P. 68285", 
-        "https://goo.gl/maps/SMoYL5CUTSFqziM39",
-        "@MunicipioSanJacintoAmilpas",
-        "https://www.facebook.com/MunicipioSanJacintoAmilpas",
-        "",
-        "",
-        "@ayuntamiento_sja",
-        "https://www.instagram.com/ayuntamiento_sja/",
-        "Municipio San Jacinto Amilpas 2022",
-        "https://www.youtube.com/channel/UCs7OpQZELz6FyAzZ3nYixkw",
-    );
+    datosPrincipales!: Principal;
 
-    getInfo(){
+    constructor(private firestore: Firestore) { }
+
+    setInfo(info: Principal){
+        this.datosPrincipales = info;
+        this.newInfo.emit(this.datosPrincipales);
+    }
+
+    getInfoLocal(){
         return this.datosPrincipales;
     }
 
-    updateInfo(info : Principal){
-        this.datosPrincipales=info;
-        this.newInfo.emit(this.datosPrincipales);
+    getInfo(){
+        const principalConverter = {
+            toFirestore: (infoPri: Principal) => {
+                return {
+                    frase_izq: infoPri.frase_izq,
+                    frase_der: infoPri.frase_der,
+                    frase_inf: infoPri.frase_inf,
+                    icono_enc: infoPri.icono_enc,
+                    icono_pri: infoPri.icono_pri,
+                    tema_pagi: infoPri.tema_pagi,
+                    horario_1: infoPri.horario_1,
+                    horario_2: infoPri.horario_2,
+                    telefono1: infoPri.telefono1,
+                    telefono2: infoPri.telefono2,
+                    email1: infoPri.email1,
+                    email2: infoPri.email2,
+                    direccion: infoPri.direccion,
+                    direccion_link: infoPri.direccion_link,
+                    facebook: infoPri.facebook,
+                    facebook_link: infoPri.facebook_link,
+                    twitter: infoPri.twitter,
+                    twitter_link: infoPri.twitter_link,
+                    instagram: infoPri.instagram,
+                    instagram_link: infoPri.instagram_link,
+                    youtube: infoPri.youtube,
+                    youtube_link: infoPri.youtube_link
+                };
+            },
+            fromFirestore: (snapshot: any, options: any) => {
+                const data = snapshot.data(options);
+                return new Principal(
+                    data.frase_izq,
+                    data.frase_der,
+                    data.frase_inf,
+                    data.icono_enc,
+                    data.icono_pri,
+                    data.tema_pagi,
+                    data.horario_1,
+                    data.horario_2,
+                    data.telefono1,
+                    data.telefono2,
+                    data.email1,
+                    data.email2,
+                    data.direccion,
+                    data.direccion_link,
+                    data.facebook,
+                    data.facebook_link,
+                    data.twitter,
+                    data.twitter_link,
+                    data.instagram,
+                    data.instagram_link,
+                    data.youtube,
+                    data.youtube_link
+                );
+            }
+        };
+        const docRef = doc(this.firestore, "informacionPrincipal", 'principal').withConverter(principalConverter);
+        const unsub = onSnapshot(doc(this.firestore, "informacionPrincipal", "principal").withConverter(principalConverter),
+            { includeMetadataChanges: true },
+            (doc) => {
+                return getDoc(docRef);
+        });
+        return getDoc(docRef);
+        //const docRef = doc(this.firestore, "informacionPrincipal", 'principal').withConverter(principalConverter);
+        //return getDoc(docRef);
+    }
+ 
+    updateInfoDatabase(info: Principal){
+        const principalConverter = {
+            toFirestore: (infoPri: Principal) => {
+                return {
+                    frase_izq: infoPri.frase_izq,
+                    frase_der: infoPri.frase_der,
+                    frase_inf: infoPri.frase_inf,
+                    icono_enc: infoPri.icono_enc,
+                    icono_pri: infoPri.icono_pri,
+                    tema_pagi: infoPri.tema_pagi,
+                    horario_1: infoPri.horario_1,
+                    horario_2: infoPri.horario_2,
+                    telefono1: infoPri.telefono1,
+                    telefono2: infoPri.telefono2,
+                    email1: infoPri.email1,
+                    email2: infoPri.email2,
+                    direccion: infoPri.direccion,
+                    direccion_link: infoPri.direccion_link,
+                    facebook: infoPri.facebook,
+                    facebook_link: infoPri.facebook_link,
+                    twitter: infoPri.twitter,
+                    twitter_link: infoPri.twitter_link,
+                    instagram: infoPri.instagram,
+                    instagram_link: infoPri.instagram_link,
+                    youtube: infoPri.youtube,
+                    youtube_link: infoPri.youtube_link
+                };
+            },
+            fromFirestore: (snapshot: any, options: any) => {
+                const data = snapshot.data(options);
+                return new Principal(
+                    data.frase_izq,
+                    data.frase_der,
+                    data.frase_inf,
+                    data.icono_enc,
+                    data.icono_pri,
+                    data.tema_pagi,
+                    data.horario_1,
+                    data.horario_2,
+                    data.telefono1,
+                    data.telefono2,
+                    data.email1,
+                    data.email2,
+                    data.direccion,
+                    data.direccion_link,
+                    data.facebook,
+                    data.facebook_link,
+                    data.twitter,
+                    data.twitter_link,
+                    data.instagram,
+                    data.instagram_link,
+                    data.youtube,
+                    data.youtube_link
+                );
+            }
+        };
+
+        const userRef = doc(this.firestore,'informacionPrincipal', 'principal').withConverter(principalConverter);
+        return setDoc(userRef, info);
     }
 }

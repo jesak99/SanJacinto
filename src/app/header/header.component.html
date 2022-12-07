@@ -1,8 +1,8 @@
 <mat-toolbar class="navbar navbar-expand-md fixed-top" [class.oscuro]="true">
   <mat-toolbar-row class="normal">
-    <span class="titulo">{{infoPrincipal.frase_izq}}</span>
-    <a routerLink="/bienvenido"><img src="{{infoPrincipal.icono_enc}}" height="70" width="100" alt=""></a>
-    <span class="titulo">{{infoPrincipal.frase_der}}</span>
+    <span class="titulo">{{infoPrincipal?.frase_izq}}</span>
+    <a routerLink="/bienvenido"><img src="{{infoPrincipal?.icono_enc}}" height="70" width="100" alt=""></a>
+    <span class="titulo">{{infoPrincipal?.frase_der}}</span>
     <button mat-button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <mat-icon class="icono">menu</mat-icon>
     </button>

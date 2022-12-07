@@ -67,29 +67,29 @@
                 <div class="box box-down blue">
                     <h3>Visítanos</h3>
                     <p>
-                        <a href="{{infoPrincipal.direccion_link}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal.direccion}}</a>
-                        en un horario de {{infoPrincipal.horario_1}} y {{infoPrincipal.horario_2}}
+                        <a href="{{infoPrincipal?.direccion_link}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal?.direccion}}</a>
+                        en un horario de {{infoPrincipal?.horario_1}} y {{infoPrincipal?.horario_2}}
                     </p>
                     <div class="row">
-                        <a *ngIf="infoPrincipal.telefono1!=''" mat-icon-button href="tel:{{infoPrincipal.telefono1}}" target="_self" matTooltip="{{infoPrincipal.telefono1}}">
+                        <a *ngIf="infoPrincipal?.telefono1!=''" mat-icon-button href="tel:{{infoPrincipal?.telefono1}}" target="_self" matTooltip="{{infoPrincipal?.telefono1}}">
                             <mat-icon class="boton-azul">call</mat-icon>
                         </a>
-                        <a *ngIf="infoPrincipal.telefono2!=''" mat-icon-button href="tel:{{infoPrincipal.telefono2}}" target="_self" matTooltip="{{infoPrincipal.telefono2}}">
+                        <a *ngIf="infoPrincipal?.telefono2!=''" mat-icon-button href="tel:{{infoPrincipal?.telefono2}}" target="_self" matTooltip="{{infoPrincipal?.telefono2}}">
                             <mat-icon class="boton-azul">call</mat-icon>
                         </a>
-                        <a *ngIf="infoPrincipal.email1!=''" mat-icon-button href="mailto:{{infoPrincipal.email1}}" target="_self" matTooltip="{{infoPrincipal.email1}}">
+                        <a *ngIf="infoPrincipal?.email1!=''" mat-icon-button href="mailto:{{infoPrincipal?.email1}}" target="_self" matTooltip="{{infoPrincipal?.email1}}">
                             <mat-icon class="boton-azul">email</mat-icon>
                         </a>
-                        <a *ngIf="infoPrincipal.email2!=''" mat-icon-button href="mailto:{{infoPrincipal.email2}}" target="_self" matTooltip="{{infoPrincipal.email2}}">
+                        <a *ngIf="infoPrincipal?.email2!=''" mat-icon-button href="mailto:{{infoPrincipal?.email2}}" target="_self" matTooltip="{{infoPrincipal?.email2}}">
                             <mat-icon class="boton-azul">email</mat-icon>
                         </a>
                     </div>
                     <mat-divider></mat-divider>
                     <div class="row">
-                        <a *ngIf="infoPrincipal.facebook_link!=''" mat-icon-button href="{{infoPrincipal.facebook_link}}" target="_blank" matTooltip="{{infoPrincipal.facebook}}"><i class="fab fa-facebook-f fa-lg boton-azul"></i></a>
-                        <a *ngIf="infoPrincipal.twitter_link!=''" mat-icon-button href="{{infoPrincipal.twitter_link}}" target="_blank" matTooltip="{{infoPrincipal.twitter}}"><i class="fab fa-twitter fa-lg boton-azul"></i></a>
-                        <a *ngIf="infoPrincipal.instagram_link!=''" mat-icon-button href="{{infoPrincipal.instagram_link}}" target="_blank" matTooltip="{{infoPrincipal.instagram}}"><i class="fab fa-instagram fa-lg boton-azul"></i></a>
-                        <a *ngIf="infoPrincipal.youtube_link!=''" mat-icon-button href="{{infoPrincipal.youtube_link}}" target="_blank" matTooltip="{{infoPrincipal.youtube}}"><i class="fab fa-youtube fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal?.facebook_link!=''" mat-icon-button href="{{infoPrincipal?.facebook_link}}" target="_blank" matTooltip="{{infoPrincipal?.facebook}}"><i class="fab fa-facebook-f fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal?.twitter_link!=''" mat-icon-button href="{{infoPrincipal?.twitter_link}}" target="_blank" matTooltip="{{infoPrincipal?.twitter}}"><i class="fab fa-twitter fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal?.instagram_link!=''" mat-icon-button href="{{infoPrincipal?.instagram_link}}" target="_blank" matTooltip="{{infoPrincipal?.instagram}}"><i class="fab fa-instagram fa-lg boton-azul"></i></a>
+                        <a *ngIf="infoPrincipal?.youtube_link!=''" mat-icon-button href="{{infoPrincipal?.youtube_link}}" target="_blank" matTooltip="{{infoPrincipal?.youtube}}"><i class="fab fa-youtube fa-lg boton-azul"></i></a>
                     </div>
                 </div>
             </div>

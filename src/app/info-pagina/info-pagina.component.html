@@ -30,32 +30,26 @@
                         </mat-form-field>
                     </div>
                     <div class="col">
-                        <mat-slide-toggle [checked]="infoPrincipal.tema_pagi" color="primary" formControlName="tema_pagi">Tema veda electoral</mat-slide-toggle>
+                        <mat-slide-toggle [checked]="infoPrincipal?.tema_pagi" color="primary" formControlName="tema_pagi">Tema veda electoral</mat-slide-toggle>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <mat-form-field class="full-width">
-                                <mat-label>Icono de encabezado</mat-label>
-                                <input matInput type="text" placeholder="" formControlName="icono_enc">
-                                <mat-error *ngIf="form.get('icono_enc')?.hasError('required')">Este campo es requerido</mat-error>
-                            </mat-form-field>
+                            <mat-label>Icono de encabezado</mat-label>
+                            <input #file type="file" accept='image/*' (change)="preview(file.files)" formControlName="icono_enc">
                         </div>
-                        <div class="row">
-                            <img class="img-fluid" src="{{infoPrincipal.icono_enc}}" alt="">
+                        <div class="row imagen">
+                            <img class="img-fluid" [src]="imgURL" *ngIf="imgURL">
                         </div>
                     </div>
                     <div class="col">
                         <div class="row">
-                            <mat-form-field class="full-width">
-                                <mat-label>Icono principal</mat-label>
-                                <input matInput type="text" placeholder="" formControlName="icono_pri">
-                                <mat-error *ngIf="form.get('icono_pri')?.hasError('required')">Este campo es requerido</mat-error>
-                            </mat-form-field>
+                            <mat-label>Icono principal</mat-label>
+                            <input #file2 type="file" accept='image/*' (change)="preview2(file2.files)" formControlName="icono_pri">
                         </div>
-                        <div class="row">
-                            <img class="img-fluid" src="{{infoPrincipal.icono_pri}}" alt="">
+                        <div class="row imagen">
+                            <img class="img-fluid" [src]="imgURL2" *ngIf="imgURL2">
                         </div>                        
                     </div>
                 </div>
@@ -192,14 +186,14 @@
                         <mat-form-field class="full-width">
                             <mat-label>Youtube</mat-label>
                             <span matPrefix><i class="fab fa-youtube fa-lg"></i> &nbsp;</span>
-                            <input matInput type="text" value="{{infoPrincipal.youtube}}" formControlName="youtube">
+                            <input matInput type="text" formControlName="youtube">
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field class="full-width">
                             <mat-label>Link a youtube</mat-label>
                             <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
-                            <input matInput type="text" value="{{infoPrincipal.youtube_link}}" formControlName="youtube_link">
+                            <input matInput type="text" formControlName="youtube_link">
                         </mat-form-field>
                     </div>
                 </div>

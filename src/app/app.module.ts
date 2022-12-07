@@ -24,12 +24,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -57,6 +58,8 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AvisoComponent } from './aviso/aviso.component';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -93,6 +96,7 @@ const routes : Routes=[
     AuthComponent,
     LoginComponent,
     RegisterComponent,
+    AvisoComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,9 +129,11 @@ const routes : Routes=[
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

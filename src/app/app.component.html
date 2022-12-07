@@ -3,14 +3,14 @@
     <mat-sidenav #sidenav mode="over">
         <!-- Datos del usuario (imagen, nombre, rol) -->
         <p class="imagen">
-            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" 
-            class="rounded-circle" 
+            <img src="{{usuario?.fotoPerfil}}" 
+            class="img-fluid" 
             height="100" width="100" 
-            alt="Black and White Portrait of a Man" 
+            alt="Foto de perfil" 
             loading="lazy"/>
         </p>
-        <p class="usuario">Jesús Cruz Morales</p>
-        <p class="rol">Administrador</p>
+        <p class="usuario">{{usuario?.nombre}}</p>
+        <p class="rol">{{usuario?.rol}}</p>
         <mat-divider></mat-divider>
         <!-- Links a los apartados -->
         <mat-nav-list>
@@ -36,7 +36,7 @@
                 <a matLine>Usuarios</a>
             </mat-list-item>
 
-            <mat-divider></mat-divider>
+            <mat-divider *ngIf="usuario?.rol=='admin'"></mat-divider>
             <div mat-subheader>Cuenta</div>
             <mat-list-item [routerLink]="['/ajustes']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>settings</mat-icon>
@@ -76,7 +76,8 @@
         </div>
         <!-- Llamada al componente del Footer para mostrarse -->
         <app-footer></app-footer>
-        <!-- Botón para visualizar el menú oculto -->
-        <button mat-fab *ngIf="true" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
+        <!-- Botón para visualizar el menú oculto 
+        <button mat-fab *ngIf="usuario?.rol!=null" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>-->
+        <button mat-fab matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
     </mat-sidenav-content>
 </mat-sidenav-container>
