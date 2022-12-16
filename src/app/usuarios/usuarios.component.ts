@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.model';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AvisoComponent } from 'src/app/aviso/aviso.component';
 
 const ROLES: string[] = [
   'Administrador',
@@ -27,7 +29,7 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService:UsuarioService) {
+  constructor(private userService:UsuarioService, private snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource(this.listUsuarios);
   }
 
@@ -59,6 +61,15 @@ export class UsuariosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  async updateRol(id: string,rol: string){
+    await this.userService.updateRol(id, rol).then(respose=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: "Se ha actualizado el rol del usuario",
+      });
+    }).catch(error=>console.log(error));
   }
 
 }

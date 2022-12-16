@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { Auth, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
-import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, updateDoc } from '@angular/fire/firestore';
 //import { collection } from "firebase/firestore";
 import { Usuario } from "../model/usuario.model";
 
@@ -42,6 +42,13 @@ export class UsuarioService {
             fotoPerfil: user.fotoPerfil,
             nombre: user.nombre,
             rol: user.rol,
+        });
+    }
+
+    updateRol(idUsuario: string, rol: string){
+        const refUsuario = doc(this.firestore, "usuarios", idUsuario);
+        return updateDoc(refUsuario, {
+            rol: rol
         });
     }
 

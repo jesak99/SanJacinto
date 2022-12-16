@@ -60,6 +60,8 @@ import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AvisoComponent } from './aviso/aviso.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { CuentaComponent } from './cuenta/cuenta.component';
+import { AtencionCiudadanaComponent } from './atencion-ciudadana/atencion-ciudadana.component';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -70,7 +72,9 @@ const routes : Routes=[
   {path: 'dashboard', component: DashboardComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
   {path: 'info-pagina', component: InfoPaginaComponent},
   {path: 'notificaciones', component: ModNotificacionesComponent},
-  {path: 'usuarios', component: UsuariosComponent} 
+  {path: 'usuarios', component: UsuariosComponent},
+  {path: 'ajustes-cuenta', component: CuentaComponent},
+  {path: 'atencion-ciudadana', component: AtencionCiudadanaComponent}
 ];
 
 @NgModule({
@@ -97,6 +101,8 @@ const routes : Routes=[
     LoginComponent,
     RegisterComponent,
     AvisoComponent,
+    CuentaComponent,
+    AtencionCiudadanaComponent,
   ],
   imports: [
     BrowserModule,

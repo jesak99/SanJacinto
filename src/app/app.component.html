@@ -38,7 +38,7 @@
 
             <mat-divider *ngIf="usuario?.rol=='admin'"></mat-divider>
             <div mat-subheader>Cuenta</div>
-            <mat-list-item [routerLink]="['/ajustes']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+            <mat-list-item [routerLink]="['/ajustes-cuenta']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>settings</mat-icon>
                 <a matLine>Ajustes de Cuenta</a>
             </mat-list-item>

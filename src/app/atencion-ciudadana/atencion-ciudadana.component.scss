@@ -1,0 +1,148 @@
+:host ::ng-deep .mat-form-field-label {
+    color: rgb(92, 92, 92) !important;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(98, 17, 50) !important;
+}
+
+:host ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(98, 17, 50) !important;
+}
+
+:host ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: rgb(98, 17, 50) !important;
+    ;
+}
+
+:host ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: rgb(98, 17, 50) !important;
+    ;
+}
+
+:host ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: rgb(66, 134, 244);
+    background-color: rgb(98, 17, 50) !important;
+    ;
+}
+
+:host ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgb(98, 17, 50) !important;
+    ;
+}
+
+.container-fluid {
+    max-width: 1500px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    margin-top: 115px;
+    margin-bottom: 0;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(98, 17, 50);
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-align: end;
+    color: rgb(98, 17, 50);
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+
+    .mat-icon {
+        font-size: larger;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.container {
+    justify-content: center;
+    max-width: 1000px;
+    background: url('./../../assets/fondoHoja.jpg')right / cover no-repeat;
+    border-radius: 25px;
+}
+
+.img-fluid{
+    max-width: 300px;
+}
+
+.formulario {
+    //max-width: 600px;
+    padding-bottom: 20px;
+}
+
+.row{
+    margin-bottom: 10px;
+}
+
+.lado-lado{
+    display: flex;
+    justify-content: space-between;
+}
+
+.asunto{
+    max-width: 270px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.fecha{
+    display: flex;
+    justify-content: flex-end;
+
+    .text_fecha{
+        color:rgb(98, 17, 50);
+        font-weight: bold;
+        font-size: medium;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .hoy{
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: medium;
+        font-family: 'Montserrat', sans-serif;
+    }
+}
+
+.numero{
+    max-width: 150px;
+}
+
+.telefono{
+    max-width: 200px;
+}
+
+.guardar {
+    width: 100%;
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 25px !important;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: rgb(98, 17, 50);
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
+}
