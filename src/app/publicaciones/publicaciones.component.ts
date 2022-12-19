@@ -27,21 +27,58 @@ export class PublicacionesComponent implements OnInit {
     private paginas: PaginaService,
     private publicaciones: PublicacionService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     this.route.params.subscribe((params: Params)=>{
       if(params['id']){
         this.id=params['id'];
         this.pagina = this.paginas.getPagina(this.id);
       }
     });
-    this.listPublicaciones = this.publicaciones.getPublicaciones();
-    this.publicaciones.listChangedEvent.subscribe((listOfPublicaciones: Publicacion[])=>{
-      this.listPublicaciones = this.publicaciones.getPublicaciones();
-    });
+
+    await this.publicaciones.getPublicacionesDB().then(response=>{
+      response.forEach((doc) => {
+        if (doc.exists()) {
+          var pub = new Publicacion(
+            doc.id,
+            doc.data().descripcion,
+            doc.data().duracion,
+            new Date(),
+            doc.data().fecha_inicio,
+            doc.data().fecha_fin,
+            doc.data().tipo_pub,
+            doc.data().formato,
+            doc.data().multimedia,
+            doc.data().oculto,
+            doc.data().pagina_id
+          );
+          this.listPublicaciones?.push(pub);
+        } else {
+          console.log("No such document!");
+        }
+      });
+      }).catch(error=>console.log(error));
   }
 
   openCrearPublicacion(): void {
-    this.dialog.open(CrearPublicacionComponent, {});
+    const dialogRef = this.dialog.open(CrearPublicacionComponent, {
+      data: {
+        id : "",
+        descripcion : "",
+        duracion: "Indeterminado",
+        fecha_pub : new Date(),
+        fecha_inicio : null,
+        fecha_fin : null,
+        tipo_pub : "Subir imagen/video desde dispositivo",
+        formato : "",
+        multimedia : "",
+        oculto: false,
+        pagina_id : this.pagina?.id
+      }
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 
   openEditarPagina(): void {

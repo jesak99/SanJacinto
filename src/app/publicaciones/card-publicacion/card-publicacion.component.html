@@ -2,30 +2,26 @@
     <div class="col publicaciones">
         <mat-card class="card-publicacion">
             <mat-card-header *ngIf="true" class="actions">
-                <button mat-icon-button matTooltip="Editar publicación" class="edit" (click)="openEditPublicacion(publicacion!)"><mat-icon>edit</mat-icon></button>
-                <button mat-icon-button matTooltip="Ocultar publicación" class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
+                <button mat-icon-button matTooltip="Editar publicación" class="edit" (click)="openEditPublicacion(publicacion)"><mat-icon>edit</mat-icon></button>
+                <button *ngIf="publicacion.duracion=='Indeterminado'" mat-icon-button matTooltip="{{texto}}" class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <button mat-icon-button matTooltip="Eliminar publicación" class="delete"><mat-icon>close</mat-icon></button>
             </mat-card-header>
             <mat-card-header mat-card-image class="author">
                 <div mat-card-avatar class="image-perfil"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-title>Municipio de San Jacinto Amilpas</mat-card-title>
                 <mat-card-subtitle>{{publicacion.fecha_pub | date:'medium'}}</mat-card-subtitle>
             </mat-card-header>
-            
-            <img *ngIf="publicacion?.tipo_pub=='foto'||publicacion?.tipo_pub=='foto-src'" mat-card-image src="{{publicacion.multimedia}}" alt="">
 
-            <video *ngIf="publicacion?.tipo_pub=='video'||publicacion?.tipo_pub=='video-src'" mat-card-image controls>
+            <div id="iframe" mat-card-image *ngIf="publicacion.formato=='iframe'"></div>
+            
+            <img *ngIf="publicacion?.formato=='image'" mat-card-image src="{{publicacion.multimedia}}" alt="">
+
+            <video *ngIf="publicacion?.formato=='video'" mat-card-image controls>
                 <!--<source src="./../../assets/test.mp4" type="video/mp4">-->
                 <source src="{{publicacion.multimedia}}" type="video/mp4">
             </video>
-            
-            <iframe *ngIf="publicacion?.tipo_pub=='iframe'" mat-card-image
-                src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FMunicipioSanJacintoAmilpas%2Fvideos%2F601195294979365%2F&show_text=true&width=560&t=0"
-                width="560" height="429" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-                allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowFullScreen="true"></iframe>
 
             <mat-card-content mat-card-image>
                 {{publicacion.descripcion}}

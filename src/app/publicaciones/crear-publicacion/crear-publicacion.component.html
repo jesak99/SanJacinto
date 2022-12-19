@@ -9,106 +9,63 @@
 
 <form [formGroup]="formPublicacion" (ngSubmit)="onSubmit()">
     <mat-dialog-content>
-        <!-- Descripción -->
         <div class="row">
             <mat-form-field class="full-width">
                 <mat-label>Descripción de la publicación</mat-label>
-                <textarea matInput rows="3" placeholder="El H. Ayuntamiento de San Jacinto Amilpas ha realizado ..."
-                    formControlName="descripcion"></textarea>
+                <textarea matInput rows="3" placeholder="El H. Ayuntamiento de San Jacinto Amilpas ha realizado ..." formControlName="descripcion"></textarea>
             </mat-form-field>
         </div>
-        <!-- Radio button duración -->
         <div class="row">
-            <label>Duración de la publicación</label>
-            <mat-radio-group name="fecha" color="primary">
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <mat-radio-button name="fecha" class="radio-button" [value]="1" checked>Indeterminado</mat-radio-button>
-                        </div>
-                        <div class="row">
-                            
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <mat-radio-button name="fecha" class="radio-button" [value]="2" >
-                                Periodo de tiempo</mat-radio-button>
-                        </div>
-                        <div class="row">
-                            <mat-form-field class="full-width">
-                                <mat-label>Duración de la publicación</mat-label>
-                                <mat-date-range-input [rangePicker]="picker">
-                                    <input matStartDate formControlName="fecha_inicio" placeholder="Inicio">
-                                    <input matEndDate formControlName="fecha_fin" placeholder="Fin">
-                                </mat-date-range-input>
-                                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-date-range-picker #picker></mat-date-range-picker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-            </mat-radio-group>
+            <div class="col">
+                <mat-form-field class="full-width">
+                    <mat-label>Duración de la publicación</mat-label>
+                    <span matPrefix><mat-icon>calendar_today</mat-icon> &nbsp;</span>
+                    <mat-select [(value)]="duracion" (selectionChange)="cambiarDuracion(duracion)" formControlName="duracion">
+                      <mat-option [value]="option" *ngFor="let option of duracionPublicacion">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-slide-toggle *ngIf="duracion=='Indeterminado'" [checked]="oculto" color="primary">¿Publicacion oculta?</mat-slide-toggle>
+                <mat-form-field class="full-width" *ngIf="duracion=='Periodo de tiempo'">
+                    <mat-label>Indique el rango de la fecha</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate formControlName="fecha_inicio" placeholder="Inicio">
+                        <input matEndDate formControlName="fecha_fin" placeholder="Fin">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-error *ngIf="formPublicacion.get('fecha_inicio')?.hasError('required')">Seleccione una fecha inicio válida</mat-error>
+                    <mat-error *ngIf="formPublicacion.get('fecha_fin')?.hasError('required')">Seleccione una fecha fin válida</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
         </div>
-        <!-- Tabs -->
-        <mat-tab-group mat-align-tabs="center">
-            <mat-radio-group name="contenido" color="primary" [(ngModel)]="tipo_pub">
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <mat-icon>cloud_upload</mat-icon>Foto/video
-                    </ng-template>
-                    <!-- Radio button tipo publicación -->
-                    <div class="row personalizado">
-                        <div class="col">
-                            <mat-radio-button name="contenido" class="radio-button" value="foto">Foto</mat-radio-button>
-                        </div>
-                        <div class="col">
-                            <mat-radio-button name="contenido" class="radio-button" value="video">Video</mat-radio-button>
-                        </div>
-                    </div>
-                    <div class="row personalizado">
-                        <input type='file' (change)="onSelectFile($event)" formControlName="multimedia"/>
-                    </div>
-                    <div class="row personalizado">
-                        <img class="img-fluid" [src]="url" *ngIf="format==='image' && url">
-                        <video [src]="url" *ngIf="format==='video' && url" controls></video>
-                    </div>
-                </mat-tab>
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <mat-icon>code</mat-icon>Insertar
-                    </ng-template>
-                    <!-- Radio button tipo publicación -->
-                    <div class="row personalizado">
-                        <div class="col">
-                            <mat-radio-button name="contenido" class="radio-button" value="foto-src">Foto</mat-radio-button>
-                        </div>
-                        <div class="col">
-                            <mat-radio-button name="contenido" class="radio-button" value="iframe">Video/Red social</mat-radio-button>
-                        </div>
-                    </div>
-                    <!-- Input de archivo -->
-                    <div class="row personalizado">
-                        <mat-form-field class="full-width">
-                            <mat-label>Link de multimedia</mat-label>
-                            <span matPrefix>
-                                <mat-icon>link</mat-icon> &nbsp;
-                            </span>
-                            <input matInput type="text" value="{{formPublicacion.value.multimedia}}"
-                                formControlName="multimedia">
-                        </mat-form-field>
-                    </div>
-                    <!-- Visualizador -->
-                    <div class="row personalizado">
-                        <img class="img-fluid" src="{{formPublicacion.value.multimedia}}" alt="">
-                    </div>
-                </mat-tab>
-            </mat-radio-group>
-        </mat-tab-group>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Tipo de publicación</mat-label>
+                <span matPrefix><mat-icon>cloud_upload</mat-icon> &nbsp;</span>
+                <mat-select [(value)]="tipo_pub" (selectionChange)="cambiarTipo(tipo_pub)" formControlName="tipo">
+                  <mat-option [value]="option" *ngFor="let option of tipoPublicacion">{{ option }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <input *ngIf="tipo_pub=='Subir imagen/video desde dispositivo'" type='file' (change)="onSelectFile($event)" formControlName="multimedia"/>
+            <mat-form-field class="full-width" *ngIf="tipo_pub!='Subir imagen/video desde dispositivo'">
+                <mat-label>Link de multimedia</mat-label>
+                <span matPrefix><mat-icon>link</mat-icon> &nbsp;</span>
+                <input matInput type="text" value="{{formPublicacion.value.multimedia}}" formControlName="multimedia">
+            </mat-form-field>
+        </div>
+        <div class="row contenido">
+            <img class="img-fluid" [src]="url" *ngIf="format==='image' && url">
+            <video [src]="url" *ngIf="format==='video' && url" controls></video>
+            <img class="img-fluid" src="{{formPublicacion.value.multimedia}}" *ngIf="tipo_pub!='Subir imagen/video desde dispositivo'">
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button color="primary" [disabled]="formPublicacion.invalid" [mat-dialog-close]="true">
+        <button mat-raised-button [disabled]="formPublicacion.invalid">
             <mat-icon>publish</mat-icon>Publicar
         </button>
     </mat-dialog-actions>
