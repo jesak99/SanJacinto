@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificacionService } from '../service/notificacion.service';
 
 @Component({
   selector: 'app-mod-notificaciones',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModNotificacionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notificacionService: NotificacionService) {}
 
   ngOnInit(): void {
+    this.notificacionService.requestPermission();
+    this.notificacionService.listen();
+    this.notificacionService.receiveMessage();
   }
 
 }

@@ -3,6 +3,7 @@ import { Pagina } from '../model/pagina.model';
 import { Principal } from '../model/principal.model';
 import { PaginaService } from '../service/pagina.service';
 import { PrincipalService } from '../service/principal.service';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +18,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   @Input() tema?:boolean;
 
+  usuario$: any = this.usuarioService.currentUserProfile$;
+
   constructor(
     private paginas: PaginaService, 
-    private principalService: PrincipalService
+    private principalService: PrincipalService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void{

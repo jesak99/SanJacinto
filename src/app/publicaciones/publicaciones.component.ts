@@ -7,6 +7,7 @@ import { PaginaService } from '../service/pagina.service';
 import { Publicacion } from '../model/publicacion.model';
 import { PublicacionService } from '../service/publicacion.service';
 import { FormPaginaComponent } from './form-pagina/form-pagina.component';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-publicaciones',
@@ -19,13 +20,16 @@ export class PublicacionesComponent implements OnInit {
   @Input() pagina?: Pagina;
   @Input() id: string='';
 
+  usuario$ = this.usuarioService.currentUserProfile$;
+
   listPublicaciones : Publicacion[]=[];
 
   constructor(
     public dialog: MatDialog, 
     private route: ActivatedRoute, 
     private paginas: PaginaService,
-    private publicaciones: PublicacionService) { }
+    private publicaciones: PublicacionService,
+    private usuarioService: UsuarioService) { }
 
   async ngOnInit(){
     this.route.params.subscribe((params: Params)=>{

@@ -20,6 +20,11 @@ p {
 
 .imagen {
     margin-top: 5px;
+
+    .img-fluid{
+        border-radius: 50%;
+                 object-fit: cover;
+    }
 }
 
 .usuario {

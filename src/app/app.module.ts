@@ -31,6 +31,7 @@ import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/materia
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -62,6 +63,11 @@ import { AvisoComponent } from './aviso/aviso.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { CuentaComponent } from './cuenta/cuenta.component';
 import { AtencionCiudadanaComponent } from './atencion-ciudadana/atencion-ciudadana.component';
+import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { MensajesComponent } from './mensajes/mensajes.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { DatePipe } from '@angular/common';
+import { DateDisplayPipe } from './pipes/date-display.pipe';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -74,7 +80,8 @@ const routes : Routes=[
   {path: 'notificaciones', component: ModNotificacionesComponent},
   {path: 'usuarios', component: UsuariosComponent},
   {path: 'ajustes-cuenta', component: CuentaComponent},
-  {path: 'atencion-ciudadana', component: AtencionCiudadanaComponent}
+  {path: 'atencion-ciudadana', component: AtencionCiudadanaComponent},
+  {path: 'mensajes', component: MensajesComponent}
 ];
 
 @NgModule({
@@ -103,6 +110,8 @@ const routes : Routes=[
     AvisoComponent,
     CuentaComponent,
     AtencionCiudadanaComponent,
+    MensajesComponent,
+    DateDisplayPipe
   ],
   imports: [
     BrowserModule,
@@ -136,12 +145,15 @@ const routes : Routes=[
     MatSortModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    provideMessaging(() => getMessaging()),
+    HotToastModule.forRoot({position: 'bottom-center'})
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

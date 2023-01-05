@@ -62,6 +62,7 @@
             <img class="img-fluid" [src]="url" *ngIf="format==='image' && url">
             <video [src]="url" *ngIf="format==='video' && url" controls></video>
             <img class="img-fluid" src="{{formPublicacion.value.multimedia}}" *ngIf="tipo_pub!='Subir imagen/video desde dispositivo'">
+            <div id="iframe" mat-card-image *ngIf="format=='iframe'"></div>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>

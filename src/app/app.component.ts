@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Principal } from './model/principal.model';
 import { PrincipalService } from './service/principal.service';
@@ -6,25 +6,33 @@ import { UsuarioService } from './service/usuario.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
 import { Usuario } from './model/usuario.model';
+import { AuthService } from './service/auth.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
   title = 'SanJacinto';
   infoPrincipal: Principal = new Principal('','','','','',false,'','','','','','','','','','','','','','','','');
-  usuario ?: Usuario;
+  usuario$ = this.usuarioService.currentUserProfile$;
 
   header_variable = false;
 
   constructor(
-    private principalService: PrincipalService, 
-    private usuarioService: UsuarioService, 
-    private router: Router, 
+    private principalService: PrincipalService,
+    private usuarioService: UsuarioService,
+    private auth: AuthService,
+    private router: Router,
+    private toast: HotToastService,
     private snackBar: MatSnackBar
   ){}
+
+  ngAfterViewInit(): void {
+    this.usuario$ = this.usuarioService.currentUserProfile$;
+  }
 
   async ngOnInit(){
     /**
@@ -71,23 +79,17 @@ export class AppComponent implements OnInit{
       this.infoPrincipal = this.principalService.getInfoLocal();
     });
 
+    /*
     this.usuario = this.usuarioService.getInfoUser();
     this.usuarioService.usuarioInfo.subscribe((usuarioInfo:Usuario)=>{
       this.usuario = this.usuarioService.getInfoUser();
-    })
+    })*/
   }
 
   logout(){
-    this.usuarioService.logout()
-    .then(()=>{
-      const userTem = new Usuario('',null,null,null,null);
-      this.usuarioService.setUser(userTem);
-      this.snackBar.openFromComponent(AvisoComponent, {
-        duration: 3000,
-        data: "Se ha cerrado la sesión",
-      });
-      this.router.navigate(['/bienvenido'])
-    })
-    .catch(error=>console.log(error));
+    this.auth.logout().subscribe(() => {
+      this.toast.info("Se ha cerrado la sesión",{autoClose:true, duration: 100});
+      this.router.navigate(['bienvenido']);
+    });
   }
 }

@@ -5,6 +5,8 @@ import { Usuario } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
+import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,12 @@ export class RegisterComponent implements OnInit {
   hide = true;
   formReg: FormGroup;
 
-  constructor(private usarioSerive: UsuarioService, private router: Router, private snackBar: MatSnackBar) { 
+  constructor(
+    private usarioSerive: UsuarioService, 
+    private auth: AuthService, 
+    private router: Router, 
+    private snackBar: MatSnackBar, 
+    private toast: HotToastService) { 
     this.formReg = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(6)])
@@ -26,7 +33,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
-    this.usarioSerive.register(this.formReg.value)
+    this.auth.register(this.formReg.value)
+    .pipe(
+      this.toast.observe({
+        success: 'Se ha registrado correctamente',
+        loading: 'Cargando ...',
+        error: 'Ha ocurrido un error',
+      })
+    )
+    .subscribe(() => {
+      this.formReg.reset();
+    });
+    /*
       .then(
         async response => {
           const user = new Usuario(response.user.uid, response.user.email, response.user.email,response.user.photoURL, 'normal');
@@ -45,11 +63,22 @@ export class RegisterComponent implements OnInit {
           data: "El email ingresado ya se encuentra registrado",
         });
       }
-    });
+    });*/
   }
 
   loginWithGoogle(){
-    this.usarioSerive.loginWithGoogle()
+    this.auth.loginWithGoogle()
+    .pipe(
+      this.toast.observe({
+        success: 'Ha iniciado sesión correctamente',
+        loading: 'Cargando ...',
+        error: 'Ha ocurrido un error',
+      })
+    )
+    .subscribe(() => {
+      this.router.navigate(['bienvenido']);
+    });
+    /*
       .then(
         async response => {
           const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'normal');
@@ -74,11 +103,11 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['bienvenido']);
         }
       )
-    .catch(error=>console.log(error));
+    .catch(error=>console.log(error));*/
   }
 
   loginWithFacebook(){
-    this.usarioSerive.loginWithFacebook()
+    this.auth.loginWithFacebook()
       .then(
         async response => {
           const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'normal');

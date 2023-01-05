@@ -1,8 +1,19 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { Auth, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
-import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, updateDoc } from '@angular/fire/firestore';
-//import { collection } from "firebase/firestore";
+import { 
+    Firestore, 
+    collection, 
+    docData, 
+    setDoc, 
+    doc, 
+    getDoc, 
+    query, 
+    getDocs, 
+    updateDoc, 
+    collectionData 
+} from '@angular/fire/firestore';
+import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import { Usuario } from "../model/usuario.model";
+import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
@@ -11,18 +22,19 @@ export class UsuarioService {
     usuario?: Usuario;
     listUsuarios?: Usuario[]=[];
 
-    constructor(private auth: Auth, private firestore: Firestore) { }
+    constructor(private auth: AuthService, private firestore: Firestore) { }
 
+    /*
     register({ email, password }: any) {
-        return createUserWithEmailAndPassword(this.auth, email, password);
+        return from(createUserWithEmailAndPassword(this.auth, email, password));
     }
 
     login({ email, password }: any) {
-        return signInWithEmailAndPassword(this.auth, email, password);
+        return from(signInWithEmailAndPassword(this.auth, email, password));
     }
 
     loginWithGoogle() {
-        return signInWithPopup(this.auth, new GoogleAuthProvider());
+        return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
     }
 
     loginWithFacebook() {
@@ -30,19 +42,23 @@ export class UsuarioService {
         facebook.addScope('email');
         facebook.addScope('public_profile');
         return signInWithPopup(getAuth(), facebook);
-    }
+    }*/
 
+    /*
     logout() {
         return signOut(this.auth);
-    }
+    }*/
 
-    addUser(user: Usuario) {
+    addUser(user: Usuario): Observable<any> {
+        const ref = doc(this.firestore, 'usuarios', user?.id);
+        return from(setDoc(ref, user));
+        /**
         return setDoc(doc(this.firestore, 'usuarios', user.id), {
             email: user.email,
             fotoPerfil: user.fotoPerfil,
             nombre: user.nombre,
             rol: user.rol,
-        });
+        }); */
     }
 
     updateRol(idUsuario: string, rol: string){
@@ -71,8 +87,6 @@ export class UsuarioService {
 
         const docRef = doc(this.firestore, "usuarios", uid).withConverter(userConverter);
         return getDoc(docRef);
-
-        //return getDoc(doc(this.firestore, 'usuarios', uid))
     }
 
     setUser(user: Usuario) {
@@ -101,12 +115,30 @@ export class UsuarioService {
             }
         };
 
-        //const q = query(collection(this.firestore, "usuarios")).withConverter(userConverter);
         return getDocs(collection(this.firestore, "usuarios").withConverter(userConverter));
-        /*
-        querySnapshot.forEach((doc) => {
-            var userTem = new Usuario(doc.id,doc.data().nombre,doc.data().email,doc.data().fotoPerfil,doc.data().rol);
-            this.listUsuarios?.push(userTem);
-        });*/
     }
+/*
+    logout() {
+        return from(this.auth.signOut());
+    }
+*/
+    get allUsers$(): Observable<Usuario[]> {
+        const ref = collection(this.firestore, 'usuarios');
+        const queryAll = query(ref);
+        return collectionData(queryAll) as Observable<Usuario[]>;
+    }
+
+    get currentUserProfile$(): Observable<Usuario | null> {
+        return this.auth.currentUser$.pipe(
+          switchMap((user) => {
+            if (!user?.uid) {
+              return of(null);
+            }
+    
+            const ref = doc(this.firestore, 'usuarios', user?.uid);
+            return docData(ref) as Observable<Usuario>;
+          })
+        );
+    }
+    
 }

@@ -75,8 +75,6 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
       }
       this.oculto = this.data.oculto;
       this.pagina_id = this.data.pagina_id;
-
-      console.log("Hola el id es: "+this.pagina_id)
     };
 
     this.formPublicacion = new FormGroup({

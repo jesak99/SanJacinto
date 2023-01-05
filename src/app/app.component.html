@@ -2,41 +2,42 @@
     <!-- Contenido del menú oculto lateral -->
     <mat-sidenav #sidenav mode="over">
         <!-- Datos del usuario (imagen, nombre, rol) -->
-        <p class="imagen">
-            <img src="{{usuario?.fotoPerfil}}" 
+        <p class="imagen" *ngIf="usuario$ | async as usuario">
+            <img [src]="usuario.fotoPerfil" 
             class="img-fluid" 
             height="100" width="100" 
             alt="Foto de perfil" 
             loading="lazy"/>
         </p>
-        <p class="usuario">{{usuario?.nombre}}</p>
-        <p class="rol">{{usuario?.rol}}</p>
+        <p class="usuario" *ngIf="usuario$ | async as usuario">{{usuario.nombre}}</p>
+        <p class="rol" *ngIf="usuario$ | async as usuario">{{usuario.rol}}</p>
         <mat-divider></mat-divider>
         <!-- Links a los apartados -->
-        <mat-nav-list>
-            <div mat-subheader>Página</div>
+        <mat-nav-list *ngIf="usuario$ | async as usuario">
+            <div mat-subheader *ngIf="usuario.rol=='Administrador'">Página</div>
 
-            <mat-list-item [routerLink]="['/dashboard']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+            <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>dashboard</mat-icon>
                 <a matLine>Dashboard</a>
             </mat-list-item>
 
-            <mat-list-item [routerLink]="['/info-pagina']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+            <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/info-pagina']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>info</mat-icon>
                 <a matLine>Información de la Página</a>
             </mat-list-item>
 
-            <mat-list-item [routerLink]="['/notificaciones']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+            <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/notificaciones']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>add_alert</mat-icon>
                 <a matLine>Nueva Notificación</a>
             </mat-list-item>
 
-            <mat-list-item [routerLink]="['/usuarios']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+            <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/usuarios']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>group</mat-icon>
                 <a matLine>Usuarios</a>
             </mat-list-item>
 
-            <mat-divider *ngIf="usuario?.rol=='admin'"></mat-divider>
+            <mat-divider *ngIf="usuario.rol=='Administrador'"></mat-divider>
+        </mat-nav-list><mat-nav-list>
             <div mat-subheader>Cuenta</div>
             <mat-list-item [routerLink]="['/ajustes-cuenta']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>settings</mat-icon>
@@ -76,8 +77,7 @@
         </div>
         <!-- Llamada al componente del Footer para mostrarse -->
         <app-footer></app-footer>
-        <!-- Botón para visualizar el menú oculto 
-        <button mat-fab *ngIf="usuario?.rol!=null" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>-->
-        <button mat-fab matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
+        
+        <button mat-fab *ngIf="usuario$ | async as usuario" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
     </mat-sidenav-content>
 </mat-sidenav-container>
