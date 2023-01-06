@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Publicacion } from 'src/app/model/publicacion.model';
 import { PublicacionService } from 'src/app/service/publicacion.service';
+import { UsuarioService } from 'src/app/service/usuario.service';
 import { CrearPublicacionComponent } from '../crear-publicacion/crear-publicacion.component';
 
 @Component({
@@ -14,7 +15,13 @@ export class CardPublicacionComponent implements OnInit, AfterViewInit {
   hide = false;
   texto = "Ocultar publicación";
 
-  constructor(private publicacionService : PublicacionService, public dialog: MatDialog,) { }
+  usuario$ = this.usuarioService.currentUserProfile$;
+
+  constructor(
+    private publicacionService : PublicacionService,
+    private usuarioService: UsuarioService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.hide = this.publicacion?.oculto;

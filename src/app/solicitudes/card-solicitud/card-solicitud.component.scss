@@ -1,0 +1,36 @@
+.mat-dialog-title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(98, 17, 50);
+
+    .mat-icon {
+        color: darkgray;
+        font-size: 30px;
+    }
+}
+
+.campo{
+    color: rgb(98, 17, 50);
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.info{
+    max-width: 500px;
+}
+
+.respuesta{
+    font-size: medium;
+    margin-bottom: 15px;
+}
+
+a{
+    color: black;
+}
+
+.mat-dialog-actions{
+    display: flex;
+    justify-content: center;
+}

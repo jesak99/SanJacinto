@@ -6,6 +6,7 @@ import { Integrantes } from '../model/integrantes.model';
 import { Principal } from '../model/principal.model';
 import { BienvenidaService } from '../service/bienvenida.service';
 import { PrincipalService } from '../service/principal.service';
+import { UsuarioService } from '../service/usuario.service';
 import { FormBannerComponent } from './form-banner/form-banner.component';
 import { FormBienvenidoComponent } from './form-bienvenido/form-bienvenido.component';
 import { FormIntegranteComponent } from './form-integrante/form-integrante.component';
@@ -31,7 +32,14 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
   bienvenida !: Bienvenida;
   text !: string;
 
-  constructor(private principalService: PrincipalService, private bienvenidaService: BienvenidaService, public dialog: MatDialog) { }
+  usuario$ = this.usuarioService.currentUserProfile$;
+
+  constructor(
+    private principalService: PrincipalService,
+    private bienvenidaService: BienvenidaService,
+    public usuarioService: UsuarioService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void{
 

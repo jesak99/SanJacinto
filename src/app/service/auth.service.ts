@@ -29,13 +29,13 @@ export class AuthService {
     }
 
     loginWithGoogle() {
-        return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
+        return signInWithPopup(this.auth, new GoogleAuthProvider());
     }
 
     loginWithFacebook() {
         const facebook = new FacebookAuthProvider();
-        facebook.addScope('email');
-        facebook.addScope('public_profile');
+        //facebook.addScope('email');
+        //facebook.addScope('public_profile');
         return signInWithPopup(getAuth(), facebook);
     }
 

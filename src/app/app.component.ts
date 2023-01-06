@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Principal } from './model/principal.model';
 import { PrincipalService } from './service/principal.service';
@@ -15,6 +15,9 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit{
+
+  @ViewChild('top') top!: ElementRef;
+
   title = 'SanJacinto';
   infoPrincipal: Principal = new Principal('','','','','',false,'','','','','','','','','','','','','','','','');
   usuario$ = this.usuarioService.currentUserProfile$;
@@ -31,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   ){}
 
   ngAfterViewInit(): void {
-    this.usuario$ = this.usuarioService.currentUserProfile$;
+    this.scrollToTop();
   }
 
   async ngOnInit(){
@@ -91,5 +94,13 @@ export class AppComponent implements OnInit, AfterViewInit{
       this.toast.info("Se ha cerrado la sesión",{autoClose:true, duration: 100});
       this.router.navigate(['bienvenido']);
     });
+  }
+
+  scrollToTop(){
+    setTimeout(() => {
+      if(this.top){
+        this.top.nativeElement.scrollIntoView({behavior: 'smooth'})
+      }
+    }, 100);
   }
 }

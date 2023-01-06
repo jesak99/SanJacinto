@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-    <button mat-fab [matMenuTriggerFor]="aboveMenu" matTooltip="Ajustes de página"><mat-icon>settings</mat-icon></button>
+    <button *ngIf="(usuario$ | async)?.rol=='Administrador'" mat-fab [matMenuTriggerFor]="aboveMenu" matTooltip="Ajustes de página"><mat-icon>settings</mat-icon></button>
     <mat-menu #aboveMenu="matMenu" yPosition="above">
         <button mat-menu-item (click)="openBanners()">
           <mat-icon>edit</mat-icon>

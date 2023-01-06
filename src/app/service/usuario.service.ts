@@ -49,16 +49,14 @@ export class UsuarioService {
         return signOut(this.auth);
     }*/
 
-    addUser(user: Usuario): Observable<any> {
-        const ref = doc(this.firestore, 'usuarios', user?.id);
-        return from(setDoc(ref, user));
-        /**
+    addUser(user: Usuario) {
         return setDoc(doc(this.firestore, 'usuarios', user.id), {
+            id: user.id,
             email: user.email,
             fotoPerfil: user.fotoPerfil,
             nombre: user.nombre,
             rol: user.rol,
-        }); */
+        });
     }
 
     updateRol(idUsuario: string, rol: string){

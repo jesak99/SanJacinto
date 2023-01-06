@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>
+    <span>Solicitud</span>
+    <mat-icon mat-dialog-close matTooltip="Cerrar">cancel</mat-icon>
+</h1>
+
+<mat-dialog-content>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <span class="campo"><i class="fas fa-calendar-day fa-lg"></i> Fecha: </span>
+            </div>
+            <div class="row respuesta">
+                <span class="info">{{solicitudIn.fecha | dateDisplay}}</span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <span class="campo"><i class="fas fa-info-circle fa-lg"></i>Asunto: </span>
+            </div>
+            <div class="row respuesta">
+                <span class="info">{{solicitudIn.asunto}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <span class="campo"><i class="fas fa-grin fa-lg"></i> Solicitante: </span>
+    </div>
+    <div class="row respuesta">
+        <span class="info">{{solicitudIn.apellidoPaterno}} {{solicitudIn.apellidoMaterno}} {{solicitudIn.nombre}}</span>
+    </div>
+
+    <div class="row">
+        <span class="campo"><i class="fas fa-map-marker-alt fa-lg"></i> Dirección: </span>
+    </div>
+    <div class="row respuesta">
+        <span class="info">{{solicitudIn.calle}} {{solicitudIn.numExterior}} {{solicitudIn.numInterior}} {{solicitudIn.colonia}}</span>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <span class="campo"><i class="fas fa-phone-alt fa-lg"></i> Teléfono: </span>
+            </div>
+            <div class="row respuesta">
+                <span class="info"><a href="tel:{{solicitudIn.telefono}}" target="_self">{{solicitudIn.telefono}}</a></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <span class="campo"><i class="fas fa-envelope fa-lg"></i> Email: </span>
+            </div>
+            <div class="row respuesta">
+                <span class="info"><a href="mailto:{{solicitudIn.email}}?Subject={{solicitudIn.asunto}}" target="_blank" rel="noopener noreferrer">{{solicitudIn.email}}</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <span class="campo"><i class="fas fa-file-alt fa-lg"></i> Solicitud: </span>
+    </div>
+    <div class="row respuesta">
+        <p class="info" id="text"></p>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <mat-slide-toggle [checked]="solicitudIn.estado" color="primary">Marcar como atendido</mat-slide-toggle>
+</mat-dialog-actions>

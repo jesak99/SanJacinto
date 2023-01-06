@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Solicitud } from '../model/solicitud.model';
+import { Solicitud, SolicitudTemp } from '../model/solicitud';
 import { SolicitudService } from '../service/solicitud.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
+import { Timestamp } from '@angular/fire/firestore';
+import { HotToastService } from '@ngneat/hot-toast';
 
 interface Colonia {
   nombre: string;
@@ -137,6 +139,7 @@ export class AtencionCiudadanaComponent implements OnInit {
 
   constructor(
     private solicitudService : SolicitudService,
+    private toast: HotToastService,
     private snackBar: MatSnackBar
   ){}
 
@@ -181,7 +184,31 @@ export class AtencionCiudadanaComponent implements OnInit {
     const email = this.formSolicitud.value.email;
     const solicitud = this.formSolicitud.value.solicitud;
 
-    const atencionCiudadana = new Solicitud('',this.fecha, asunto, nombre, apellidoPaterno, apellidoMaterno, calle, numExterior, numInterior, colonia, telefono, email, solicitud, false);
+    const temp: SolicitudTemp = {
+      asunto: asunto,
+      nombre: nombre,
+      apellidoPaterno: apellidoPaterno,
+      apellidoMaterno: apellidoMaterno,
+      calle: calle,
+      numExterior: numExterior,
+      numInterior: numInterior,
+      colonia: colonia,
+      telefono: telefono,
+      email: email,
+      solicitud: solicitud
+    };
+
+    this.solicitudService.addSolicitud(temp).pipe(
+      this.toast.observe({
+        success: 'Se ha enviado su solicitud',
+        loading: 'Enviando ...',
+        error: 'Ha ocurrido un error, intente de nuevo',
+      })
+    ).subscribe(()=>{this.formSolicitud.reset()}
+    );
+
+    /*
+    const atencionCiudadana = new Solicitud('',Timestamp.fromDate(new Date()), asunto, nombre, apellidoPaterno, apellidoMaterno, calle, numExterior, numInterior, colonia, telefono, email, solicitud, false);
 
     await this.solicitudService.addSolicitud(atencionCiudadana).then(response => {
       this.formSolicitud.reset();
@@ -194,6 +221,6 @@ export class AtencionCiudadanaComponent implements OnInit {
         duration: 3000,
         data: "Ha ocurrido un error intentelo de nuevo",
       });
-    })
+    })*/
   }
 }

@@ -68,6 +68,8 @@ import { MensajesComponent } from './mensajes/mensajes.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { DatePipe } from '@angular/common';
 import { DateDisplayPipe } from './pipes/date-display.pipe';
+import { SolicitudesComponent } from './solicitudes/solicitudes.component';
+import { CardSolicitudComponent } from './solicitudes/card-solicitud/card-solicitud.component';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -76,12 +78,13 @@ const routes : Routes=[
   {path: 'contacto', component: ContactoComponent},
   {path: 'acceso', component: AuthComponent},
   {path: 'dashboard', component: DashboardComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
-  {path: 'info-pagina', component: InfoPaginaComponent},
-  {path: 'notificaciones', component: ModNotificacionesComponent},
-  {path: 'usuarios', component: UsuariosComponent},
-  {path: 'ajustes-cuenta', component: CuentaComponent},
+  {path: 'info-pagina', component: InfoPaginaComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
+  {path: 'notificaciones', component: ModNotificacionesComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
+  {path: 'usuarios', component: UsuariosComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
+  {path: 'ajustes-cuenta', component: CuentaComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
   {path: 'atencion-ciudadana', component: AtencionCiudadanaComponent},
-  {path: 'mensajes', component: MensajesComponent}
+  {path: 'mensajes', component: MensajesComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
+  {path: 'solicitudes', component: SolicitudesComponent, ...canActivate(()=> redirectUnauthorizedTo(['/acceso']))},
 ];
 
 @NgModule({
@@ -111,7 +114,9 @@ const routes : Routes=[
     CuentaComponent,
     AtencionCiudadanaComponent,
     MensajesComponent,
-    DateDisplayPipe
+    DateDisplayPipe,
+    SolicitudesComponent,
+    CardSolicitudComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Integrantes } from 'src/app/model/integrantes.model';
 import { BienvenidaService } from 'src/app/service/bienvenida.service';
+import { UsuarioService } from 'src/app/service/usuario.service';
 import { FormIntegranteComponent } from '../form-integrante/form-integrante.component';
 
 @Component({
@@ -11,8 +12,13 @@ import { FormIntegranteComponent } from '../form-integrante/form-integrante.comp
 })
 export class CardUsuarioComponent implements OnInit {
   @Input() integrante !: Integrantes;
+  usuario$ = this.usuarioService.currentUserProfile$;
 
-  constructor(public dialog: MatDialog, private bienvenidaService: BienvenidaService) { }
+  constructor(
+    public dialog: MatDialog,
+    private bienvenidaService: BienvenidaService,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
   }

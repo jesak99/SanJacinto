@@ -3,8 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/service/usuario.service';
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { AvisoComponent } from 'src/app/aviso/aviso.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -18,10 +16,9 @@ export class RegisterComponent implements OnInit {
   formReg: FormGroup;
 
   constructor(
-    private usarioSerive: UsuarioService, 
-    private auth: AuthService, 
-    private router: Router, 
-    private snackBar: MatSnackBar, 
+    private usuarioService: UsuarioService,
+    private auth: AuthService,
+    private router: Router,
     private toast: HotToastService) { 
     this.formReg = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
@@ -68,71 +65,42 @@ export class RegisterComponent implements OnInit {
 
   loginWithGoogle(){
     this.auth.loginWithGoogle()
-    .pipe(
-      this.toast.observe({
-        success: 'Ha iniciado sesión correctamente',
-        loading: 'Cargando ...',
-        error: 'Ha ocurrido un error',
-      })
-    )
-    .subscribe(() => {
-      this.router.navigate(['bienvenido']);
-    });
-    /*
       .then(
         async response => {
           const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'normal');
-          await this.usarioSerive.getUser(user.id).then(async response=>{
+          await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
-              //console.log("Document data:", response.data());
-              const tem = response.data();
-              const userTem = new Usuario(tem.id,tem.nombre,tem.email,tem.fotoPerfil,tem.rol);
-              this.usarioSerive.setUser(userTem);
+
             } else {
-              // doc.data() will be undefined in this case
-              //console.log("No such document!");
-              await this.usarioSerive.addUser(user);
-              this.usarioSerive.setUser(user);
+              await this.usuarioService.addUser(user);
             }
           })
-          .catch(error=>console.log(error));
-          this.snackBar.openFromComponent(AvisoComponent, {
-            duration: 3000,
-            data: "Ha iniciado sesión como "+ user.nombre,
-          });
+          .catch(error=>this.toast.error("Ha ocurrido un error :("));
+          this.toast.success("Ha iniciado sesión como: "+ user.nombre);
           this.router.navigate(['bienvenido']);
         }
       )
-    .catch(error=>console.log(error));*/
+    .catch(error=>this.toast.error("Ha ocurrido un error :("));
   }
 
   loginWithFacebook(){
     this.auth.loginWithFacebook()
       .then(
         async response => {
-          const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'normal');
-          await this.usarioSerive.getUser(user.id).then(async response=>{
+          const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'Habitante');
+          await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
-              //console.log("Document data:", response.data());
-              const tem = response.data();
-              const userTem = new Usuario(tem.id,tem.nombre,tem.email,tem.fotoPerfil,tem.rol);
-              this.usarioSerive.setUser(userTem);
+
             } else {
-              // doc.data() will be undefined in this case
-              //console.log("No such document!");
-              await this.usarioSerive.addUser(user);
-              this.usarioSerive.setUser(user);
+              await this.usuarioService.addUser(user);
             }
           })
-          .catch(error=>console.log(error));
-          this.snackBar.openFromComponent(AvisoComponent, {
-            duration: 3000,
-            data: "Ha iniciado sesión como "+ user.nombre,
-          });
+          .catch(error=>this.toast.error("Ha ocurrido un error :("));
+          this.toast.success("Ha iniciado sesión como: "+ user.nombre);
           this.router.navigate(['bienvenido']);
         }
       )
-    .catch(error=>console.log(error));
+    .catch(error=>this.toast.error("Ha ocurrido un error :("));
   }
 
 }

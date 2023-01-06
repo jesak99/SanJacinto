@@ -1,0 +1,79 @@
+.container-fluid{
+    max-width: 1500px;
+    margin-bottom: 25px;
+}
+
+h1{
+    margin-top: 115px;
+    margin-bottom: 0;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(98, 17, 50);
+}
+
+h2{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: rgb(98, 17, 50);
+}
+
+.sub{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    .mat-icon{
+        font-size: larger;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+:host ::ng-deep .mat-form-field-label{
+    color: rgb(92, 92, 92) !important;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(98, 17, 50) !important;
+}
+  
+:host ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(98, 17, 50) !important;
+} 
+  
+:host ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: rgb(98, 17, 50) !important;;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.col{
+    max-width: 800px;
+}
+
+.contenido{
+    height: 600px;
+}
+
+.chat-title {
+
+    display: flex;
+    justify-content: space-between;
+
+    .chat-name {
+        font-weight: 500;
+    }
+
+    .chat-date {
+        font-size: 0.7rem;
+        color: rgba(0,0,0,0.7)
+    }
+    
+}

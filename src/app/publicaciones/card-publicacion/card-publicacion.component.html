@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col publicaciones">
         <mat-card class="card-publicacion">
-            <mat-card-header *ngIf="true" class="actions">
+            <mat-card-header *ngIf="(usuario$ | async)?.rol=='Administrador'" class="actions">
                 <button mat-icon-button matTooltip="Editar publicación" class="edit" (click)="openEditPublicacion(publicacion)"><mat-icon>edit</mat-icon></button>
                 <button *ngIf="publicacion.duracion=='Indeterminado'" mat-icon-button matTooltip="{{texto}}" class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

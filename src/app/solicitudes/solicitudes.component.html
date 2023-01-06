@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <h1>Solicitudes de Atención Ciudadana</h1>
+    <p class="sub"><mat-icon>info</mat-icon>Solicitudes realizadas por los usuarios</p>
+    <div class="row">
+    <div class="col">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">assignment</mat-icon>
+                    Pendientes
+                </ng-template>
+                <div class="contenido">
+                    <mat-selection-list #shoes [multiple]="false">
+                        <mat-list-option *ngFor="let solicitud of solicitudesPendientes$ | async" [value]="solicitud" (click)="openInfo(solicitud)">
+                            <p mat-line class="chat-title">
+                                <span class="chat-name">{{solicitud.asunto}}</span>&nbsp;
+                                <span class="chat-date">{{solicitud.fecha | dateDisplay}}</span>
+                            </p>
+                            <p mat-line>
+                                {{solicitud.apellidoPaterno}} {{solicitud.apellidoMaterno}} {{solicitud.nombre}}  
+                            </p>
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">assignment_turned_in</mat-icon>
+                    Atendidas
+                </ng-template>
+                <div class="contenido">
+                    <mat-selection-list #shoes [multiple]="false">
+                        <mat-list-option *ngFor="let solicitud of solicitudesAtendidas$ | async" [value]="solicitud" (click)="openInfo(solicitud)">
+                            <p mat-line class="chat-title">
+                                <span class="chat-name">{{solicitud.asunto}}</span>&nbsp;
+                                <span class="chat-date">{{solicitud.fecha | dateDisplay}}</span>
+                            </p>
+                            <p mat-line>
+                                {{solicitud.apellidoPaterno}} {{solicitud.apellidoMaterno}} {{solicitud.nombre}}  
+                            </p>
+                        </mat-list-option>
+                    </mat-selection-list>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+</div>

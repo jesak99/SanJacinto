@@ -26,6 +26,11 @@
                 <a matLine>Información de la Página</a>
             </mat-list-item>
 
+            <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/solicitudes']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
+                <mat-icon matListIcon>assignment</mat-icon>
+                <a matLine>Solicitudes</a>
+            </mat-list-item>
+
             <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/notificaciones']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>add_alert</mat-icon>
                 <a matLine>Nueva Notificación</a>
@@ -69,11 +74,12 @@
     </mat-sidenav>
     <!-- Contenido principal -->
     <mat-sidenav-content>
+        <div #top></div>
         <!-- Llamada al componente del Header para mostrarse -->
         <app-header></app-header>
         <div class="container-fluid">
             <!-- Enrutador identifica a que componente se llama y lo muestra en este espacio -->
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="scrollToTop()"></router-outlet>
         </div>
         <!-- Llamada al componente del Footer para mostrarse -->
         <app-footer></app-footer>

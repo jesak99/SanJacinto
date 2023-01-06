@@ -5,14 +5,14 @@
       <h3>{{pagina?.descripcion}}</h3>
     </div>
   </header>
-  <app-nueva-publicacion></app-nueva-publicacion>
+  <app-nueva-publicacion *ngIf="(usuario$ | async)?.rol=='Administrador'"></app-nueva-publicacion>
   <app-card-publicacion *ngFor="let publicacion of listPublicaciones" [publicacion]="publicacion"></app-card-publicacion>
   <!--
   <button mat-fab color="primary" matTooltip="Nueva publicación" aria-label="Example icon button with a delete icon"
     (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>-->
-  <button mat-fab [matMenuTriggerFor]="aboveMenu" matTooltip="Acciones"><mat-icon>add</mat-icon></button>
+  <button *ngIf="(usuario$ | async)?.rol=='Administrador'" mat-fab [matMenuTriggerFor]="aboveMenu" matTooltip="Acciones"><mat-icon>add</mat-icon></button>
   <mat-menu #aboveMenu="matMenu" yPosition="above">
     <button mat-menu-item (click)="openCrearPublicacion()">
       <mat-icon>publish</mat-icon>
