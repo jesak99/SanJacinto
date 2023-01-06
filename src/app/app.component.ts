@@ -8,6 +8,7 @@ import { AvisoComponent } from 'src/app/aviso/aviso.component';
 import { Usuario } from './model/usuario.model';
 import { AuthService } from './service/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { ToastService } from './service/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   title = 'SanJacinto';
   infoPrincipal: Principal = new Principal('','','','','',false,'','','','','','','','','','','','','','','','');
   usuario$ = this.usuarioService.currentUserProfile$;
+  currentInfo$ = this.principalService.currentInformation$;
 
   header_variable = false;
 
@@ -30,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit{
     private auth: AuthService,
     private router: Router,
     private toast: HotToastService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public toastService: ToastService
   ){}
 
   ngAfterViewInit(): void {
@@ -91,7 +94,14 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   logout(){
     this.auth.logout().subscribe(() => {
-      this.toast.info("Se ha cerrado la sesión",{autoClose:true, duration: 100});
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Se ha cerrado la sesión",
+          clase: "toast-warning",
+          icono: "info",
+        },
+      });
       this.router.navigate(['bienvenido']);
     });
   }

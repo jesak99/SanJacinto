@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() tema?:boolean;
 
   usuario$: any = this.usuarioService.currentUserProfile$;
+  currentInfo$ = this.principalService.currentInformation$;
 
   constructor(
     private paginas: PaginaService, 

@@ -10,7 +10,8 @@ import {
     query, 
     getDocs, 
     updateDoc, 
-    collectionData 
+    collectionData,
+    limit
 } from '@angular/fire/firestore';
 import { Solicitud, SolicitudTemp } from "../model/solicitud";
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
@@ -100,6 +101,46 @@ export class SolicitudService {
     }
 
     get allSolicitudesPendientes$(): Observable<Solicitud[]> {
+        const solicitudConverter = {
+            toFirestore: (solicitud : Solicitud) => {
+                return {
+                    codigo: solicitud.id,
+                    fecha: solicitud.fecha,
+                    asunto: solicitud.asunto,
+                    nombre: solicitud.nombre,
+                    apellidoPaterno: solicitud.apellidoPaterno,
+                    apellidoMaterno: solicitud.apellidoMaterno,
+                    calle: solicitud.calle,
+                    numExterior: solicitud.numExterior,
+                    numInterior: solicitud.numInterior,
+                    colonia: solicitud.colonia,
+                    telefono: solicitud.telefono,
+                    email: solicitud.email,
+                    solicitud: solicitud.solicitud
+                };
+            },
+            fromFirestore: (snapshot: any, options: any) => {
+                const data = snapshot.data(options);
+                const solicitud: Solicitud ={
+                    id: data.id,
+                    fecha: data.fecha,
+                    asunto: data.asunto,
+                    nombre: data.nombre,
+                    apellidoPaterno: data.apellidoPaterno,
+                    apellidoMaterno: data.apellidoMaterno,
+                    calle: data.calle,
+                    numExterior: data.numExterior,
+                    numInterior: data.numInterior,
+                    colonia: data.colonia,
+                    telefono: data.telefono,
+                    email: data.email,
+                    solicitud: data.solicitud,
+                    estado: data.estado
+                };
+                return solicitud;
+            }
+        };
+
         const ref = collection(this.firestore, 'solicitudes');
         const queryAllPendientes = query(ref, where('estado','==',false));
         return collectionData(queryAllPendientes) as Observable<Solicitud[]>;
@@ -110,5 +151,7 @@ export class SolicitudService {
         const queryAllAtendidas = query(ref, where('estado', '==', true));
         return collectionData(queryAllAtendidas) as Observable<Solicitud[]>;
     }
+
+
 
 }

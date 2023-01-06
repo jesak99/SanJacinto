@@ -63,13 +63,26 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  async updateRol(id: string,rol: string){
+  async updateRol(id: string,rol: string, usuario:Usuario){
     await this.userService.updateRol(id, rol).then(respose=>{
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,
-        data: "Se ha actualizado el rol del usuario",
+        data: {
+          texto: usuario.nombre +" ahora es un " + rol,
+          clase: "toast-success",
+          icono: "check",
+        },
       });
-    }).catch(error=>console.log(error));
+    }).catch(error=>
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      })
+    );
   }
 
 }

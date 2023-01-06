@@ -70,6 +70,7 @@ import { DatePipe } from '@angular/common';
 import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { CardSolicitudComponent } from './solicitudes/card-solicitud/card-solicitud.component';
+import { ToastService } from './service/toast.service';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -158,7 +159,7 @@ const routes : Routes=[
     provideMessaging(() => getMessaging()),
     HotToastModule.forRoot({position: 'bottom-center'})
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

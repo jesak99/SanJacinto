@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Principal } from '../model/principal.model';
 import { PrincipalService } from '../service/principal.service';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
+import { HotToastService } from '@ngneat/hot-toast';
+import { ImageUploadService } from '../service/upload.service';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-info-pagina',
@@ -12,7 +15,7 @@ import { AvisoComponent } from 'src/app/aviso/aviso.component';
   styleUrls: ['./info-pagina.component.scss']
 })
 export class InfoPaginaComponent implements OnInit {
-  infoPrincipal ?: Principal;
+  infoPrincipal?: Principal;
   form!: FormGroup;
 
   public imagePath?: string;
@@ -21,54 +24,23 @@ export class InfoPaginaComponent implements OnInit {
   public message?: string;
 
   public imagePath2?: string;
-  public pathImg2: any;
+  public pathImg2!: File;
   imgURL2: any;
   public message2?: string;
 
   constructor(
     private principalService: PrincipalService,
     private storage: Storage,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private toast: HotToastService,
+    private upload: ImageUploadService
   ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.infoPrincipal = this.principalService.getInfoLocal();
     this.principalService.newInfo.subscribe((datosPrincipales: Principal) => {
       this.infoPrincipal = this.principalService.getInfoLocal();
     });
-    /**
-    await this.principalService.getInfo().then(response => {
-      if (response.exists()) {
-        const tem = response.data();
-        const infoTem = new Principal(
-          tem.frase_izq,
-          tem.frase_der,
-          tem.frase_inf,
-          tem.icono_enc,
-          tem.icono_pri,
-          tem.tema_pagi,
-          tem.horario_1,
-          tem.horario_2,
-          tem.telefono1,
-          tem.telefono2,
-          tem.email1,
-          tem.email2,
-          tem.direccion,
-          tem.direccion_link,
-          tem.facebook,
-          tem.facebook_link,
-          tem.twitter,
-          tem.twitter_link,
-          tem.instagram,
-          tem.instagram_link,
-          tem.youtube,
-          tem.youtube_link
-        );
-        this.infoPrincipal=infoTem;
-      } else {
-        console.log("No existen datos")
-      }
-    }).catch(error => console.log(error));*/
 
     let frase_izq = this.infoPrincipal?.frase_izq;
     let frase_der = this.infoPrincipal?.frase_der;
@@ -122,7 +94,6 @@ export class InfoPaginaComponent implements OnInit {
   }
 
   async onSubmit() {
-
     const frase_izq = this.form.value.frase_izq;
     const frase_der = this.form.value.frase_der;
     const frase_inf = this.form.value.frase_inf;
@@ -146,44 +117,93 @@ export class InfoPaginaComponent implements OnInit {
     const youtube = this.form.value.youtube;
     const youtube_link = this.form.value.youtube_link;
 
-    if(this.pathImg1!=null){
+    if (this.pathImg1 != null) {
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
+
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      }).catch(error=>console.log(error));
-      await getDownloadURL(imgRef)
-      .then((url) => {
-          icono_enc = url;
-      })
-      .catch((error) => {
-          // Handle any errors
+      }).catch(error => {
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
       });
+      await getDownloadURL(imgRef)
+        .then((url) => {
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Imagen subida con éxito",
+              clase: "toast-success",
+              icono: "check",
+            },
+          });
+          icono_enc = url;
+        })
+        .catch((error) => {
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Ha ocurrido un error :(",
+              clase: "toast-error",
+              icono: "error",
+            },
+          });
+        });
     }
-    if(this.pathImg2!=null){
+
+    if (this.pathImg2 != null) {
       const imgRef2 = ref(this.storage, 'imagenes/' + this.pathImg2.name);
       await uploadBytes(imgRef2, this.pathImg2).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      }).catch(error=>console.log(error));
+      }).catch(error => 
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        })
+      );
       await getDownloadURL(imgRef2)
-      .then((url) => {
+        .then((url) => {
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Imagen subida con éxito",
+              clase: "toast-success",
+              icono: "check",
+            },
+          });
           icono_pri = url;
-      })
-      .catch((error) => {
-          // Handle any errors
-      });
+        })
+        .catch((error) => {
+          this.toast.error("Ha ocurrido un error :(");
+        });
     }
-    
+
     const newInfo = new Principal(frase_izq, frase_der, frase_inf, icono_enc, icono_pri, tema_pagi, horario_1, horario_2, telefono1, telefono2, email1, email2, direccion, direccion_link, facebook, facebook_link, twitter, twitter_link, instagram, instagram_link, youtube, youtube_link);
-    await this.principalService.updateInfoDatabase(newInfo).then(response=>{
+    await this.principalService.updateInfoDatabase(newInfo).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,
-        data: "Se han guardado los cambios",
+        data: {
+          texto: "Se han actualizado los datos",
+          clase: "toast-success",
+          icono: "check",
+        },
       });
       this.principalService.setInfo(newInfo);
-    }).catch(error=>{
+    }).catch(error => {
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,
-        data: "Se ha ocurrido un error: "+error,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
       });
     });
   }

@@ -1,28 +1,38 @@
-.green-snackbar {
-    background: rgb(65, 252, 134);
-    color: white;
-}
-.green-snackbar button {
-    background-color: rgb(65, 252, 134);
-    color: white;
-    border: none;
-}
-.red-snackbar {
-    background: #F44336;
-    color: white;
-}
-.red-snackbar button {
-    background-color: #F44336;
-    color: white !important;
-    border: none;
+.toast-success {
+  color: #155724;
+  font-weight: bold;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  display: flex;
+  width: 100%;
 }
 
-.snack-black{
-    display: flex;
-    justify-content: center;
-    justify-self: center;
-    background-color: rgba(0, 0, 0, .6) !important;
-	-webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    color: white;
+.toast-error {
+  color: #721c24;
+  font-weight: bold;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  display: flex;
+  width: 100%;
+}
+
+.toast-warning {
+  color: #856404;
+  font-weight: bold;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  display: flex;
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.toast-heading {
+  margin-top: 10px;
 }

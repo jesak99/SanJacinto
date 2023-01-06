@@ -5,6 +5,8 @@ import { Usuario } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/service/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AvisoComponent } from 'src/app/aviso/aviso.component';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +21,7 @@ export class RegisterComponent implements OnInit {
     private usuarioService: UsuarioService,
     private auth: AuthService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private toast: HotToastService) { 
     this.formReg = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
@@ -72,11 +75,35 @@ export class RegisterComponent implements OnInit {
             if (response.exists()) {
 
             } else {
-              await this.usuarioService.addUser(user);
+              await this.usuarioService.addUser(user).then(()=>{}).catch(error=>{
+                this.snackBar.openFromComponent(AvisoComponent, {
+                  duration: 3000,
+                  data: {
+                    texto: "Ha ocurrido un error :(",
+                    clase: "toast-error",
+                    icono: "error",
+                  },
+                });
+              });
             }
           })
-          .catch(error=>this.toast.error("Ha ocurrido un error :("));
-          this.toast.success("Ha iniciado sesión como: "+ user.nombre);
+          .catch(error=>
+            this.snackBar.openFromComponent(AvisoComponent, {
+              duration: 3000,
+              data: {
+                texto: "Ha ocurrido un error :(",
+                clase: "toast-error",
+                icono: "error",
+              },
+          }));
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Ha iniciado sesión como "+user.nombre,
+              clase: "toast-success",
+              icono: "check",
+            },
+          });
           this.router.navigate(['bienvenido']);
         }
       )
@@ -92,11 +119,36 @@ export class RegisterComponent implements OnInit {
             if (response.exists()) {
 
             } else {
-              await this.usuarioService.addUser(user);
+              await this.usuarioService.addUser(user).then(()=>{}).catch(error=>{
+                this.snackBar.openFromComponent(AvisoComponent, {
+                  duration: 3000,
+                  data: {
+                    texto: "Ha ocurrido un error :(",
+                    clase: "toast-error",
+                    icono: "error",
+                  },
+                });
+              });
             }
           })
-          .catch(error=>this.toast.error("Ha ocurrido un error :("));
-          this.toast.success("Ha iniciado sesión como: "+ user.nombre);
+          .catch(error=>
+            this.snackBar.openFromComponent(AvisoComponent, {
+              duration: 3000,
+              data: {
+                texto: "Ha ocurrido un error :(",
+                clase: "toast-error",
+                icono: "error",
+              },
+            })
+          );
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Ha iniciado sesión como "+user.nombre,
+              clase: "toast-success",
+              icono: "check",
+            },
+          });
           this.router.navigate(['bienvenido']);
         }
       )

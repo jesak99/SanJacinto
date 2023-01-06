@@ -1,4 +1,4 @@
-<div class="pg-footer">
+<div class="pg-footer" *ngIf="currentInfo$ | async as info">
     <footer class="footer">
         <svg class="footer-wave-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
             <path class="footer-wave-path"
@@ -10,7 +10,7 @@
             <div class="col">
                 <div class="footer-logo">
                     <a class="footer-logo-link" routerLink="bienvenido">
-                        <img class="img-fluid" src="{{infoPrincipal?.icono_pri}}" alt="">
+                        <img class="img-fluid" [src]="info?.icono_pri" alt="">
                     </a>
                 </div>
             </div>
@@ -21,30 +21,30 @@
                     <ul id="menu-contacto" class="footer-menu-list">
                         <span class="titulo"><i class="fas fa-clock fa-lg"></i> Horario</span><br>
                         <li>
-                            <span class="informacion">{{infoPrincipal?.horario_1}}</span>
+                            <span class="informacion">{{info.horario_1}}</span>
                         </li>
-                        <li *ngIf="infoPrincipal?.horario_2!=''">
-                            <span class="informacion">{{infoPrincipal?.horario_2}}</span>
+                        <li *ngIf="info?.horario_2!=''">
+                            <span class="informacion">{{info?.horario_2}}</span>
                         </li>
                         <br>
                         <span class="titulo"><i class="fas fa-phone-alt fa-lg"></i> Teléfono</span><br>
                         <li>
                             <p class="footer-call-to-action-link-wrapper">
-                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{infoPrincipal?.telefono1}}" target="_self"> {{infoPrincipal?.telefono1}}</a></span>
+                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{info?.telefono1}}" target="_self"> {{info?.telefono1}}</a></span>
                             </p>
                         </li>
-                        <li *ngIf="infoPrincipal?.telefono2!=''">
+                        <li *ngIf="info?.telefono2!=''">
                             <p class="footer-call-to-action-link-wrapper">
-                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{infoPrincipal?.telefono2}}" target="_self"> {{infoPrincipal?.telefono2}}</a></span>
+                                <span class="informacion"><a class="footer-call-to-action-link" href="tel:{{info?.telefono2}}" target="_self"> {{info?.telefono2}}</a></span>
                             </p>
                         </li>
                         <br>
                         <span class="titulo"><i class="fas fa-envelope fa-lg"></i> Email</span><br>
                         <li>
-                            <span class="informacion"><a href="mailto:{{infoPrincipal?.email1}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal?.email1}}</a><br></span>
+                            <span class="informacion"><a href="mailto:{{info?.email1}}" target="_blank" rel="noopener noreferrer">{{info?.email1}}</a><br></span>
                         </li>
-                        <li *ngIf="infoPrincipal?.email2!=''">
-                            <span class="informacion"><a href="mailto:{{infoPrincipal?.email2}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal?.email2}}</a></span>
+                        <li *ngIf="info?.email2!=''">
+                            <span class="informacion"><a href="mailto:{{info?.email2}}" target="_blank" rel="noopener noreferrer">{{info?.email2}}</a></span>
                         </li>
                     </ul>
                 </div>
@@ -57,8 +57,8 @@
                         <li>
                             <span class="informacion">
                                 <i class="fas fa-map-marker-alt fa-lg"></i>
-                                <a href="{{infoPrincipal?.direccion_link}}" target="_blank" rel="noopener noreferrer">
-                                    {{infoPrincipal?.direccion}}
+                                <a href="{{info?.direccion_link}}" target="_blank" rel="noopener noreferrer">
+                                    {{info?.direccion}}
                                 </a>
                             </span>
                         </li>
@@ -67,17 +67,17 @@
                 <div class="footer-menu">
                     <h2 class="footer-menu-name"> Redes sociales</h2>
                     <ul id="menu-redes" class="footer-menu-list">
-                        <li *ngIf="infoPrincipal?.facebook!=''">
-                            <span class="informacion"><a href="{{infoPrincipal?.facebook_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-lg"></i> {{infoPrincipal?.facebook}}</a></span>
+                        <li *ngIf="info?.facebook!=''">
+                            <span class="informacion"><a href="{{info?.facebook_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f fa-lg"></i> {{info?.facebook}}</a></span>
                         </li>
-                        <li *ngIf="infoPrincipal?.twitter!=''">
-                            <span class="informacion instagram"><a href="{{infoPrincipal?.twitter_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i> {{infoPrincipal?.twitter}}</a></span>
+                        <li *ngIf="info?.twitter!=''">
+                            <span class="informacion instagram"><a href="{{info?.twitter_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i> {{info?.twitter}}</a></span>
                         </li>
-                        <li *ngIf="infoPrincipal?.instagram!=''">
-                            <span class="informacion instagram"><a href="{{infoPrincipal?.instagram_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i> {{infoPrincipal?.instagram}}</a></span>
+                        <li *ngIf="info?.instagram!=''">
+                            <span class="informacion instagram"><a href="{{info?.instagram_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i> {{info?.instagram}}</a></span>
                         </li>
-                        <li *ngIf="infoPrincipal?.youtube!=''">
-                            <span class="informacion youtube"><a href="{{infoPrincipal?.youtube_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-lg"></i> {{infoPrincipal?.youtube}}</a></span>
+                        <li *ngIf="info?.youtube!=''">
+                            <span class="informacion youtube"><a href="{{info?.youtube_link}}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube fa-lg"></i> {{info?.youtube}}</a></span>
                         </li>
                     </ul>
                 </div>
@@ -100,7 +100,7 @@
         <div class="footer-copyright">
             <div class="footer-copyright-wrapper">
                 <p class="footer-copyright-text">
-                    <a class="footer-copyright-link" routerLink="bienvenido" target="_self">{{infoPrincipal?.frase_inf}}</a>
+                    <a class="footer-copyright-link" routerLink="bienvenido" target="_self">{{info?.frase_inf}}</a>
                 </p>
             </div>
         </div>

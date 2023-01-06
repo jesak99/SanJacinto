@@ -34,7 +34,7 @@
             <td mat-cell *matCellDef="let row">
               <mat-form-field>
                 <mat-label>Rol del usuario</mat-label>
-                <mat-select [(value)]="row.rol" (selectionChange)="updateRol(row.id, row.rol)">
+                <mat-select [(value)]="row.rol" (selectionChange)="updateRol(row.id, row.rol, row)">
                   <mat-option [value]="option" *ngFor="let option of roles">{{ option }}</mat-option>
                 </mat-select>
               </mat-form-field>

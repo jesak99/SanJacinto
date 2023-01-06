@@ -1,4 +1,4 @@
-<mat-sidenav-container class="container-side" [class.veda]="infoPrincipal.tema_pagi">
+<mat-sidenav-container class="container-side" [class.veda]="(currentInfo$ | async)?.tema_pagi">
     <!-- Contenido del menú oculto lateral -->
     <mat-sidenav #sidenav mode="over">
         <!-- Datos del usuario (imagen, nombre, rol) -->
@@ -83,7 +83,6 @@
         </div>
         <!-- Llamada al componente del Footer para mostrarse -->
         <app-footer></app-footer>
-        
         <button mat-fab *ngIf="usuario$ | async as usuario" matTooltip="Mostrar menu" (click)="sidenav.toggle()"><mat-icon>arrow_forward_ios</mat-icon></button>
     </mat-sidenav-content>
 </mat-sidenav-container>

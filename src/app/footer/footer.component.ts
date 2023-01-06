@@ -9,6 +9,7 @@ import { PrincipalService } from '../service/principal.service';
 })
 export class FooterComponent implements OnInit {
   infoPrincipal ?: Principal;
+  currentInfo$ = this.principalService.currentInformation$;
 
   constructor(private principalService: PrincipalService) { }
 

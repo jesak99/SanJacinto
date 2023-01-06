@@ -1,6 +1,19 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { Principal } from "../model/principal.model";
-import { Firestore, setDoc, doc, getDoc, query, where, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { 
+    Firestore, 
+    collection, 
+    docData, 
+    setDoc, 
+    doc, 
+    getDoc, 
+    query, 
+    getDocs, 
+    updateDoc, 
+    collectionData,
+    onSnapshot
+} from '@angular/fire/firestore';
+import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PrincipalService {
@@ -144,5 +157,10 @@ export class PrincipalService {
 
         const userRef = doc(this.firestore,'informacionPrincipal', 'principal').withConverter(principalConverter);
         return setDoc(userRef, info);
+    }
+
+    get currentInformation$(): Observable<Principal | null> {
+        const ref = doc(this.firestore, 'informacionPrincipal', 'principal');
+        return docData(ref) as Observable<Principal>;
     }
 }
