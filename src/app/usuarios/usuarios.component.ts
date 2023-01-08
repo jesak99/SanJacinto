@@ -22,6 +22,8 @@ export class UsuariosComponent implements OnInit {
   displayedColumns: string[] = ['id', 'email', 'nombre', 'rol'];
   dataSource: MatTableDataSource<Usuario>;
 
+  usuarios$ = this.userService.allUsers$;
+
   listUsuarios?: Usuario[]=[];
   selectedRol = ROLES[1];
   roles = ROLES;

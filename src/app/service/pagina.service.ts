@@ -1,60 +1,87 @@
 import { EventEmitter, Injectable } from "@angular/core";
+import { Firestore, collection, collectionData, docData, setDoc, doc, getFirestore, getDoc, query, where, getDocs, Timestamp } from '@angular/fire/firestore';
+import { concatMap, map, Observable, take } from 'rxjs';
 import { Pagina } from "../model/pagina.model";
 import { Publicacion } from "../model/publicacion.model";
 
 @Injectable({ providedIn: 'root' })
 export class PaginaService{
-    listChangedEvent: EventEmitter<Pagina[]> = new EventEmitter();
-    listaPaginas : Pagina[] = [
-        new Pagina(
-            "leyes-y-reglamentos","Leyes y Reglamentos",
-            "Conoce sobre las layes y reglamentos de nuestro municipio",
-            "https://i0.wp.com/lopezdoriga.com/wp-content/uploads/2018/11/identidad-gobierno-federal.jpg?fit=1200%2C645&ssl=1",
-            "../../assets/image832.png"
-        ),
-        new Pagina(
-            "seguridad",
-            "Seguridad","Conoce la seguridad de nuestro gobierno",
-            "https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/04/fondo-seguridad.jpg",
-            "../../assets/image832.png"
-        ),
-        new Pagina(
-            "casa-de-cultura",
-            "Casa de Cultura",
-            "Heberto Castillo",
-            "../../assets/casaCulturaFondo.jpeg",
-            "../../assets/image832.png"
-            ),
-        new Pagina(
-            "comunicacion",
-            "Comunicación",
-            "Actividades realizadas",
-            "https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/06/foto-fondo-01-2.jpg",
-            "../../assets/image832.png"
-        ),
-    ];
+    pagina:string='casa-de-cultura';
 
-    getPaginas(){
-        return this.listaPaginas;
+    constructor(private firestore: Firestore){}
+
+    setPagina(pagina:string){
+        this.pagina = pagina;
     }
 
-    getPagina(id : string){
-        return this.listaPaginas.find(x => x.id == id);
+    /**   */
+    get allPaginas$(): Observable<Pagina[]> {
+        const ref = collection(this.firestore, 'paginas');
+        const queryAll = query(ref, where('id','!=','bienvenido'));
+        return collectionData(queryAll) as Observable<Pagina[]>;
     }
 
-    agregarPagina(pagina: Pagina){
-        this.listaPaginas.push(pagina);
+    updatePag(pagina: Pagina){
+        const convertir = {
+            toFirestore: (pagina: Pagina) => {
+                return {
+                    id: pagina.id,
+                    nombre : pagina.nombre,
+                    descripcion : pagina.descripcion,
+                    fondoEncabezado : pagina.fondoEncabezado,
+                    fondoPagina : pagina.fondoPagina
+                };
+            },
+            fromFirestore: (snapshot: any, options: any) => {
+                const data = snapshot.data(options);
+                return new Pagina(
+                    pagina.id,
+                    data.nombre,
+                    data.descripcion,
+                    data.fondoEncabezado,
+                    data.fondoPagina,
+                );
+            }
+        };
+
+        const upPag = doc(this.firestore, 'paginas', pagina.id).withConverter(convertir);
+        return setDoc(upPag, pagina);
     }
 
-    updatePagina(id: string, pagina: Pagina){
-        this.listaPaginas[this.findPagina(id)]=pagina;
+    getPag(id: string){
+        const convertir = {
+            toFirestore: (pagina: Pagina) => {
+                return {
+                    id: pagina.id,
+                    nombre : pagina.nombre,
+                    descripcion : pagina.descripcion,
+                    fondoEncabezado : pagina.fondoEncabezado,
+                    fondoPagina : pagina.fondoPagina
+                };
+            },
+            fromFirestore: (snapshot: any, options: any) => {
+                const data = snapshot.data(options);
+                return new Pagina(
+                    data.id,
+                    data.nombre,
+                    data.descripcion,
+                    data.fondoEncabezado,
+                    data.fondoPagina,
+                );
+            }
+        };
+
+        const docRef = doc(this.firestore, "paginas", id).withConverter(convertir);
+        return getDoc(docRef);
     }
 
-    findPagina(id: string){
-        for(let i=0; i<this.listaPaginas.length; i++){
-            if(id==this.listaPaginas[i].id)
-                return i;
-        }
-        return 0;
+    get pagina$(): Observable<Pagina|null>{
+        const ref = doc(this.firestore, 'paginas', 'bienvenido');
+        return docData(ref) as Observable<Pagina>;
+    }
+
+    get getPag$(): Observable<Pagina|null>{
+        const ref = doc(this.firestore, 'paginas', this.pagina);
+        return docData(ref) as Observable<Pagina>;
     }
 }

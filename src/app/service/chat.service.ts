@@ -1,8 +1,8 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { Firestore, collection, collectionData, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, Timestamp } from '@angular/fire/firestore';
+import { Injectable } from "@angular/core";
+import { Firestore, collection, collectionData, addDoc, doc, query, where, Timestamp } from '@angular/fire/firestore';
 import { Usuario } from "../model/usuario.model";
 import { UsuarioService } from "./usuario.service";
-import { concatMap, from, map, Observable, take, tap } from 'rxjs';
+import { concatMap, map, Observable, take } from 'rxjs';
 import { Chat, Message } from "../model/chat";
 import { orderBy, updateDoc } from "firebase/firestore";
 

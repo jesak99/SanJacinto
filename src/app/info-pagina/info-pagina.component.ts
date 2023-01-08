@@ -14,9 +14,56 @@ import { concatMap } from 'rxjs';
   templateUrl: './info-pagina.component.html',
   styleUrls: ['./info-pagina.component.scss']
 })
-export class InfoPaginaComponent implements OnInit {
+export class InfoPaginaComponent implements OnInit, AfterViewInit {
   infoPrincipal?: Principal;
-  form!: FormGroup;
+
+  frase_izq = "";
+  frase_der = "";
+  frase_inf = "";
+  icono_enc = "";
+  icono_pri = "";
+  tema_pagi = false;
+  horario_1 = "";
+  horario_2 = "";
+  telefono1 = "";
+  telefono2 = "";
+  email1 = "";
+  email2 = "";
+  direccion = "";
+  direccion_link = "";
+  facebook = "";
+  facebook_link = "";
+  twitter = "";
+  twitter_link = "";
+  instagram = "";
+  instagram_link = "";
+  youtube = "";
+  youtube_link = "";
+
+  form = new FormGroup({
+    frase_izq: new FormControl(this.frase_izq, [Validators.required]),
+    frase_der: new FormControl(this.frase_der, [Validators.required]),
+    frase_inf: new FormControl(this.frase_inf, [Validators.required]),
+    icono_enc: new FormControl(this.icono_enc),
+    icono_pri: new FormControl(this.icono_pri),
+    tema_pagi: new FormControl(this.tema_pagi),
+    horario_1: new FormControl(this.horario_1, [Validators.required]),
+    horario_2: new FormControl(this.horario_2),
+    telefono1: new FormControl(this.telefono1, [Validators.required, Validators.pattern("[0-9]{10}$")]),
+    telefono2: new FormControl(this.telefono2, [Validators.pattern("[0-9]{10}$")]),
+    email1: new FormControl(this.email1, [Validators.required, Validators.email]),
+    email2: new FormControl(this.email2, [Validators.email]),
+    direccion: new FormControl(this.direccion, [Validators.required]),
+    direccion_link: new FormControl(this.direccion_link, [Validators.required]),
+    facebook: new FormControl(this.facebook),
+    facebook_link: new FormControl(this.facebook_link),
+    twitter: new FormControl(this.twitter),
+    twitter_link: new FormControl(this.twitter_link),
+    instagram: new FormControl(this.instagram),
+    instagram_link: new FormControl(this.instagram_link),
+    youtube: new FormControl(this.youtube),
+    youtube_link: new FormControl(this.youtube_link)
+  });
 
   public imagePath?: string;
   public pathImg1!: File;
@@ -36,61 +83,64 @@ export class InfoPaginaComponent implements OnInit {
     private upload: ImageUploadService
   ) { }
 
-  ngOnInit() {
-    this.infoPrincipal = this.principalService.getInfoLocal();
-    this.principalService.newInfo.subscribe((datosPrincipales: Principal) => {
-      this.infoPrincipal = this.principalService.getInfoLocal();
-    });
-
-    let frase_izq = this.infoPrincipal?.frase_izq;
-    let frase_der = this.infoPrincipal?.frase_der;
-    let frase_inf = this.infoPrincipal?.frase_inf;
-    this.imgURL = this.infoPrincipal?.icono_enc;
-    this.imgURL2 = this.infoPrincipal?.icono_pri;
-    let icono_enc = '';
-    let icono_pri = '';
-    let tema_pagi = this.infoPrincipal?.tema_pagi;
-    let horario_1 = this.infoPrincipal?.horario_1;
-    let horario_2 = this.infoPrincipal?.horario_2;
-    let telefono1 = this.infoPrincipal?.telefono1;
-    let telefono2 = this.infoPrincipal?.telefono2;
-    let email1 = this.infoPrincipal?.email1;
-    let email2 = this.infoPrincipal?.email2;
-    let direccion = this.infoPrincipal?.direccion;
-    let direccion_link = this.infoPrincipal?.direccion_link;
-    let facebook = this.infoPrincipal?.facebook;
-    let facebook_link = this.infoPrincipal?.facebook_link;
-    let twitter = this.infoPrincipal?.twitter;
-    let twitter_link = this.infoPrincipal?.twitter_link;
-    let instagram = this.infoPrincipal?.instagram;
-    let instagram_link = this.infoPrincipal?.instagram_link;
-    let youtube = this.infoPrincipal?.youtube;
-    let youtube_link = this.infoPrincipal?.youtube_link;
-
+  ngAfterViewInit(): void {
     this.form = new FormGroup({
-      frase_izq: new FormControl(frase_izq, [Validators.required]),
-      frase_der: new FormControl(frase_der, [Validators.required]),
-      frase_inf: new FormControl(frase_inf, [Validators.required]),
-      icono_enc: new FormControl(icono_enc),
-      icono_pri: new FormControl(icono_pri),
-      tema_pagi: new FormControl(tema_pagi),
-      horario_1: new FormControl(horario_1, [Validators.required]),
-      horario_2: new FormControl(horario_2),
-      telefono1: new FormControl(telefono1, [Validators.required, Validators.pattern("[0-9]{10}$")]),
-      telefono2: new FormControl(telefono2, [Validators.pattern("[0-9]{10}$")]),
-      email1: new FormControl(email1, [Validators.required, Validators.email]),
-      email2: new FormControl(email2, [Validators.email]),
-      direccion: new FormControl(direccion, [Validators.required]),
-      direccion_link: new FormControl(direccion_link, [Validators.required]),
-      facebook: new FormControl(facebook),
-      facebook_link: new FormControl(facebook_link),
-      twitter: new FormControl(twitter),
-      twitter_link: new FormControl(twitter_link),
-      instagram: new FormControl(instagram),
-      instagram_link: new FormControl(instagram_link),
-      youtube: new FormControl(youtube),
-      youtube_link: new FormControl(youtube_link)
+      frase_izq: new FormControl(this.frase_izq, [Validators.required]),
+      frase_der: new FormControl(this.frase_der, [Validators.required]),
+      frase_inf: new FormControl(this.frase_inf, [Validators.required]),
+      icono_enc: new FormControl(this.icono_enc),
+      icono_pri: new FormControl(this.icono_pri),
+      tema_pagi: new FormControl(this.tema_pagi),
+      horario_1: new FormControl(this.horario_1, [Validators.required]),
+      horario_2: new FormControl(this.horario_2),
+      telefono1: new FormControl(this.telefono1, [Validators.required, Validators.pattern("[0-9]{10}$")]),
+      telefono2: new FormControl(this.telefono2, [Validators.pattern("[0-9]{10}$")]),
+      email1: new FormControl(this.email1, [Validators.required, Validators.email]),
+      email2: new FormControl(this.email2, [Validators.email]),
+      direccion: new FormControl(this.direccion, [Validators.required]),
+      direccion_link: new FormControl(this.direccion_link, [Validators.required]),
+      facebook: new FormControl(this.facebook),
+      facebook_link: new FormControl(this.facebook_link),
+      twitter: new FormControl(this.twitter),
+      twitter_link: new FormControl(this.twitter_link),
+      instagram: new FormControl(this.instagram),
+      instagram_link: new FormControl(this.instagram_link),
+      youtube: new FormControl(this.youtube),
+      youtube_link: new FormControl(this.youtube_link)
     });
+  }
+
+  async ngOnInit() {
+    await this.principalService.getInfo().then(response => {
+      if (response.exists()) {
+        const tem = response.data();
+        this.frase_izq = tem.frase_izq;
+        this.frase_der = tem.frase_der;
+        this.frase_inf = tem.frase_inf;
+        this.imgURL = tem.icono_enc;
+        this.imgURL2 = tem.icono_pri;
+        this.tema_pagi = tem.tema_pagi;
+        this.horario_1 = tem.horario_1;
+        this.horario_2 = tem.horario_2;
+        this.telefono1 = tem.telefono1;
+        this.telefono2 = tem.telefono2;
+        this.email1 = tem.email1;
+        this.email2 = tem.email2;
+        this.direccion = tem.direccion;
+        this.direccion_link = tem.direccion_link;
+        this.facebook = tem.facebook;
+        this.facebook_link = tem.facebook_link;
+        this.twitter = tem.twitter;
+        this.twitter_link = tem.twitter_link;
+        this.instagram = tem.instagram;
+        this.instagram_link = tem.instagram_link;
+        this.youtube = tem.youtube;
+        this.youtube_link = tem.youtube_link;
+        this.ngAfterViewInit();
+      } else {
+        console.log("No existen datos")
+      }
+    }).catch(error => console.log(error));
   }
 
   async onSubmit() {
@@ -158,7 +208,7 @@ export class InfoPaginaComponent implements OnInit {
     if (this.pathImg2 != null) {
       const imgRef2 = ref(this.storage, 'imagenes/' + this.pathImg2.name);
       await uploadBytes(imgRef2, this.pathImg2).then((snapshot) => {
-      }).catch(error => 
+      }).catch(error =>
         this.snackBar.openFromComponent(AvisoComponent, {
           duration: 3000,
           data: {
@@ -181,11 +231,18 @@ export class InfoPaginaComponent implements OnInit {
           icono_pri = url;
         })
         .catch((error) => {
-          this.toast.error("Ha ocurrido un error :(");
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Ha ocurrido un error :(",
+              clase: "toast-error",
+              icono: "error",
+            },
+          })
         });
     }
 
-    const newInfo = new Principal(frase_izq, frase_der, frase_inf, icono_enc, icono_pri, tema_pagi, horario_1, horario_2, telefono1, telefono2, email1, email2, direccion, direccion_link, facebook, facebook_link, twitter, twitter_link, instagram, instagram_link, youtube, youtube_link);
+    const newInfo = new Principal(frase_izq??'', frase_der??'', frase_inf??'', icono_enc??'', icono_pri??'', tema_pagi??false, horario_1??'', horario_2??'', telefono1??'', telefono2??'', email1??'', email2??'', direccion??'', direccion_link??'', facebook??'', facebook_link??'', twitter??'', twitter_link??'', instagram??'', instagram_link??'', youtube??'', youtube_link??'');
     await this.principalService.updateInfoDatabase(newInfo).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,

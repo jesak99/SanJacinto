@@ -27,4 +27,6 @@ export class CardSolicitudComponent implements OnInit{
     }
   }
 
+  updateSolicitud(estado:boolean){}
+
 }

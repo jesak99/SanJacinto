@@ -17,10 +17,13 @@ import { UsuarioService } from '../service/usuario.service';
 
 @Injectable()
 export class PublicacionesComponent implements OnInit {
-  @Input() pagina?: Pagina;
+  @Input() pagina2?: Pagina;
   @Input() id: string='';
 
   usuario$ = this.usuarioService.currentUserProfile$;
+  pagina$ = this.paginas.getPag$;
+  publicaciones$ = this.publicaciones.publicaciones$;
+
 
   listPublicaciones : Publicacion[]=[];
 
@@ -31,36 +34,16 @@ export class PublicacionesComponent implements OnInit {
     private publicaciones: PublicacionService,
     private usuarioService: UsuarioService) { }
 
-  async ngOnInit(){
+  ngOnInit(){
     this.route.params.subscribe((params: Params)=>{
       if(params['id']){
         this.id=params['id'];
-        this.pagina = this.paginas.getPagina(this.id);
+        this.paginas.setPagina(params['id']);
+        this.publicaciones.setPagina(params['id']);
+        this.pagina$ = this.paginas.getPag$;
+        this.publicaciones$ = this.publicaciones.publicaciones$;
       }
     });
-
-    await this.publicaciones.getPublicacionesDB().then(response=>{
-      response.forEach((doc) => {
-        if (doc.exists()) {
-          var pub = new Publicacion(
-            doc.id,
-            doc.data().descripcion,
-            doc.data().duracion,
-            new Date(),
-            doc.data().fecha_inicio,
-            doc.data().fecha_fin,
-            doc.data().tipo_pub,
-            doc.data().formato,
-            doc.data().multimedia,
-            doc.data().oculto,
-            doc.data().pagina_id
-          );
-          this.listPublicaciones?.push(pub);
-        } else {
-          console.log("No such document!");
-        }
-      });
-      }).catch(error=>console.log(error));
   }
 
   openCrearPublicacion(): void {
@@ -76,28 +59,28 @@ export class PublicacionesComponent implements OnInit {
         formato : "",
         multimedia : "",
         oculto: false,
-        pagina_id : this.pagina?.id
+        pagina_id : this.id
       }
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      
     });
   }
 
-  openEditarPagina(): void {
+  openEditarPagina(pagina: Pagina): void {
     const dialogRef = this.dialog.open(FormPaginaComponent, {
       data: {
-        id: this.pagina?.id,
-        nombre: this.pagina?.nombre, 
-        descripcion: this.pagina?.descripcion, 
-        fondoEncabezado: this.pagina?.fondoEncabezado,
-        fondoPagina: this.pagina?.fondoPagina
+        id: pagina.id,
+        nombre: pagina.nombre, 
+        descripcion: pagina.descripcion, 
+        fondoEncabezado: pagina.fondoEncabezado,
+        fondoPagina: pagina.fondoPagina
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      
     });
   }
 

@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { map } from 'rxjs';
 import { Banner } from '../model/banner.model';
 import { Bienvenida } from '../model/bienvenida.model';
 import { Integrantes } from '../model/integrantes.model';
 import { Principal } from '../model/principal.model';
 import { BienvenidaService } from '../service/bienvenida.service';
+import { PaginaService } from '../service/pagina.service';
 import { PrincipalService } from '../service/principal.service';
 import { UsuarioService } from '../service/usuario.service';
 import { FormBannerComponent } from './form-banner/form-banner.component';
@@ -26,72 +28,29 @@ export interface Destacado {
   styleUrls: ['./bienvenido.component.scss']
 })
 export class BienvenidoComponent implements OnInit, AfterViewInit {
-  infoPrincipal ?: Principal;
   banners !: Banner[];
   integrantesGobierno !: Integrantes[];
   bienvenida !: Bienvenida;
-  text !: string;
+  //texto: string="";
+  //text:any;
 
   usuario$ = this.usuarioService.currentUserProfile$;
+  pagina$ = this.paginaService.pagina$;
+  principal$ = this.principalService.currentInformation$;
 
   constructor(
     private principalService: PrincipalService,
     private bienvenidaService: BienvenidaService,
+    private paginaService: PaginaService,
     public usuarioService: UsuarioService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void{
-
-    const text = document.getElementById("text");
-
     this.bienvenida = this.bienvenidaService.getBienvenida();
     this.bienvenidaService.newBienvenida.subscribe((bienvenida : Banner)=>{
       this.bienvenida = this.bienvenidaService.getBienvenida();
     });
-
-    text!.innerText = this.bienvenida.descripcion;
-
-    this.text=this.bienvenida.descripcion.replace(/\n/g,"<br>");
-    
-    this.infoPrincipal = this.principalService.getInfoLocal();
-    this.principalService.newInfo.subscribe((datosPrincipales : Principal)=>{
-      this.infoPrincipal = this.principalService.getInfoLocal();
-    });
-    /*
-    await this.principalService.getInfo().then(response => {
-      if (response.exists()) {
-        const tem = response.data();
-        const infoTem = new Principal(
-          tem.frase_izq,
-          tem.frase_der,
-          tem.frase_inf,
-          tem.icono_enc,
-          tem.icono_pri,
-          tem.tema_pagi,
-          tem.horario_1,
-          tem.horario_2,
-          tem.telefono1,
-          tem.telefono2,
-          tem.email1,
-          tem.email2,
-          tem.direccion,
-          tem.direccion_link,
-          tem.facebook,
-          tem.facebook_link,
-          tem.twitter,
-          tem.twitter_link,
-          tem.instagram,
-          tem.instagram_link,
-          tem.youtube,
-          tem.youtube_link
-        );
-        this.infoPrincipal=infoTem;
-      } else {
-        console.log("No existen datos")
-      }
-    }).catch(error => console.log(error));*/
-
 
     this.banners = this.bienvenidaService.getBanners();
     this.bienvenidaService.newBienvenida.subscribe((banners : Banner)=>{
@@ -102,10 +61,14 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
     this.bienvenidaService.newBienvenida.subscribe((integrantes : Integrantes)=>{
       this.integrantesGobierno = this.bienvenidaService.getIntegrantes();
     });
+
+    
+    //this.text = document.getElementById("text");
+    //this.texto=this.bienvenida.descripcion.replace(/\n/g,"<br>");
+    //this.text!.innerText = this.texto;
   }
 
   ngAfterViewInit(){
-    
   }
 
   openBanners(): void{

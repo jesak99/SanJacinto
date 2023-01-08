@@ -5,7 +5,21 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "asunto",
+          "fieldPath": "estado",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "fecha",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "solicitudes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "estado",
           "order": "ASCENDING"
         },
         {

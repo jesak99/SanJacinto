@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background: url('{{bienvenida.imagen_fondo}}')center / cover no-repeat !important; background-attachment: fixed !important;">
+<div *ngIf="pagina$ | async as pagina" class="container-fluid" style="background: url('{{pagina.fondoPagina}}')center / cover no-repeat !important; background-attachment: fixed !important;">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li *ngFor="let banner of banners; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.posicion" class="{{banner.clase}}"></li>
@@ -25,21 +25,14 @@
         <div class="row">
             <div class="col info-sanjacinto">
                 <div class="row">
-                    <h1>{{bienvenida.titulo}}</h1>
+                    <h1>{{pagina.nombre}}</h1>
                 </div>
-                <p id="text"></p>
-                <!--
-                <p>
-                    Es un municipio en la región de los valles centrales, parte central del estado de Oaxaca, México.<br>
-                    <span class="color">Su nombre significa «Lugar sobre las cementeras», proveniente del
-                        náhuatl.</span><br>
-                    Conoce lo que San Jacinto Amilpas le ofrece culturalmente al Mundo.
-                </p>-->
+                <p>{{pagina.descripcion}}</p>
             </div>
-            <div class="col imagen-promocional">
+            <div class="col imagen-promocional"  *ngIf="pagina$ | async as pagina">
                 <a href="https://www.facebook.com/SanJacintoLate/videos/1260457144486327" target="_blank">
                     <img class="img-fluid"
-                    src="{{bienvenida.imagen_bienvenida}}" alt="">
+                    [src]="pagina.fondoEncabezado" alt="">
                 </a>
             </div>
         </div>
@@ -64,7 +57,7 @@
                     <div class="row"><button mat-button class="boton-rojo" routerLink="/atencion-ciudadana">Escribir Mensaje</button></div>
                 </div>
 
-                <div class="box box-down blue">
+                <div class="box box-down blue" *ngIf="principal$ |async as infoPrincipal">
                     <h3>Visítanos</h3>
                     <p>
                         <a href="{{infoPrincipal?.direccion_link}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal?.direccion}}</a>

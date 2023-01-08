@@ -16,26 +16,21 @@
             </mat-form-field>
         </div>
         <div class="row">
-            <mat-form-field class="full-width">
-                <mat-label>Imagen de fondo de encabezado</mat-label>
-                <input matInput type="text" placeholder="Ej. Leyes y Reglamentos" formControlName="fondoEncabezado">
-                <mat-error *ngIf="form.get('fondoEncabezado')?.hasError('required')">Este campo es requerido</mat-error>
-            </mat-form-field>
+            <mat-label>Imagen de bienvenida</mat-label>
+            <input #file type="file" accept='image/*' (change)="preview(file.files)" formControlName="fondoEncabezado">
+        </div>
+        <div class="row imagen-preview">
+            <img class="img-fluid" [src]="imgURL" *ngIf="imgURL">
         </div>
         <div class="row">
-            <img class="img-fluid" src="{{form.value.fondoEncabezado}}" alt="">
+            <mat-label>Imagen de fondo de página</mat-label>
+            <input #file2 type="file" accept='image/*' (change)="preview2(file2.files)" formControlName="fondoPagina">
         </div>
         <div class="row">
-            <mat-form-field class="full-width">
-                <mat-label>Imagen de fondo de página</mat-label>
-                <input matInput type="text" placeholder="Ej. Leyes y Reglamentos" formControlName="fondoPagina">
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <img class="img-fluid" src="{{form.value.fondoPagina}}" alt="">
+            <img class="img-fluid" [src]="imgURL2" *ngIf="imgURL2">
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button type="submit" [disabled]="form.invalid" [mat-dialog-close]="true"><mat-icon>save</mat-icon>Guardar cambios</button>
+        <button mat-raised-button type="submit" [disabled]="form.invalid"><mat-icon>save</mat-icon>Guardar cambios</button>
     </mat-dialog-actions>
 </form>

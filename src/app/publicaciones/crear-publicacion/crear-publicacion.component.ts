@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
-import { Publicacion } from 'src/app/model/publicacion.model';
+import { Publicacion, PublicacionTemporal } from 'src/app/model/publicacion.model';
 import { PublicacionService } from 'src/app/service/publicacion.service';
 import { CardPublicacionComponent } from '../card-publicacion/card-publicacion.component';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
@@ -179,17 +179,37 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
     if(this.editMode){
       
     }else{
-      const pub = new Publicacion("",descripcion,this.duracion, new Date(), fecha_inicio, fecha_fin, this.tipo_pub, formato, multimedia, visibilidad, this.pagina_id);
-      await this.publicacionService.addPublicacion(pub).then(response=>{
+      const pub: PublicacionTemporal = {
+        id: "",
+        descripcion: descripcion,
+        duracion: this.duracion, 
+        fecha_pub: new Date(), 
+        fecha_inicio: fecha_inicio, 
+        fecha_fin: fecha_fin, 
+        tipo_pub: this.tipo_pub, 
+        formato: formato, 
+        multimedia: multimedia, 
+        oculto: visibilidad, 
+        pagina_id: this.pagina_id
+      };
+      await this.publicacionService.addPub(pub).then(response=>{
         this.snackBar.openFromComponent(AvisoComponent, {
           duration: 3000,
-          data: "Se ha publicado correctamente",
+          data: {
+            texto: "Publicacion exitosa",
+            clase: "toast-success",
+            icono: "check",
+          },
         });
         this.dialogRef.close();
       }).catch(error=>{
         this.snackBar.openFromComponent(AvisoComponent, {
           duration: 3000,
-          data: "Ha ocurrido un error intente mas tarde",
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
         });
       })
       //const codigo = "PUB"+(this.publicacionService.getPublicaciones().length+1);

@@ -11,7 +11,7 @@
             <mat-card-header mat-card-image class="author">
                 <div mat-card-avatar class="image-perfil"></div>
                 <mat-card-title>Municipio de San Jacinto Amilpas</mat-card-title>
-                <mat-card-subtitle>{{publicacion.fecha_pub | date:'medium'}}</mat-card-subtitle>
+                <mat-card-subtitle>{{publicacion.fecha_pub | dateDisplay}}</mat-card-subtitle>
             </mat-card-header>
 
             <div id="iframe" mat-card-image *ngIf="publicacion.formato=='iframe'"></div>

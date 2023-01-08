@@ -1,3 +1,22 @@
+:host ::ng-deep .mat-form-field-label{
+    color: rgb(92, 92, 92) !important;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(98, 17, 50) !important;
+}
+  
+:host ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(98, 17, 50) !important;
+} 
+  
+:host ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: rgb(98, 17, 50) !important;;
+}
+
 .mat-dialog-title {
     font-family: 'Exo 2', sans-serif;
     font-weight: bold;
@@ -53,6 +72,19 @@
 
 .mat-raised-button{
     width: 100%;
-    background-color: rgb(98, 17, 50);
+    height: 40px;
+    margin: 10px auto;
+    border-radius: 25px !important;
+    justify-content: center;
+    display: block;
     color: #fff;
+    background: rgb(98, 17, 50);
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
 }
