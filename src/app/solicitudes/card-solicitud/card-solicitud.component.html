@@ -64,5 +64,5 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <mat-slide-toggle [checked]="solicitudIn.estado" color="primary">Marcar como atendido</mat-slide-toggle>
+    <mat-slide-toggle [checked]="solicitudIn.estado" color="primary" (change)="toggle($event)">Marcar como atendido</mat-slide-toggle>
 </mat-dialog-actions>

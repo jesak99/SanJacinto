@@ -1,3 +1,22 @@
+:host ::ng-deep .mat-form-field-label{
+    color: rgb(92, 92, 92) !important;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(98, 17, 50) !important;
+}
+  
+:host ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    //background-color: rgb(98, 17, 50) !important;
+} 
+  
+:host ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: rgb(98, 17, 50) !important;;
+}
+
 .mat-dialog-title {
     font-family: 'Exo 2', sans-serif;
     font-weight: bold;

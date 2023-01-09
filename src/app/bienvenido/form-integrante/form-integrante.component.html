@@ -61,7 +61,7 @@
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button *ngIf="!editMode" mat-raised-button type="submit" [mat-dialog-close]="true" [disabled]="form.invalid"><mat-icon>add</mat-icon>Añadir</button>
-        <button *ngIf="editMode" mat-raised-button type="submit" [mat-dialog-close]="true" [disabled]="form.invalid"><mat-icon>save</mat-icon>Guardar cambios</button>
+        <button *ngIf="!editMode" mat-raised-button type="submit" [disabled]="form.invalid"><mat-icon>add</mat-icon>Añadir</button>
+        <button *ngIf="editMode" mat-raised-button type="submit" [disabled]="form.invalid"><mat-icon>save</mat-icon>Guardar cambios</button>
     </mat-dialog-actions>
 </form>

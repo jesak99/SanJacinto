@@ -198,29 +198,25 @@ export class AtencionCiudadanaComponent implements OnInit {
       solicitud: solicitud
     };
 
-    this.solicitudService.addSolicitud(temp).pipe(
-      this.toast.observe({
-        success: 'Se ha enviado su solicitud',
-        loading: 'Enviando ...',
-        error: 'Ha ocurrido un error, intente de nuevo',
-      })
-    ).subscribe(()=>{this.formSolicitud.reset()}
-    );
-
-    /*
-    const atencionCiudadana = new Solicitud('',Timestamp.fromDate(new Date()), asunto, nombre, apellidoPaterno, apellidoMaterno, calle, numExterior, numInterior, colonia, telefono, email, solicitud, false);
-
-    await this.solicitudService.addSolicitud(atencionCiudadana).then(response => {
-      this.formSolicitud.reset();
-      this.snackBar.openFromComponent(AvisoComponent, {
-        duration: 5000,
-        data: "Hemos recibido tu solicitud te contactaremos a la brevedad",
-      });
-    }).catch(error=>{
+    await this.solicitudService.addSolicitud(temp).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,
-        data: "Ha ocurrido un error intentelo de nuevo",
+        data: {
+          texto: "Hemos recibido tu solicitud te contactaremos a la brevedad",
+          clase: "toast-success",
+          icono: "check",
+        },
       });
-    })*/
+      this.formSolicitud.reset();
+    }).catch(error => {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    });
   }
 }

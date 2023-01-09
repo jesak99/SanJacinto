@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { map } from 'rxjs';
-import { Banner } from '../model/banner.model';
 import { Bienvenida } from '../model/bienvenida.model';
 import { Integrantes } from '../model/integrantes.model';
+import { Pagina } from '../model/pagina.model';
 import { Principal } from '../model/principal.model';
-import { BienvenidaService } from '../service/bienvenida.service';
+import { BannerService } from '../service/banner.service';
+import { IntegranteService } from '../service/integrantes.service';
 import { PaginaService } from '../service/pagina.service';
 import { PrincipalService } from '../service/principal.service';
 import { UsuarioService } from '../service/usuario.service';
@@ -28,7 +28,6 @@ export interface Destacado {
   styleUrls: ['./bienvenido.component.scss']
 })
 export class BienvenidoComponent implements OnInit, AfterViewInit {
-  banners !: Banner[];
   integrantesGobierno !: Integrantes[];
   bienvenida !: Bienvenida;
   //texto: string="";
@@ -37,32 +36,19 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
   usuario$ = this.usuarioService.currentUserProfile$;
   pagina$ = this.paginaService.pagina$;
   principal$ = this.principalService.currentInformation$;
+  banners$ = this.bannerService.banners$;
+  integrantes$ = this.integranteService.integrantes$;
 
   constructor(
     private principalService: PrincipalService,
-    private bienvenidaService: BienvenidaService,
+    private bannerService: BannerService,
+    private integranteService: IntegranteService,
     private paginaService: PaginaService,
     public usuarioService: UsuarioService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void{
-    this.bienvenida = this.bienvenidaService.getBienvenida();
-    this.bienvenidaService.newBienvenida.subscribe((bienvenida : Banner)=>{
-      this.bienvenida = this.bienvenidaService.getBienvenida();
-    });
-
-    this.banners = this.bienvenidaService.getBanners();
-    this.bienvenidaService.newBienvenida.subscribe((banners : Banner)=>{
-      this.banners = this.bienvenidaService.getBanners();
-    });
-
-    this.integrantesGobierno = this.bienvenidaService.getIntegrantes();
-    this.bienvenidaService.newBienvenida.subscribe((integrantes : Integrantes)=>{
-      this.integrantesGobierno = this.bienvenidaService.getIntegrantes();
-    });
-
-    
     //this.text = document.getElementById("text");
     //this.texto=this.bienvenida.descripcion.replace(/\n/g,"<br>");
     //this.text!.innerText = this.texto;
@@ -83,13 +69,13 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
     this.dialog.open(FormIntegranteComponent,{});
   }
 
-  openAjustes(): void{
+  openAjustes(pagina: Pagina): void{
     const dialogRef = this.dialog.open(FormBienvenidoComponent,{
       data:{
-        titulo: this.bienvenida.titulo,
-        descripcion: this.bienvenida.descripcion,
-        imagen_bienvenida: this.bienvenida.imagen_bienvenida,
-        imagen_fondo: this.bienvenida.imagen_fondo
+        titulo: pagina.nombre,
+        descripcion: pagina.descripcion,
+        imagen_bienvenida: pagina.fondoEncabezado,
+        imagen_fondo: pagina.fondoPagina
       }
     });
 

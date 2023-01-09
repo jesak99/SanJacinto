@@ -30,24 +30,19 @@ h2{
     }
 }
 
-:host ::ng-deep .mat-form-field-label{
-    color: rgb(92, 92, 92) !important;
+/* label style */
+:host ::ng-deep.mat-tab-label{
+    color:  black;
+    min-width: 60px!important;
 }
-
-:host ::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: rgb(98, 17, 50) !important;
+/* focus style */
+:host ::ng-deep.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus{
+    color:rgb(98, 17, 50);
 }
-  
-:host ::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    //background-color: rgb(98, 17, 50) !important;
+/* ink bar style */
+:host ::ng-deep.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background-color: rgb(98, 17, 50) !important;
 } 
-  
-:host ::ng-deep.mat-form-field-ripple {
-   /*change color of underline when focused*/
-   background-color: rgb(98, 17, 50) !important;;
-}
 
 .row{
     display: flex;

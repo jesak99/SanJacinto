@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { Bienvenida } from 'src/app/model/bienvenida.model';
 import { Pagina } from 'src/app/model/pagina.model';
-import { BienvenidaService } from 'src/app/service/bienvenida.service';
 import { PaginaService } from 'src/app/service/pagina.service';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -42,7 +41,6 @@ export class FormBienvenidoComponent implements OnInit, AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<FormBienvenidoComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: Bienvenida,
-    private bienvenidaService:BienvenidaService,
     private paginaService: PaginaService,
     private storage: Storage,
     private snackBar: MatSnackBar
@@ -210,9 +208,6 @@ export class FormBienvenidoComponent implements OnInit, AfterViewInit {
         },
       });
     });
-
-    //this.paginaService.updatePag(pagTem);
-    //this.bienvenidaService.updateBienvenida('bienvenido',titulo,descripcion,imagen_bienvenida,imagen_fondo);
   }
 
 }

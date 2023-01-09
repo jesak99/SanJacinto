@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Integrantes } from 'src/app/model/integrantes.model';
-import { BienvenidaService } from 'src/app/service/bienvenida.service';
+import { IntegranteService } from 'src/app/service/integrantes.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { FormIntegranteComponent } from '../form-integrante/form-integrante.component';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AvisoComponent } from 'src/app/aviso/aviso.component';
 
 @Component({
   selector: 'app-card-usuario',
@@ -16,8 +18,9 @@ export class CardUsuarioComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private bienvenidaService: BienvenidaService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private integranteService: IntegranteService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +45,26 @@ export class CardUsuarioComponent implements OnInit {
     });
   }
 
-  deleteIntegrante(integrante: Integrantes){
-    this.bienvenidaService.deleteIntegrante(integrante);
+  async deleteIntegrante(integrante: Integrantes){
+    this.integranteService.deleteIntegrante(integrante).then(response=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Se ha eliminado el integrante",
+          clase: "toast-warning",
+          icono: "info",
+        },
+      });
+    }).catch(error => {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    });
   }
 
 }

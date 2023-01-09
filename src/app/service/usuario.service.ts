@@ -17,37 +17,8 @@ import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
-    usuarioInfo: EventEmitter<Usuario> = new EventEmitter();
-    listaUsers: EventEmitter<Usuario[]> = new EventEmitter();
-    usuario?: Usuario;
-    listUsuarios?: Usuario[]=[];
 
     constructor(private auth: AuthService, private firestore: Firestore) { }
-
-    /*
-    register({ email, password }: any) {
-        return from(createUserWithEmailAndPassword(this.auth, email, password));
-    }
-
-    login({ email, password }: any) {
-        return from(signInWithEmailAndPassword(this.auth, email, password));
-    }
-
-    loginWithGoogle() {
-        return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
-    }
-
-    loginWithFacebook() {
-        const facebook = new FacebookAuthProvider();
-        facebook.addScope('email');
-        facebook.addScope('public_profile');
-        return signInWithPopup(getAuth(), facebook);
-    }*/
-
-    /*
-    logout() {
-        return signOut(this.auth);
-    }*/
 
     addUser(user: Usuario) {
         return setDoc(doc(this.firestore, 'usuarios', user.id), {
@@ -87,15 +58,6 @@ export class UsuarioService {
         return getDoc(docRef);
     }
 
-    setUser(user: Usuario) {
-        this.usuario = user;
-        this.usuarioInfo.emit(this.usuario);
-    }
-
-    getInfoUser() {
-        return this.usuario;
-    }
-
     getUsers() {
         const userConverter = {
             toFirestore: (usuario: Usuario) => {
@@ -115,11 +77,7 @@ export class UsuarioService {
 
         return getDocs(collection(this.firestore, "usuarios").withConverter(userConverter));
     }
-/*
-    logout() {
-        return from(this.auth.signOut());
-    }
-*/
+
     get allUsers$(): Observable<Usuario[]> {
         const ref = collection(this.firestore, 'usuarios');
         const queryAll = query(ref);
