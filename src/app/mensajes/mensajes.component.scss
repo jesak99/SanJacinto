@@ -1,117 +1,219 @@
-.container {
-    margin-top: 150px;
-    display: flex;
-    height: calc(100vh - 70px);
+:host ::ng-deep .mat-form-field-label{
+    color: rgb(92, 92, 92) !important;
+}
 
-    > .chat-list {
-        width: 40%;
-        margin: 16px;
-        background: url("../../assets/fondoCafe.png") left / cover no-repeat;
-        border-radius: 16px;
+:host ::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: rgb(98, 17, 50) !important;
+}
+  
+:host ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: rgb(98, 17, 50) !important;;
+}
 
-        .chat-title {
+:host ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: rgb(98, 17, 50)!important;
+}
 
-            display: flex;
-            justify-content: space-between;
+//input outline color
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgb(98, 17, 50)!important;
+    // opacity: 1!important;
+}
 
-            .chat-name {
-                font-weight: 500;
-            }
-
-            .chat-date {
-                font-size: 0.7rem;
-                color: rgba(0,0,0,0.7)
-            }
-            
-        }
-
-        .search-input {
-            margin: 24px;
-        }
-    }
-
-    > .messages {
-        width: 60%;
-        padding: 24px;
-        margin: 16px;
-        margin-left: 8px;
-        border-radius: 16px;
-        background: rgba(0,0,0,0.05);
-
-        .messages-header {
-            display: flex;
-            margin-bottom: 8px;
-
-             > img {
-                 border-radius: 50%;
-                 object-fit: cover;
-                 margin-right: 16px;
-                 height: 35px;
-             }
-
-             > h2 {
-                margin: 0;
-             }
-        }
-
-        .chat-area {
-            height: calc(100vh - 270px);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-
-            overflow: auto;
-
-            > :first-child {
-                margin-top: auto;
-            }
-
-            .chat-bubble-container {
-
-                display: flex;
-                width: 100%;
-                justify-content: flex-start;
-
-                > .chat-bubble {
-                    background: white;
-                    padding-top: 8px;
-                    padding-bottom: 18px;
-                    padding-left: 8px;
-                    padding-right: 100px;
-                    margin-bottom: 16px;
-                    border-radius: 8px;
-                    width: fit-content;
-
-                    position: relative;
-
-                    > .chat-time {
-                        position: absolute;
-                        bottom: 2px;
-                        right: 8px;
-                        font-size: 0.7rem;
-                        color: rgba(0,0,0,0.6);
-                    }
-                }
-                
-            }
-
-            .chat-bubble-container.sender {
-                justify-content: flex-end;
-                
-                > .chat-bubble {
-                    background: #c5cae9;
-                }
-            }
-
-        }
-
-        .input-area {
-            padding-top: 16px;
-            padding-bottom: 8px;
-        }
-    }
+//mat-input focused color
+:host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgb(98, 17, 50)!important;
 }
 
 mat-form-field {
     width: 100%;
+}
+
+.container-fluid {
+    max-width: 1500px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+mat-drawer-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-input {
+    margin: 12px;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+.mat-raised-button{
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: rgb(98, 17, 50);
+    font-size: 1em;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    transition: .2s ease-in;
+}
+
+.mat-button{
+    width: 100%;
+    border-radius: 25px;
+    justify-content: center;
+    display: block;
+    font-size: 1em;
+    margin-top: 5px;
+    outline: none;
+    border: none;
+    transition: .2s ease-in;
+
+    >.img-fluid{
+        max-width: 200px!important;
+    }
+}
+
+.chat-title {
+
+    display: flex;
+    justify-content: space-between;
+
+    .chat-name {
+        font-weight: 500;
+    }
+
+    .chat-date {
+        font-size: 0.7rem;
+        color: rgba(0, 0, 0, 0.7)
+    }
+
+}
+
+.mat-drawer{
+    background-image: url('../../assets/fondoChat3.png');
+}
+
+.mat-list-option{
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+.messages {
+    max-width: 800px;
+    width: 100%;
+    padding: 24px;
+    margin: 16px;
+    margin-left: 8px;
+    margin-top: 120px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.05);
+
+    .espacio{
+        background-image: url('../../assets/fondoChat2.png');
+        width: 100%;
+        background-color: #fff;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+
+        >h1{
+            margin-top: 20px;
+            font-family: 'Exo 2', sans-serif;
+            text-align: center;
+        }
+    }
+
+    .messages-header {
+        display: flex;
+        background-color: white;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+        width: 100%;
+
+        >img {
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 16px;
+            height: 35px;
+        }
+
+        >h2 {
+            margin: 0;
+        }
+    }
+
+    .chat-area {
+        height: calc(100vh - 300px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        overflow: auto;
+        background-image: url('../../assets/fondoChat2.png');
+        background-color: white;
+
+        > :first-child {
+            margin-top: auto;
+        }
+
+        .chat-bubble-container {
+
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+
+            >.chat-bubble {
+                background: rgb(231, 231, 231);
+                padding-top: 8px;
+                padding-bottom: 18px;
+                padding-left: 8px;
+                padding-right: 100px;
+                margin-bottom: 16px;
+                border-radius: 8px;
+                width: fit-content;
+                color: black;
+
+                position: relative;
+
+                >.chat-time {
+                    position: absolute;
+                    bottom: 2px;
+                    right: 8px;
+                    font-size: 0.7rem;
+                    color: rgba(0, 0, 0, 0.6);
+                }
+            }
+
+        }
+
+        .chat-bubble-container.sender {
+            justify-content: flex-end;
+
+            >.chat-bubble {
+                //background: #c5cae9;
+                color: white;
+                background-color: rgb(98, 17, 50);
+
+                >.chat-time{
+                    color: lightgray;
+                }
+            }
+
+        }
+
+    }
+
+    .input-area {
+        width: 100%;
+        background-color: white;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+    }
 }
