@@ -152,16 +152,30 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
     }
 
     if(this.tipo_pub == "Subir imagen/video desde dispositivo"){
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo multimedia",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef = ref(this.storage, 'publicaciones/' + this.file.name);
       await uploadBytes(imgRef, this.file).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+        
       }).catch(error=>console.log(error));
       await getDownloadURL(imgRef)
       .then((url) => {
           multimedia = url;
       })
       .catch((error) => {
-          // Handle any errors
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
       });
       formato = this.format;
     }
@@ -179,6 +193,13 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
     if(this.editMode){
       
     }else{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Creando publicación",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const pub: PublicacionTemporal = {
         id: "",
         descripcion: descripcion,

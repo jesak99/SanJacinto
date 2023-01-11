@@ -113,6 +113,13 @@ export class FormBienvenidoComponent implements OnInit, AfterViewInit {
     var imagen_fondo = this.imgURL2;
 
     if (this.pathImg1 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo imagen de bienvenida",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -151,6 +158,13 @@ export class FormBienvenidoComponent implements OnInit, AfterViewInit {
     }
 
     if (this.pathImg2 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo imagen de fondo de página",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef2 = ref(this.storage, 'imagenes/' + this.pathImg2.name);
       await uploadBytes(imgRef2, this.pathImg2).then((snapshot) => {
       }).catch(error =>
@@ -187,6 +201,13 @@ export class FormBienvenidoComponent implements OnInit, AfterViewInit {
         });
     }
 
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Actualizando los datos",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     const pagTem = new Pagina('bienvenido', titulo??'', descripcion??'', imagen_bienvenida??'', imagen_fondo??'');
     await this.paginaService.updatePag(pagTem).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {

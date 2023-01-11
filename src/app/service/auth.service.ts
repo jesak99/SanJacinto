@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { 
     Auth, 
     getAuth, 
@@ -22,11 +22,11 @@ export class AuthService {
     constructor(private auth: Auth) { }
 
     register({ email, password }: any) {
-        return from(createUserWithEmailAndPassword(this.auth, email, password));
+        return createUserWithEmailAndPassword(this.auth, email, password);
     }
 
     login({ email, password }: any) {
-        return from(signInWithEmailAndPassword(this.auth, email, password));
+        return signInWithEmailAndPassword(this.auth, email, password);
     }
 
     loginWithGoogle() {
@@ -35,8 +35,6 @@ export class AuthService {
 
     loginWithFacebook() {
         const facebook = new FacebookAuthProvider();
-        //facebook.addScope('email');
-        //facebook.addScope('public_profile');
         return signInWithPopup(getAuth(), facebook);
     }
 
@@ -53,6 +51,13 @@ export class AuthService {
             return updateProfile(user, profileData);
           })
         );
+    }
+
+    updateProfileUser(usuario: Usuario){
+        return updateProfile(this.auth.currentUser!, {
+            displayName: usuario.nombre,
+            photoURL: usuario.fotoPerfil
+        })
     }
 
     deleteUsuario(){

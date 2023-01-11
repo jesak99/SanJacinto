@@ -30,14 +30,15 @@ export interface Destacado {
 export class BienvenidoComponent implements OnInit, AfterViewInit {
   integrantesGobierno !: Integrantes[];
   bienvenida !: Bienvenida;
-  //texto: string="";
-  //text:any;
+  texto: string='';
+  text:any;
 
   usuario$ = this.usuarioService.currentUserProfile$;
   pagina$ = this.paginaService.pagina$;
   principal$ = this.principalService.currentInformation$;
   banners$ = this.bannerService.banners$;
   integrantes$ = this.integranteService.integrantes$;
+  pagina!:Pagina|null;
 
   constructor(
     private principalService: PrincipalService,
@@ -49,12 +50,28 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void{
+    this.text = document.getElementById("text");
+    this.paginaService.pagina$
+    .pipe()
+    .subscribe((pagina)=>{
+      this.pagina = pagina;
+      this.texto = pagina?.descripcion??'';
+      this.text!.innerText = this.texto;
+    })
     //this.text = document.getElementById("text");
     //this.texto=this.bienvenida.descripcion.replace(/\n/g,"<br>");
     //this.text!.innerText = this.texto;
   }
 
   ngAfterViewInit(){
+    this.text = document.getElementById("text");
+    this.paginaService.pagina$
+    .pipe()
+    .subscribe((pagina)=>{
+      this.pagina = pagina;
+      this.texto = pagina?.descripcion??'';
+      this.text!.innerText = this.texto;
+    })
   }
 
   openBanners(): void{

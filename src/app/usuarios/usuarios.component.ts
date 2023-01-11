@@ -71,7 +71,6 @@ export class UsuariosComponent implements OnInit {
     }).catch(error=>console.log(error));
     this.dataSource = new MatTableDataSource(this.listUsuarios);
     this.ngAfterViewInit();
-    console.log(this.listUsuarios);
   }
 
   ngAfterViewInit() {
@@ -89,6 +88,13 @@ export class UsuariosComponent implements OnInit {
   }
 
   async updateRol(id: string,rol: string, usuario:Usuario){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Actualizando el rol de "+usuario.nombre,
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     await this.userService.updateRol(id, rol).then(respose=>{
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,

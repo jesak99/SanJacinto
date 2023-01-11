@@ -178,6 +178,14 @@ export class InfoPaginaComponent implements OnInit, AfterViewInit {
     const youtube_link = this.form.value.youtube_link;
 
     if (this.pathImg1 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo icono de encabezado",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
+
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -216,6 +224,13 @@ export class InfoPaginaComponent implements OnInit, AfterViewInit {
     }
 
     if (this.pathImg2 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo icono principal",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef2 = ref(this.storage, 'imagenes/' + this.pathImg2.name);
       await uploadBytes(imgRef2, this.pathImg2).then((snapshot) => {
       }).catch(error =>
@@ -253,6 +268,13 @@ export class InfoPaginaComponent implements OnInit, AfterViewInit {
     }
 
     const newInfo = new Principal(frase_izq??'', frase_der??'', frase_inf??'', icono_enc??'', icono_pri??'', tema_pagi??false, horario_1??'', horario_2??'', telefono1??'', telefono2??'', email1??'', email2??'', direccion??'', direccion_link??'', facebook??'', facebook_link??'', twitter??'', twitter_link??'', instagram??'', instagram_link??'', youtube??'', youtube_link??'');
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Actualizando los datos",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     await this.principalService.updateInfoDatabase(newInfo).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,

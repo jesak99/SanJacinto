@@ -68,6 +68,13 @@ export class FormPaginaComponent implements OnInit {
     var fondoPagina = this.imgURL2;
 
     if (this.pathImg1 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo imagen de encabezado",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -106,6 +113,13 @@ export class FormPaginaComponent implements OnInit {
     }
 
     if (this.pathImg2 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo imagen de fondo de página",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef2 = ref(this.storage, 'imagenes/' + this.pathImg2.name);
       await uploadBytes(imgRef2, this.pathImg2).then((snapshot) => {
       }).catch(error =>
@@ -142,6 +156,13 @@ export class FormPaginaComponent implements OnInit {
         });
     }
 
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Acualizando los datos",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     const pagTem = new Pagina(this.id, nombre, descripcion, fondoEncabezado, fondoPagina);
     await this.paginaService.updatePag(pagTem).then(response => {
       this.snackBar.openFromComponent(AvisoComponent, {

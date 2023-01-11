@@ -32,41 +32,69 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    this.auth.register(this.formReg.value)
-    .pipe(
-      this.toast.observe({
-        success: 'Se ha registrado correctamente',
-        loading: 'Cargando ...',
-        error: 'Ha ocurrido un error',
-      })
-    )
-    .subscribe(() => {
-      this.formReg.reset();
+  async onSubmit(){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Cargando",
+        clase: "toast-loading",
+        icono: "info",
+      },
     });
-    /*
-      .then(
+    this.auth.register(this.formReg.value)
+    .then(
         async response => {
-          const user = new Usuario(response.user.uid, response.user.email, response.user.email,response.user.photoURL, 'normal');
-          await this.usarioSerive.addUser(user);
-          this.snackBar.openFromComponent(AvisoComponent, {
-            duration: 3000,
-            data: "Usuario registrado con exito",
+          const user = new Usuario(
+            response.user.uid, 
+            response.user.email, 
+            response.user.email,
+            '../../../assets/perfil.webp',
+            '','','','','',
+            'Habitante'
+          );
+          await this.usuarioService.addUser(user).then(()=>{
+            this.snackBar.openFromComponent(AvisoComponent, {
+              duration: 3000,
+              data: {
+                texto: "Ha quedado registrado",
+                clase: "toast-success",
+                icono: "check",
+              },
+            });
+            this.formReg.reset();
+          }).catch(()=>{
+            this.snackBar.openFromComponent(AvisoComponent, {
+              duration: 3000,
+              data: {
+                texto: "Ha ocurrido un error :(",
+                clase: "toast-error",
+                icono: "error",
+              },
+            });
           });
-          this.formReg.reset();
         }
       )
     .catch(error => {
       if(error.toString()=="FirebaseError: Firebase: Error (auth/email-already-in-use)."){
         this.snackBar.openFromComponent(AvisoComponent, {
           duration: 3000,
-          data: "El email ingresado ya se encuentra registrado",
+          data: {
+            texto: "El correo ingresado ya esta en uso",
+            clase: "toast-error",
+            icono: "error",
+          },
         });
       }
-    });*/
+    });
   }
 
   loginWithGoogle(){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Cargando",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     this.auth.loginWithGoogle()
       .then(
         async response => {
@@ -80,9 +108,27 @@ export class RegisterComponent implements OnInit {
           );
           await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
-
+              this.snackBar.openFromComponent(AvisoComponent, {
+                duration: 3000,
+                data: {
+                  texto: "Ha iniciado sesión como "+user.nombre,
+                  clase: "toast-success",
+                  icono: "check",
+                },
+              });
+              this.router.navigate(['bienvenido']);
             } else {
-              await this.usuarioService.addUser(user).then(()=>{}).catch(error=>{
+              await this.usuarioService.addUser(user).then(()=>{
+                this.snackBar.openFromComponent(AvisoComponent, {
+                  duration: 3000,
+                  data: {
+                    texto: "Ha iniciado sesión como "+user.nombre,
+                    clase: "toast-success",
+                    icono: "check",
+                  },
+                });
+                this.router.navigate(['ajustes-cuenta']);
+              }).catch(error=>{
                 this.snackBar.openFromComponent(AvisoComponent, {
                   duration: 3000,
                   data: {
@@ -103,21 +149,26 @@ export class RegisterComponent implements OnInit {
                 icono: "error",
               },
           }));
-          this.snackBar.openFromComponent(AvisoComponent, {
-            duration: 3000,
-            data: {
-              texto: "Ha iniciado sesión como "+user.nombre,
-              clase: "toast-success",
-              icono: "check",
-            },
-          });
-          this.router.navigate(['bienvenido']);
         }
       )
-    .catch(error=>this.toast.error("Ha ocurrido un error :("));
+    .catch(error=>this.snackBar.openFromComponent(AvisoComponent, {
+      duration: 3000,
+      data: {
+        texto: "Ha ocurrido un error :(",
+        clase: "toast-error",
+        icono: "error",
+      },
+  }));
   }
 
   loginWithFacebook(){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Cargando",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     this.auth.loginWithFacebook()
       .then(
         async response => {
@@ -131,9 +182,27 @@ export class RegisterComponent implements OnInit {
           );
           await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
-
+              this.snackBar.openFromComponent(AvisoComponent, {
+                duration: 3000,
+                data: {
+                  texto: "Ha iniciado sesión como "+user.nombre,
+                  clase: "toast-success",
+                  icono: "check",
+                },
+              });
+              this.router.navigate(['bienvenido']);
             } else {
-              await this.usuarioService.addUser(user).then(()=>{}).catch(error=>{
+              await this.usuarioService.addUser(user).then(()=>{
+                this.snackBar.openFromComponent(AvisoComponent, {
+                  duration: 3000,
+                  data: {
+                    texto: "Ha iniciado sesión como "+user.nombre,
+                    clase: "toast-success",
+                    icono: "check",
+                  },
+                });
+                this.router.navigate(['ajustes-cuenta']);
+              }).catch(error=>{
                 this.snackBar.openFromComponent(AvisoComponent, {
                   duration: 3000,
                   data: {
@@ -166,7 +235,14 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['bienvenido']);
         }
       )
-    .catch(error=>this.toast.error("Ha ocurrido un error :("));
+    .catch(error=>this.snackBar.openFromComponent(AvisoComponent, {
+      duration: 3000,
+      data: {
+        texto: "Ha ocurrido un error :(",
+        clase: "toast-error",
+        icono: "error",
+      },
+  }));
   }
 
 }

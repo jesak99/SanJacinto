@@ -1,6 +1,34 @@
 {
   "indexes": [
     {
+      "collectionGroup": "publicaciones",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pagina_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "fecha_pub",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "publicaciones",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "pagina_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "fecha_pub",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "solicitudes",
       "queryScope": "COLLECTION",
       "fields": [

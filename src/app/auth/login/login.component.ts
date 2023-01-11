@@ -16,28 +16,51 @@ export class LoginComponent implements OnInit {
   hide = true;
   formLogin: FormGroup;
 
-  constructor(private usarioSerive: UsuarioService, private router: Router, private auth: AuthService, private toast: HotToastService) { 
+  constructor(
+    private usarioSerive: UsuarioService, 
+    private router: Router, 
+    private auth: AuthService, 
+    private toast: HotToastService,
+    private snackBar: MatSnackBar
+  ) {
+
     this.formLogin = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(6)])
     })
+
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    this.auth.login(this.formLogin.value)
-    .pipe(
-      this.toast.observe({
-        success: 'Ha iniciado sesión correctamente',
-        loading: 'Cargando ...',
-        error: 'Ha ocurrido un error',
-      })
-    )
-    .subscribe(() => {
-      this.router.navigate(['bienvenido']);
+  async onSubmit(){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Cargando",
+        clase: "toast-loading",
+        icono: "info",
+      },
     });
+    await this.auth.login(this.formLogin.value).then(()=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha iniciado sesión correctamente",
+          clase: "toast-success",
+          icono: "check",
+        },
+      });
+    }).catch(()=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    })
   }
 
 }

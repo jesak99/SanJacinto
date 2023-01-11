@@ -7,6 +7,15 @@
   width: 100%;
 }
 
+.toast-loading{
+  color: #303F9F;
+  font-weight: bold;
+  background-color: #c5cae9;
+  border-color: #b9bfe6;
+  display: flex;
+  width: 100%;
+}
+
 .toast-error {
   color: #721c24;
   font-weight: bold;

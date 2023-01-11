@@ -137,6 +137,13 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
       cantidad = response.data().count;
 
       if (this.pathImg1 != null && this.imgURL!=null) {
+        this.snackBar.openFromComponent(AvisoComponent, {
+          data: {
+            texto: "Subiendo nueva imagen",
+            clase: "toast-loading",
+            icono: "info",
+          },
+        });
         const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
         await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -175,6 +182,13 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
       }
 
       if(this.editMode){
+        this.snackBar.openFromComponent(AvisoComponent, {
+          data: {
+            texto: "Actualizando encabezado",
+            clase: "toast-loading",
+            icono: "info",
+          },
+        });
         const banner = new Banner(this.codigo,this.posicion,imagenBan,color,titulo,descripcion,this.clase);
         this.bannerService.updateBanner(banner).then(async response=>{
           this.snackBar.openFromComponent(AvisoComponent, {
@@ -191,6 +205,13 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
           await this.guardarOrden();
         });
       }else{
+        this.snackBar.openFromComponent(AvisoComponent, {
+          data: {
+            texto: "Añadiendo nuevo encabezado",
+            clase: "toast-loading",
+            icono: "info",
+          },
+        });
         const banner = new Banner('',cantidad+1,imagenBan,color,titulo,descripcion,'');
         await this.bannerService.addBanner(banner).then(async response=>{
           this.snackBar.openFromComponent(AvisoComponent, {
@@ -223,6 +244,13 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
   }
 
   async deleteBanner(banner: Banner) {
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Eliminando encabezado ...",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     this.bannerService.deleteBanner(banner).then(async response=>{
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,

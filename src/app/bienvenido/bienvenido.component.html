@@ -1,4 +1,4 @@
-<div *ngIf="pagina$ | async as pagina" class="container-fluid" style="background: url('{{pagina.fondoPagina}}')center / cover no-repeat !important; background-attachment: fixed !important;">
+<div class="container-fluid" style="background: url('{{pagina?.fondoPagina}}')center / cover no-repeat !important; background-attachment: fixed !important;">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li *ngFor="let banner of banners$ | async; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.posicion" class="{{banner.clase}}"></li>
@@ -25,9 +25,9 @@
         <div class="row">
             <div class="col info-sanjacinto">
                 <div class="row">
-                    <h1>{{pagina.nombre}}</h1>
+                    <h1>{{pagina?.nombre}}</h1>
                 </div>
-                <p>{{pagina.descripcion}}</p>
+                <p id="text"></p>
             </div>
             <div class="col imagen-promocional"  *ngIf="pagina$ | async as pagina">
                 <a href="https://www.facebook.com/SanJacintoLate/videos/1260457144486327" target="_blank">

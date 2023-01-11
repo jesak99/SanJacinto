@@ -79,6 +79,6 @@
             </div>
             <button mat-raised-button type="submit" class="guardar" [disabled]="profileForm.invalid"><mat-icon>save</mat-icon> Guardar Cambios</button>
         </form>
-        <button mat-stroked-button color="warn" class="eliminar"><mat-icon>delete_forever</mat-icon> Eliminar cuenta</button>
+        <button mat-stroked-button color="warn" class="eliminar" (click)="deleteUser()"><mat-icon>delete_forever</mat-icon> Eliminar cuenta</button>
     </div>
 </div>

@@ -32,6 +32,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -152,6 +153,7 @@ const routes : Routes=[
     MatExpansionModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

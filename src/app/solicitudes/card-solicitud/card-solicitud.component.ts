@@ -33,6 +33,13 @@ export class CardSolicitudComponent implements OnInit{
   }
 
   async toggle(event: MatSlideToggleChange) {
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Actualizando el estado",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
     await this.solicitudService.updateSolicitud(this.solicitudIn, event.checked).then(response=>{
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,

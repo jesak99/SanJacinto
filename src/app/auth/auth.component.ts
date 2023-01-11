@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioService } from '../service/usuario.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
   hide = true;
 
-  constructor() { }
+  constructor(
+    private userService: UsuarioService,
+    private router: Router
+  ) {
+    this.userService.currentUserProfile$
+    .pipe()
+    .subscribe((user)=>{
+      if(user!=null){
+        this.router.navigate(["bienvenido"]);
+      }
+    })
+  }
 
   ngOnInit(): void {
   }

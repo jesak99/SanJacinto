@@ -1,5 +1,5 @@
 <span class="{{avisoInfo.clase}}" matSnackBarLabel>
-    <mat-icon>{{avisoInfo.icono}}</mat-icon>&nbsp;{{avisoInfo.texto}}
+    <mat-spinner *ngIf="aviso.clase=='toast-loading'"  [diameter]="25"></mat-spinner><mat-icon *ngIf="aviso.clase!='toast-loading'">{{avisoInfo.icono}}</mat-icon>&nbsp;{{avisoInfo.texto}}
 </span>
 <!--
 <span matSnackBarActions>

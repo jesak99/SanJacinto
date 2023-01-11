@@ -46,12 +46,19 @@ export class CardUsuarioComponent implements OnInit {
   }
 
   async deleteIntegrante(integrante: Integrantes){
-    this.integranteService.deleteIntegrante(integrante).then(response=>{
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Eliminando integrante ...",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
+    await this.integranteService.deleteIntegrante(integrante).then(response=>{
       this.snackBar.openFromComponent(AvisoComponent, {
         duration: 3000,
         data: {
           texto: "Se ha eliminado el integrante",
-          clase: "toast-warning",
+          clase: "toast-success",
           icono: "info",
         },
       });

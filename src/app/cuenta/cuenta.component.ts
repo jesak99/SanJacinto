@@ -5,6 +5,8 @@ import { UsuarioService } from '../service/usuario.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 interface Colonia {
   nombre: string;
@@ -146,7 +148,9 @@ export class CuentaComponent implements OnInit, AfterViewInit{
   constructor(
     private usuarioService: UsuarioService, 
     private snackBar: MatSnackBar,
-    private storage: Storage
+    private storage: Storage,
+    private authService: AuthService,
+    private router: Router
   ){}
 
   ngAfterViewInit(): void {
@@ -199,6 +203,13 @@ export class CuentaComponent implements OnInit, AfterViewInit{
     var img;
 
     if (this.pathImg1 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo nueva foto de perfil",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -238,6 +249,14 @@ export class CuentaComponent implements OnInit, AfterViewInit{
       img = this.usuario?.fotoPerfil;
     }
 
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Actualizando los datos",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
+
     this.pathImg1=null;
     const userTem = new Usuario(this.usuario?.id??'', nombre, email, img??'', telefono, calle, numExterior, numInterior, colonia, this.usuario?.rol??'');
 
@@ -260,6 +279,58 @@ export class CuentaComponent implements OnInit, AfterViewInit{
         },
       });
     });
+  }
+
+  async deleteUser(){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Eliminando perfil ...",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
+    await this.usuarioService.addUserDelete(this.usuario!).then(async response=>{
+      await this.authService.deleteUsuario().then(async response=>{
+        await this.usuarioService.deleteUsuarioDoc(this.usuario!).then(()=>{
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Se ha eliminado el perfil",
+              clase: "toast-success",
+              icono: "check",
+            },
+          });
+          this.router.navigate(["bienvenido"]);
+        }).catch(()=>{
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "Ha ocurrido un error :(",
+              clase: "toast-error",
+              icono: "error",
+            },
+          });
+        })
+      }).catch(()=>{
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
+      })
+    }).catch(()=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    })
   }
 
   preview(files: any) {

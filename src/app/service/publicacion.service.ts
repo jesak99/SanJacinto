@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { Publicacion, PublicacionTemporal } from "../model/publicacion.model";
-import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, collectionData, orderBy } from '@angular/fire/firestore';
 import { concatMap, map, Observable, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -83,7 +83,7 @@ export class PublicacionService{
 
     get publicaciones$(): Observable<Publicacion[]>{
         const ref = collection(this.firestore, 'publicaciones');
-        const queryAll = query(ref, where('pagina_id','==',this.pagina));
+        const queryAll = query(ref, where('pagina_id','==',this.pagina), orderBy('fecha_pub','desc'));
         return collectionData(queryAll) as Observable<Publicacion[]>;
     }
 }

@@ -96,6 +96,13 @@ export class FormIntegranteComponent implements OnInit {
     const email = this.form.value.email;
 
     if (this.pathImg1 != null) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Subiendo imagen",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const imgRef = ref(this.storage, 'imagenes/' + this.pathImg1.name);
 
       await uploadBytes(imgRef, this.pathImg1).then((snapshot) => {
@@ -132,10 +139,21 @@ export class FormIntegranteComponent implements OnInit {
           });
         });
     }else{
-      foto = "../../../assets/perfil.webp";
+      if(this.imgURL!=null){
+        foto = this.imgURL;
+      }else{
+        foto = "../../../assets/perfil.webp";
+      }
     }
-
+    
     if (this.editMode) {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Actualizando la información del integrante",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const newIntegrante = new Integrantes(this.codigo, nombre, puesto, foto, facebook, twitter, telefono, email);
       this.integranteService.updateIntegrante(newIntegrante).then(response=>{
         this.snackBar.openFromComponent(AvisoComponent, {
@@ -158,6 +176,13 @@ export class FormIntegranteComponent implements OnInit {
         });
       });
     } else {
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Añadiendo nuevo integrante",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
       const newIntegrante = new Integrantes('', nombre, puesto, foto, facebook, twitter, telefono, email);
       this.integranteService.addIntegrante(newIntegrante).then(response=>{
         this.snackBar.openFromComponent(AvisoComponent, {
