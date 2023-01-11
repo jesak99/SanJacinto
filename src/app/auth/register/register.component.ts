@@ -70,7 +70,14 @@ export class RegisterComponent implements OnInit {
     this.auth.loginWithGoogle()
       .then(
         async response => {
-          const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'normal');
+          const user = new Usuario(
+            response.user.uid, 
+            response.user.displayName, 
+            response.user.email,
+            response.user.photoURL, 
+            '','','','','',
+            'Habitante'
+          );
           await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
 
@@ -114,7 +121,14 @@ export class RegisterComponent implements OnInit {
     this.auth.loginWithFacebook()
       .then(
         async response => {
-          const user = new Usuario(response.user.uid, response.user.displayName, response.user.email,response.user.photoURL, 'Habitante');
+          const user = new Usuario(
+            response.user.uid, 
+            response.user.displayName, 
+            response.user.email,
+            response.user.photoURL, 
+            '','','','','',
+            'Habitante'
+          );
           await this.usuarioService.getUser(user.id).then(async response=>{
             if (response.exists()) {
 

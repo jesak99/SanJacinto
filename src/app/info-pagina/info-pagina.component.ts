@@ -8,6 +8,8 @@ import { AvisoComponent } from 'src/app/aviso/aviso.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ImageUploadService } from '../service/upload.service';
 import { concatMap } from 'rxjs';
+import { UsuarioService } from '../service/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-pagina',
@@ -79,9 +81,17 @@ export class InfoPaginaComponent implements OnInit, AfterViewInit {
     private principalService: PrincipalService,
     private storage: Storage,
     private snackBar: MatSnackBar,
-    private toast: HotToastService,
-    private upload: ImageUploadService
-  ) { }
+    private usuarioService: UsuarioService,
+    private router: Router
+  ) {
+    this.usuarioService.currentUserProfile$
+      .pipe()
+      .subscribe((user) => {
+        if(user?.rol!="Administrador"){
+          this.router.navigate(["bienvenido"]);
+        }
+    });
+  }
 
   ngAfterViewInit(): void {
     this.form = new FormGroup({

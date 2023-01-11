@@ -9,7 +9,8 @@ import {
     signInWithEmailAndPassword, 
     signInWithPopup, 
     GoogleAuthProvider, 
-    FacebookAuthProvider 
+    FacebookAuthProvider,
+    deleteUser
 } from "@angular/fire/auth";
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import { Usuario } from "../model/usuario.model";
@@ -52,6 +53,11 @@ export class AuthService {
             return updateProfile(user, profileData);
           })
         );
+    }
+
+    deleteUsuario(){
+        const user = this.auth.currentUser;
+        return deleteUser(user!);
     }
     
 }

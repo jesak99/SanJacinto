@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { Router } from '@angular/router';
 import { combineLatest, map, tap } from 'rxjs';
 import { Solicitud } from '../model/solicitud';
 import { SolicitudService } from '../service/solicitud.service';
+import { UsuarioService } from '../service/usuario.service';
 import { CardSolicitudComponent } from './card-solicitud/card-solicitud.component';
 
 @Component({
@@ -14,7 +16,20 @@ export class SolicitudesComponent {
   solicitudesPendientes$ = this.solicitudService.allSolicitudesPendientes$;
   solicitudesAtendidas$ = this.solicitudService.allSolicitudesAtendidas$;
 
-  constructor(private solicitudService: SolicitudService, public dialog: MatDialog){}
+  constructor(
+    private solicitudService: SolicitudService, 
+    public dialog: MatDialog,
+    private userService: UsuarioService,
+    private router: Router
+  ){
+    this.userService.currentUserProfile$
+      .pipe()
+      .subscribe((user) => {
+        if(user?.rol!="Administrador"){
+          this.router.navigate(["bienvenido"]);
+        }
+    });
+  }
 
   openInfo(solicitud: Solicitud): void{
     const dialogRef = this.dialog.open(CardSolicitudComponent,{

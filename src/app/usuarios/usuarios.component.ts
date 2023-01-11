@@ -6,6 +6,7 @@ import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.model';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
+import { Router } from '@angular/router';
 
 const ROLES: string[] = [
   'Administrador',
@@ -31,7 +32,18 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private userService:UsuarioService, private snackBar: MatSnackBar) {
+  constructor(
+    private userService:UsuarioService, 
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
+    this.userService.currentUserProfile$
+      .pipe()
+      .subscribe((user) => {
+        if(user?.rol!="Administrador"){
+          this.router.navigate(["bienvenido"]);
+        }
+    });
     this.dataSource = new MatTableDataSource(this.listUsuarios);
   }
 
@@ -39,7 +51,18 @@ export class UsuariosComponent implements OnInit {
     await this.userService.getUsers().then(response=>{
       response.forEach((doc) => {
         if (doc.exists()) {
-          var userTem = new Usuario(doc.id,doc.data().nombre,doc.data().email,doc.data().fotoPerfil,doc.data().rol);
+          var userTem = new Usuario(
+            doc.id,
+            doc.data().nombre,
+            doc.data().email,
+            doc.data().fotoPerfil,
+            doc.data().telefono,
+            doc.data().calle,
+            doc.data().numExterior,
+            doc.data().numInterior,
+            doc.data().colonia,
+            doc.data().rol
+          );
           this.listUsuarios?.push(userTem);
         } else {
           console.log("No such document!");
