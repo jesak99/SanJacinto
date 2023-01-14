@@ -1,7 +1,3 @@
 <span class="{{avisoInfo.clase}}" matSnackBarLabel>
     <mat-spinner *ngIf="aviso.clase=='toast-loading'"  [diameter]="25"></mat-spinner><mat-icon *ngIf="aviso.clase!='toast-loading'">{{avisoInfo.icono}}</mat-icon>&nbsp;{{avisoInfo.texto}}
 </span>
-<!--
-<span matSnackBarActions>
-    <button mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">🍕</button>
-</span>-->

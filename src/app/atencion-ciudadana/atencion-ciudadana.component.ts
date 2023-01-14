@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Solicitud, SolicitudTemp } from '../model/solicitud';
+import { SolicitudTemp } from '../model/solicitud';
 import { SolicitudService } from '../service/solicitud.service';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
-import { Timestamp } from '@angular/fire/firestore';
 import { HotToastService } from '@ngneat/hot-toast';
 
 interface Colonia {

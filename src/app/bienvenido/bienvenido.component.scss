@@ -1,5 +1,4 @@
 .container-fluid{
-    //background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
     max-width: 1920px;
 }
 
@@ -13,8 +12,6 @@
         border-bottom-right-radius: 25px;
 
         .carousel-item {
-            //background: url("https://gobiernosanjacintoamilpas.com.mx/wp-content/uploads/2022/04/fondo-3.jpg") center / cover no-repeat;
-            //background-color: gray !important;
             img {
                 height: 400px;
             }
@@ -30,12 +27,6 @@
                     font-size: medium;
                     font-weight: bold;
                     font-family: 'Montserrat', sans-serif;
-                    /*
-                    border-radius: 25px;
-	                -webkit-backdrop-filter: blur(10px);
-                    backdrop-filter: blur(10px);
-                    width: fit-content;
-                    margin: auto;*/
                 }
             }
         }
@@ -43,13 +34,9 @@
 }
 
 .container-lg{
-    //background: url("./../../assets/image832.png") center / contain no-repeat;
-    //background: url('./../../assets/image832.png')center / cover no-repeat; background-attachment: fixed!important;
-    //max-width: 1920px;
     margin-top: 20px;
     .info-sanjacinto{
         h1 {
-            //font-family: 'Passions Conflict', cursive;
             font-family: 'Exo 2', sans-serif;
             font-size: calc(4em + 1vw);
             font-weight: bolder;

@@ -184,9 +184,6 @@ export class FormPaginaComponent implements OnInit {
         },
       });
     });
-
-    //const paginaUpdate = new Pagina(this.data.id, nombre, descripcion, fondoEncabezado, fondoPagina);
-    //this.paginaService.updatePagina(this.data.id, paginaUpdate);
   }
 
   preview(files: any) {

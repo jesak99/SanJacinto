@@ -1,10 +1,10 @@
 <div class="container-fluid" style="background: url('{{pagina?.fondoPagina}}')center / cover no-repeat !important; background-attachment: fixed !important;">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li *ngFor="let banner of banners$ | async; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.posicion" class="{{banner.clase}}"></li>
+            <li *ngFor="let banner of banners; let i=index" data-target="#carouselExampleIndicators" (data-slide-to)="banner.posicion" class="{{banner.clase}}"></li>
         </ol>
         <div class="carousel-inner">
-            <div *ngFor="let banner of banners$ | async; let i=index;" class="carousel-item {{banner.clase}}" [style.background-color]="banner.color">
+            <div *ngFor="let banner of banners; let i=index;" class="carousel-item {{banner.clase}}" [style.background-color]="banner.color">
                 <img class="d-block" src="{{banner.imagen}}" alt="First {{i}}">
                 <div class="carousel-caption d-md-block">
                     <h1>{{banner.titulo}}</h1>
@@ -29,10 +29,10 @@
                 </div>
                 <p id="text"></p>
             </div>
-            <div class="col imagen-promocional"  *ngIf="pagina$ | async as pagina">
+            <div class="col imagen-promocional">
                 <a href="https://www.facebook.com/SanJacintoLate/videos/1260457144486327" target="_blank">
                     <img class="img-fluid"
-                    [src]="pagina.fondoEncabezado" alt="">
+                    src="{{pagina?.fondoEncabezado}}" alt="">
                 </a>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     <div class="row"><button mat-button class="boton-rojo" routerLink="/atencion-ciudadana">Escribir Mensaje</button></div>
                 </div>
 
-                <div class="box box-down blue" *ngIf="principal$ |async as infoPrincipal">
+                <div class="box box-down blue">
                     <h3>Visítanos</h3>
                     <p>
                         <a href="{{infoPrincipal?.direccion_link}}" target="_blank" rel="noopener noreferrer">{{infoPrincipal?.direccion}}</a>
@@ -97,7 +97,7 @@
         <div class="row">
             <h2 class="titulo-seccion">Conoce a los integrantes de nuestro gobierno</h2>
             <div class="cards">
-                <app-card-usuario *ngFor="let integrante of integrantes$ | async" [integrante]="integrante"></app-card-usuario>
+                <app-card-usuario *ngFor="let integrante of integrantesGobierno" [integrante]="integrante"></app-card-usuario>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@
           <mat-icon>add</mat-icon>
           <span>Nuevo integrante</span>
         </button>
-        <button *ngIf="pagina$ | async as pagina" mat-menu-item (click)="openAjustes(pagina)">
+        <button mat-menu-item (click)="openAjustes()">
             <mat-icon>settings</mat-icon>
             <span>Ajustes de página</span>
           </button>

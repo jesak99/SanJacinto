@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -72,6 +72,8 @@ import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { CardSolicitudComponent } from './solicitudes/card-solicitud/card-solicitud.component';
 import { ToastService } from './service/toast.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoaderComponent } from './loader/loader.component';
 
 const routes : Routes=[
   {path: '', pathMatch: 'full', redirectTo: '/bienvenido'},
@@ -118,7 +120,8 @@ const routes : Routes=[
     MensajesComponent,
     DateDisplayPipe,
     SolicitudesComponent,
-    CardSolicitudComponent
+    CardSolicitudComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -159,7 +162,13 @@ const routes : Routes=[
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideMessaging(() => getMessaging()),
-    HotToastModule.forRoot({position: 'bottom-center'})
+    HotToastModule.forRoot({position: 'bottom-center'}),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [DatePipe, ToastService],
   bootstrap: [AppComponent]

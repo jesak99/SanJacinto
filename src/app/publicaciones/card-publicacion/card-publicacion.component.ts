@@ -60,7 +60,6 @@ export class CardPublicacionComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.ngOnInit();
     });
   }

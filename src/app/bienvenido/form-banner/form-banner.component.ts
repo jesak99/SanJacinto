@@ -53,10 +53,26 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
           );
           this.banners?.push(banTem);
         } else {
-          console.log("No such document!");
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "No se encuentra el documento :(",
+              clase: "toast-error",
+              icono: "error",
+            },
+          });
         }
       });
-    }).catch(error=>console.log(error));
+    }).catch(error=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    });
   }
 
   async ngOnInit() {
@@ -76,7 +92,6 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
 
   drop(event: CdkDragDrop<{ titulo: string; imagen: string }[]>) {
     moveItemInArray(this.banners, event.previousIndex, event.currentIndex);
-    console.log(this.banners);
   }
 
   cambiarNuevo() {
@@ -201,8 +216,9 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
           });
           this.form.reset();
           this.imgURL=null;
-          await this.ngAfterViewInit();
-          await this.guardarOrden();
+          await this.ngAfterViewInit().then(async response=>{
+            await this.guardarOrden();
+          });
         });
       }else{
         this.snackBar.openFromComponent(AvisoComponent, {
@@ -239,7 +255,14 @@ export class FormBannerComponent implements OnInit, AfterViewInit {
       }
 
     }).catch(error => {
-      console.log("El error es " + error)
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
     })
   }
 

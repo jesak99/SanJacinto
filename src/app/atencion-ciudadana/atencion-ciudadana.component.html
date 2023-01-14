@@ -1,116 +1,118 @@
-<div class="container-fluid">
-    <h1>Atención Ciudadana</h1>
-    <p><mat-icon>info</mat-icon>Para el Municipio de San Jacinto Amilpas es fundamental la participación e interacción con la ciudadanía, por lo cual, mediante el siguiente formulario electrónico puedes presentar tus solicitudes de Atención Ciudadana.</p>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <img class="img-fluid" src="./../../assets/logo3.png" alt="">
+<body>
+    <div class="container-fluid">
+        <h1>Atención Ciudadana</h1>
+        <p><mat-icon>info</mat-icon>Para el Municipio de San Jacinto Amilpas es fundamental la participación e interacción con la ciudadanía, por lo cual, mediante el siguiente formulario electrónico puedes presentar tus solicitudes de Atención Ciudadana.</p>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" src="./../../assets/logo3.png" alt="">
+                </div>
+                <div class="col">
+                    <h2>Cédula de solicitud en el módulo de Atención Ciudadana</h2>
+                </div>
             </div>
-            <div class="col">
-                <h2>Cédula de solicitud en el módulo de Atención Ciudadana</h2>
-            </div>
+            <form class="formulario" [formGroup]="formSolicitud" (ngSubmit)="onSubmit()">
+                <div class="row lado-lado">
+                    <div class="col asunto">
+                        <mat-form-field class="full-width">
+                            <mat-label>Asunto</mat-label>
+                            <span matPrefix><mat-icon matTooltip="Nombre corto para identificar su solicitud">help</mat-icon> &nbsp;</span>
+                            <input matInput type="text" #asunto maxlength="30" placeholder="Información de proyectos" formControlName="asunto">
+                            <mat-hint align="end">{{asunto.value.length}} / 30</mat-hint>
+                            <mat-error *ngIf="formSolicitud.get('asunto')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col fecha">
+                        <mat-icon matTooltip="Fecha con la que va a quedar registrada su solicitud">calendar_today</mat-icon><span class="text_fecha">Fecha:</span> <span class="hoy">{{fecha | date: 'd/M/yyyy'}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Nombre (s)</mat-label>
+                            <input matInput type="text" placeholder="" formControlName="nombre">
+                            <mat-error *ngIf="formSolicitud.get('nombre')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Apellido Paterno</mat-label>
+                            <input matInput type="text" placeholder="" formControlName="apellidoPaterno">
+                            <mat-error *ngIf="formSolicitud.get('apellidoPaterno')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Apellido Materno</mat-label>
+                            <input matInput type="text" placeholder="" formControlName="apellidoMaterno">
+                            <mat-error *ngIf="formSolicitud.get('apellidoMaterno')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Calle</mat-label>
+                            <span matPrefix><mat-icon matTooltip="Su dirección solo de ser necesario">location_on</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="Independencia" formControlName="calle">
+                        </mat-form-field>
+                    </div>
+                    <div class="numero">
+                        <mat-form-field class="full-width">
+                            <mat-label>Num. Exterior</mat-label>
+                            <input matInput type="text" placeholder="25" formControlName="numExterior">
+                        </mat-form-field>
+                    </div>
+                    <div class="numero">
+                        <mat-form-field class="full-width">
+                            <mat-label>Num. Interior</mat-label>
+                            <input matInput type="text" placeholder="3A" formControlName="numInterior">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Colonia</mat-label>
+                            <mat-select formControlName="colonia">
+                              <mat-optgroup *ngFor="let group of coloniaGroups" [label]="group.nombre"
+                                            [disabled]="group.disabled">
+                                <mat-option *ngFor="let colonia of group.colonia" [value]="colonia.nombre">
+                                  {{colonia.nombre}}
+                                </mat-option>
+                              </mat-optgroup>
+                            </mat-select>
+                            <mat-error *ngIf="formSolicitud.get('colonia')?.hasError('required')">Por favor seleccione la colonia donde vive</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="telefono">
+                        <mat-form-field class="full-width">
+                            <mat-label>Teléfono</mat-label>
+                            <span matPrefix><mat-icon matTooltip="De no poder contactar con usted por email realizaremos una llamada">phone</mat-icon> &nbsp;</span>
+                            <input matInput type="tel" #telefono1 maxlength="10" placeholder="1234567890" formControlName="telefono">
+                            <mat-hint align="end">{{telefono1.value.length}} / 10</mat-hint>
+                            <mat-error *ngIf="formSolicitud.get('telefono')?.hasError('pattern')">Revise en número ingresado (solo números sin espacios)</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Email de contacto</mat-label>
+                            <span matPrefix><mat-icon matTooltip="Proporcione una dirección de correo electrónico para poder ponernos en contacto con usted">email</mat-icon> &nbsp;</span>
+                            <input matInput type="text" placeholder="ejemplo@gmail.com" formControlName="email">
+                            <mat-error *ngIf="formSolicitud.get('email')?.hasError('required')">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="formSolicitud.get('email')?.hasError('email')">Ingrese un email válido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>Solicitud</mat-label>
+                            <textarea matInput rows="4" placeholder="A continuación describa el motivo de su solicitud a detalle para brindarle una respuesta concreta" formControlName="solicitud"></textarea>
+                            <mat-error *ngIf="formSolicitud.get('solicitud')?.hasError('required')">Este campo es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button mat-raised-button type="submit" class="guardar" [disabled]="formSolicitud.invalid"><mat-icon>send</mat-icon> Enviar Solicitud</button>
+            </form>
         </div>
-        <form class="formulario" [formGroup]="formSolicitud" (ngSubmit)="onSubmit()">
-            <div class="row lado-lado">
-                <div class="col asunto">
-                    <mat-form-field class="full-width">
-                        <mat-label>Asunto</mat-label>
-                        <span matPrefix><mat-icon matTooltip="Nombre corto para identificar su solicitud">help</mat-icon> &nbsp;</span>
-                        <input matInput type="text" #asunto maxlength="30" placeholder="Información de proyectos" formControlName="asunto">
-                        <mat-hint align="end">{{asunto.value.length}} / 30</mat-hint>
-                        <mat-error *ngIf="formSolicitud.get('asunto')?.hasError('required')">Este campo es requerido</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col fecha">
-                    <mat-icon matTooltip="Fecha con la que va a quedar registrada su solicitud">calendar_today</mat-icon><span class="text_fecha">Fecha:</span> <span class="hoy">{{fecha | date: 'd/M/yyyy'}}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Nombre (s)</mat-label>
-                        <input matInput type="text" placeholder="" formControlName="nombre">
-                        <mat-error *ngIf="formSolicitud.get('nombre')?.hasError('required')">Este campo es requerido</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Apellido Paterno</mat-label>
-                        <input matInput type="text" placeholder="" formControlName="apellidoPaterno">
-                        <mat-error *ngIf="formSolicitud.get('apellidoPaterno')?.hasError('required')">Este campo es requerido</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Apellido Materno</mat-label>
-                        <input matInput type="text" placeholder="" formControlName="apellidoMaterno">
-                        <mat-error *ngIf="formSolicitud.get('apellidoMaterno')?.hasError('required')">Este campo es requerido</mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Calle</mat-label>
-                        <span matPrefix><mat-icon matTooltip="Su dirección solo de ser necesario">location_on</mat-icon> &nbsp;</span>
-                        <input matInput type="text" placeholder="Independencia" formControlName="calle">
-                    </mat-form-field>
-                </div>
-                <div class="numero">
-                    <mat-form-field class="full-width">
-                        <mat-label>Num. Exterior</mat-label>
-                        <input matInput type="text" placeholder="25" formControlName="numExterior">
-                    </mat-form-field>
-                </div>
-                <div class="numero">
-                    <mat-form-field class="full-width">
-                        <mat-label>Num. Interior</mat-label>
-                        <input matInput type="text" placeholder="3A" formControlName="numInterior">
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Colonia</mat-label>
-                        <mat-select formControlName="colonia">
-                          <mat-optgroup *ngFor="let group of coloniaGroups" [label]="group.nombre"
-                                        [disabled]="group.disabled">
-                            <mat-option *ngFor="let colonia of group.colonia" [value]="colonia.nombre">
-                              {{colonia.nombre}}
-                            </mat-option>
-                          </mat-optgroup>
-                        </mat-select>
-                        <mat-error *ngIf="formSolicitud.get('colonia')?.hasError('required')">Por favor seleccione la colonia donde vive</mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="telefono">
-                    <mat-form-field class="full-width">
-                        <mat-label>Teléfono</mat-label>
-                        <span matPrefix><mat-icon matTooltip="De no poder contactar con usted por email realizaremos una llamada">phone</mat-icon> &nbsp;</span>
-                        <input matInput type="tel" #telefono1 maxlength="10" placeholder="1234567890" formControlName="telefono">
-                        <mat-hint align="end">{{telefono1.value.length}} / 10</mat-hint>
-                        <mat-error *ngIf="formSolicitud.get('telefono')?.hasError('pattern')">Revise en número ingresado (solo números sin espacios)</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Email de contacto</mat-label>
-                        <span matPrefix><mat-icon matTooltip="Proporcione una dirección de correo electrónico para poder ponernos en contacto con usted">email</mat-icon> &nbsp;</span>
-                        <input matInput type="text" placeholder="ejemplo@gmail.com" formControlName="email">
-                        <mat-error *ngIf="formSolicitud.get('email')?.hasError('required')">Este campo es requerido</mat-error>
-                        <mat-error *ngIf="formSolicitud.get('email')?.hasError('email')">Ingrese un email válido</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field class="full-width">
-                        <mat-label>Solicitud</mat-label>
-                        <textarea matInput rows="4" placeholder="A continuación describa el motivo de su solicitud a detalle para brindarle una respuesta concreta" formControlName="solicitud"></textarea>
-                        <mat-error *ngIf="formSolicitud.get('solicitud')?.hasError('required')">Este campo es requerido</mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <button mat-raised-button type="submit" class="guardar" [disabled]="formSolicitud.invalid"><mat-icon>send</mat-icon> Enviar Solicitud</button>
-        </form>
     </div>
-</div>
+</body>

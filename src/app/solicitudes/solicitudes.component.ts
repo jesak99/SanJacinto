@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
-import { combineLatest, map, tap } from 'rxjs';
 import { Solicitud } from '../model/solicitud';
 import { SolicitudService } from '../service/solicitud.service';
 import { UsuarioService } from '../service/usuario.service';

@@ -12,7 +12,6 @@ a {
 
 .pg-footer {
     font-family: 'Roboto', sans-serif;
-    //filter: grayscale(1.0);
 }
 
 .footer {
@@ -68,8 +67,6 @@ a {
 
 .titulo{
     font-size: 16px;
-    //font-weight: 800;
-    //letter-spacing: .1em;
     line-height: 18px;
     margin-bottom: 0;
     margin-top: 0;
@@ -78,8 +75,6 @@ a {
 
 .informacion{
     font-size: 16px;
-    //font-weight: 800;
-    //letter-spacing: .1em;
     line-height: 18px;
     margin-bottom: 0;
     margin-top: 0;
@@ -192,24 +187,6 @@ a {
     }
 }
 
-@media (min-width:801px) {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
-
-}
-
-@media (min-width:1025px) {
-    /* big landscape tablets, laptops, and desktops */
-
-}
-
-@media (min-width:1281px) {
-    /* hi-res laptops and desktops */
-
-}
-
-
-
-
 @media (min-width: 760px) {
     .footer-content {
         margin-left: auto;
@@ -226,10 +203,4 @@ a {
     .footer-content-column {
         width: 24.99%;
     }
-}
-
-@media (min-width: 568px) {
-    /* .footer-content-column {
-        width: 49.99%;
-    } */
 }

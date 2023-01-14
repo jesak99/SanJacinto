@@ -8,18 +8,11 @@ mat-toolbar {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 
-    //background-color: rgba(0, 0, 0, .6);
     background-color: transparent !important;
-	//-webkit-backdrop-filter: blur(10px);
-    //backdrop-filter: blur(10px);
     color: white;
-    //filter: grayscale(1.0);
     .menu{
         background-color: rgba(0,0,0, 0.6);
-        //background-color: transparent;
         border-radius: 50px;
-        //-webkit-backdrop-filter: blur(10px);
-        //backdrop-filter: blur(10px);
     }
 }
 
@@ -30,7 +23,6 @@ mat-toolbar {
     justify-content: space-evenly;
     height: fit-content;
     .titulo{
-        //font-family: 'Dancing Script', cursive;
         font-family: 'Exo 2', sans-serif;
         font-size: small;
         font-weight: lighter;

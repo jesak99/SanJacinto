@@ -8,7 +8,6 @@ body {
     background: url("../../assets/image832.png") center / cover no-repeat;
     max-width: 1920px;
     margin: auto;
-    //background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 
 .main {
@@ -16,8 +15,6 @@ body {
     height: 500px;
     overflow: hidden;
     background: url("../../assets/fondoCafe.png") left / cover no-repeat;
-    //background: url("../../../assets/fondoCafe.png") left / cover no-repeat;
-    //background: linear-gradient(to bottom, #4E232E, #4E232E, #56242A);
     border-radius: 25px;
     box-shadow: 5px 20px 50px #000;
 }
@@ -44,20 +41,6 @@ label {
     cursor: pointer;
     transition: .5s ease-in-out;
 }
-
-/**
-input{
-	width: 60%;
-	height: 20px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 10px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}**/
 
 .login {
     height: 460px;

@@ -69,11 +69,6 @@ p {
     color: rgb(98, 17, 50) !important;
 }
 
-:host ::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    //background-color: rgb(98, 17, 50) !important;
-}
-
 :host ::ng-deep.mat-form-field-ripple {
     /*change color of underline when focused*/
     background-color: rgb(98, 17, 50) !important;
@@ -145,7 +140,6 @@ p {
 }
 
 .formulario {
-    //max-width: 600px;
     padding-top: 20px;
     padding-bottom: 20px;
 }

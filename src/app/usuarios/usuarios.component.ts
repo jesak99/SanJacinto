@@ -65,10 +65,26 @@ export class UsuariosComponent implements OnInit {
           );
           this.listUsuarios?.push(userTem);
         } else {
-          console.log("No such document!");
+          this.snackBar.openFromComponent(AvisoComponent, {
+            duration: 3000,
+            data: {
+              texto: "No se ha encontrado el documento :(",
+              clase: "toast-error",
+              icono: "error",
+            },
+          })
         }
       });
-    }).catch(error=>console.log(error));
+    }).catch(error=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      })
+    });
     this.dataSource = new MatTableDataSource(this.listUsuarios);
     this.ngAfterViewInit();
   }

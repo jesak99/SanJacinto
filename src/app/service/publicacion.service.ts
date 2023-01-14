@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Publicacion, PublicacionTemporal } from "../model/publicacion.model";
 import { Firestore, collection, addDoc, setDoc, doc, getFirestore, getDoc, query, where, getDocs, collectionData, orderBy } from '@angular/fire/firestore';
 import { concatMap, map, Observable, take } from 'rxjs';

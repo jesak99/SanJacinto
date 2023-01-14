@@ -162,7 +162,16 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
       const imgRef = ref(this.storage, 'publicaciones/' + this.file.name);
       await uploadBytes(imgRef, this.file).then((snapshot) => {
         
-      }).catch(error=>console.log(error));
+      }).catch(error=>{
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
+      });
       await getDownloadURL(imgRef)
       .then((url) => {
           multimedia = url;
@@ -233,10 +242,6 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
           },
         });
       })
-      //const codigo = "PUB"+(this.publicacionService.getPublicaciones().length+1);
-      //const publicacion: Publicacion = new Publicacion(codigo, descripcion, fecha_pub, fecha_inicio, fecha_fin, tipo_pub, multimedia, visibilidad,pagina_id);
-      //console.log(publicacion);
-      //this.publicacionService.agregarPublicacion(publicacion);
     } 
   }
 

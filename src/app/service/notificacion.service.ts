@@ -1,13 +1,15 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Messaging, getToken, onMessage, getMessaging } from "@angular/fire/messaging";
 import { Observable } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AvisoComponent } from 'src/app/aviso/aviso.component';
 
 @Injectable({ providedIn: 'root' })
 export class NotificacionService {
     message: any = null;
 
-    constructor(private messaging: Messaging) { }
+    constructor(private messaging: Messaging, private snackBar: MatSnackBar) { }
 
     requestPermission() {
         const messaging = getMessaging();
@@ -15,13 +17,35 @@ export class NotificacionService {
             { vapidKey: environment.firebase.vapidKey }).then(
                 (currentToken) => {
                     if (currentToken) {
-                        console.log("Hurraaa!!! we got the token.....");
-                        console.log(currentToken);
+                        this.snackBar.openFromComponent(AvisoComponent, {
+                            duration: 3000,
+                            data: {
+                              texto: "A partir de ahora podrás recibir notificaciones",
+                              clase: "toast-success",
+                              icono: "check",
+                            },
+                        });
                     } else {
-                        console.log('No registration token available. Request permission to generate one.');
+                        this.snackBar.openFromComponent(AvisoComponent, {
+                            duration: 3000,
+                            data: {
+                              texto: "Ha ocurrido un error al activar las notificaciones :(",
+                              clase: "toast-error",
+                              icono: "error",
+                            },
+                          });
+                        //console.log('No registration token available. Request permission to generate one.');
                     }
                 }).catch((err) => {
-                    console.log('An error occurred while retrieving token. ', err);
+                    this.snackBar.openFromComponent(AvisoComponent, {
+                        duration: 3000,
+                        data: {
+                          texto: "Revise los permisos del navegador para recibir notificaciones :(",
+                          clase: "toast-error",
+                          icono: "error",
+                        },
+                      });
+                    //console.log('An error occurred while retrieving token. ', err);
                 });
     }
     listen() {
@@ -31,27 +55,6 @@ export class NotificacionService {
             this.message = payload;
         });
     }
-    /*
-        requestPermission() {
-            console.log('Requesting permission...');
-            Notification.requestPermission().then((permission) => {
-              if (permission === 'granted') {
-                console.log('Notification permission granted.');
-              }
-            })
-        };
-    
-        requestPermission(){
-            return new Promise(async (resolve, reject)=>{
-                const permis = await Notification.requestPermission();
-                if(permis==="granted"){
-                    const tokenFirebase = getToken(this.messaging);
-                    resolve(tokenFirebase);
-                }else{
-                    reject(new Error("No se generó token"))
-                }
-            })
-        }*/
 
     private messagingObservable = new Observable(observe => {
         onMessage(this.messaging, payload => {
@@ -73,14 +76,5 @@ export class NotificacionService {
             },
             topic: topic
         };
-
-        /* Send a message to devices subscribed to the provided topic.
-        getMessaging().send(message)
-            .then(response => {
-                console.log('Successfully sent message:', response);
-            })
-            .catch(error => {
-                console.log('Error sending message:', error);
-            });*/
     }
 }

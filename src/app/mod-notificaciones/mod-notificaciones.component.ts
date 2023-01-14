@@ -24,10 +24,6 @@ export class ModNotificacionesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.notificacionService.requestPermission();
-    this.notificacionService.listen();
-    this.notificacionService.receiveMessage();
-  }
+  ngOnInit(): void {}
 
 }

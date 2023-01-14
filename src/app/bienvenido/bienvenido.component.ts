@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { Bienvenida } from '../model/bienvenida.model';
+import { Banner } from '../model/banner.model';
 import { Integrantes } from '../model/integrantes.model';
 import { Pagina } from '../model/pagina.model';
 import { Principal } from '../model/principal.model';
@@ -28,17 +28,15 @@ export interface Destacado {
   styleUrls: ['./bienvenido.component.scss']
 })
 export class BienvenidoComponent implements OnInit, AfterViewInit {
-  integrantesGobierno !: Integrantes[];
-  bienvenida !: Bienvenida;
   texto: string='';
   text:any;
 
   usuario$ = this.usuarioService.currentUserProfile$;
-  pagina$ = this.paginaService.pagina$;
-  principal$ = this.principalService.currentInformation$;
-  banners$ = this.bannerService.banners$;
-  integrantes$ = this.integranteService.integrantes$;
+
   pagina!:Pagina|null;
+  infoPrincipal!:Principal|null;
+  banners!:Banner[]|null;
+  integrantesGobierno !: Integrantes[]|null;
 
   constructor(
     private principalService: PrincipalService,
@@ -57,25 +55,35 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
       this.pagina = pagina;
       this.texto = pagina?.descripcion??'';
       this.text!.innerText = this.texto;
-    })
-    //this.text = document.getElementById("text");
-    //this.texto=this.bienvenida.descripcion.replace(/\n/g,"<br>");
-    //this.text!.innerText = this.texto;
+    });
+
+    this.bannerService.banners$
+    .pipe()
+    .subscribe((banners)=>{
+      this.banners = banners;
+    });
+
+    this.principalService.currentInformation$
+    .pipe()
+    .subscribe((info)=>{
+      this.infoPrincipal = info;
+    });
+
+    this.integranteService.integrantes$
+    .pipe()
+    .subscribe((integrantes)=>{
+      this.integrantesGobierno = integrantes;
+    });
   }
 
-  ngAfterViewInit(){
-    this.text = document.getElementById("text");
-    this.paginaService.pagina$
-    .pipe()
-    .subscribe((pagina)=>{
-      this.pagina = pagina;
-      this.texto = pagina?.descripcion??'';
-      this.text!.innerText = this.texto;
-    })
-  }
+  ngAfterViewInit(){}
 
   openBanners(): void{
-    const dialogRef = this.dialog.open(FormBannerComponent);
+    const dialogRef = this.dialog.open(FormBannerComponent,{
+      data:{
+        data: this.banners
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
@@ -86,13 +94,13 @@ export class BienvenidoComponent implements OnInit, AfterViewInit {
     this.dialog.open(FormIntegranteComponent,{});
   }
 
-  openAjustes(pagina: Pagina): void{
+  openAjustes(): void{
     const dialogRef = this.dialog.open(FormBienvenidoComponent,{
       data:{
-        titulo: pagina.nombre,
-        descripcion: pagina.descripcion,
-        imagen_bienvenida: pagina.fondoEncabezado,
-        imagen_fondo: pagina.fondoPagina
+        titulo: this.pagina?.nombre,
+        descripcion: this.pagina?.descripcion,
+        imagen_bienvenida: this.pagina?.fondoEncabezado,
+        imagen_fondo: this.pagina?.fondoPagina
       }
     });
 

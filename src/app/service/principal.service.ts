@@ -1,19 +1,13 @@
 import { EventEmitter, Injectable } from "@angular/core";
 import { Principal } from "../model/principal.model";
 import { 
-    Firestore, 
-    collection, 
+    Firestore,
     docData, 
     setDoc, 
     doc, 
-    getDoc, 
-    query, 
-    getDocs, 
-    updateDoc, 
-    collectionData,
-    onSnapshot
+    getDoc
 } from '@angular/fire/firestore';
-import { concatMap, from, Observable, of, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PrincipalService {
@@ -88,14 +82,7 @@ export class PrincipalService {
             }
         };
         const docRef = doc(this.firestore, "informacionPrincipal", 'principal').withConverter(principalConverter);
-        const unsub = onSnapshot(doc(this.firestore, "informacionPrincipal", "principal").withConverter(principalConverter),
-            { includeMetadataChanges: true },
-            (doc) => {
-                return getDoc(docRef);
-        });
         return getDoc(docRef);
-        //const docRef = doc(this.firestore, "informacionPrincipal", 'principal').withConverter(principalConverter);
-        //return getDoc(docRef);
     }
  
     updateInfoDatabase(info: Principal){

@@ -5,9 +5,6 @@ import { PrincipalService } from '../service/principal.service';
 import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
-import { HotToastService } from '@ngneat/hot-toast';
-import { ImageUploadService } from '../service/upload.service';
-import { concatMap } from 'rxjs';
 import { UsuarioService } from '../service/usuario.service';
 import { Router } from '@angular/router';
 
@@ -148,9 +145,25 @@ export class InfoPaginaComponent implements OnInit, AfterViewInit {
         this.youtube_link = tem.youtube_link;
         this.ngAfterViewInit();
       } else {
-        console.log("No existen datos")
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "No se ha encontrado el documento :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
       }
-    }).catch(error => console.log(error));
+    }).catch(error => {
+      this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
+    });
   }
 
   async onSubmit() {

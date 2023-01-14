@@ -15,8 +15,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() tema?:boolean;
 
   usuario$: any = this.usuarioService.currentUserProfile$;
-  currentInfo$ = this.principalService.currentInformation$;
-  paginas$ = this.paginas.allPaginas$;
+
+  paginasS!:Pagina[]|null;
+  info!:Principal|null;
 
   constructor(
     private paginas: PaginaService, 
@@ -24,7 +25,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private usuarioService: UsuarioService
   ) { }
 
-  ngOnInit(): void{}
+  ngOnInit(): void{
+    this.principalService.currentInformation$
+    .pipe()
+    .subscribe((info)=>{
+      this.info = info;
+    });
+
+    this.paginas.allPaginas$
+    .pipe()
+    .subscribe((paginas)=>{
+      this.paginasS = paginas;
+    });
+  }
 
   ngAfterViewInit() {}
 

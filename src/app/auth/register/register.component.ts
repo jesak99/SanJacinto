@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/model/usuario.model';
 import { UsuarioService } from 'src/app/service/usuario.service';
-import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/service/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AvisoComponent } from 'src/app/aviso/aviso.component';
@@ -22,7 +21,7 @@ export class RegisterComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private toast: HotToastService) { 
+  ) { 
     this.formReg = new FormGroup({
       email: new FormControl('',[Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required, Validators.minLength(6)])
@@ -61,6 +60,7 @@ export class RegisterComponent implements OnInit {
               },
             });
             this.formReg.reset();
+            this.router.navigate(["ajustes-cuenta"])
           }).catch(()=>{
             this.snackBar.openFromComponent(AvisoComponent, {
               duration: 3000,
