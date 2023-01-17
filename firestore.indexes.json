@@ -5,6 +5,24 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "oculto",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "pagina_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "fecha_pub",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "publicaciones",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "pagina_id",
           "order": "ASCENDING"
         },

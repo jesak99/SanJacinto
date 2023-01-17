@@ -86,4 +86,10 @@ export class PublicacionService{
         const queryAll = query(ref, where('pagina_id','==',this.pagina), orderBy('fecha_pub','desc'));
         return collectionData(queryAll) as Observable<Publicacion[]>;
     }
+
+    get publicacionesAdmin$(): Observable<Publicacion[]>{
+        const ref = collection(this.firestore, 'publicaciones');
+        const queryAll = query(ref, where('pagina_id','==',this.pagina), orderBy('fecha_pub','desc'));
+        return collectionData(queryAll) as Observable<Publicacion[]>;
+    }
 }

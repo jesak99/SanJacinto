@@ -18,7 +18,7 @@
 
             <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>dashboard</mat-icon>
-                <a matLine>Dashboard</a>
+                <a matLine>Tablero</a>
             </mat-list-item>
 
             <mat-list-item *ngIf="usuario.rol=='Administrador'" [routerLink]="['/info-pagina']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
@@ -48,12 +48,12 @@
                 <mat-icon matListIcon>settings</mat-icon>
                 <a matLine>Ajustes de Cuenta</a>
             </mat-list-item>
-
+            <!--
             <mat-list-item [routerLink]="['/ajustes']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>notifications</mat-icon>
                 <a matLine>Notificaciones</a>
             </mat-list-item>
-
+            -->
             <mat-list-item [routerLink]="['/mensajes']" [routerLinkActive]="['active']" (click)="sidenav.toggle()">
                 <mat-icon matListIcon>message</mat-icon>
                 <a matLine>Mensajes</a>

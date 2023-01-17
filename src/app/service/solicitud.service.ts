@@ -10,7 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { Solicitud, SolicitudTemp } from "../model/solicitud";
 import { Observable } from 'rxjs';
-import { orderBy, Timestamp, where } from "firebase/firestore";
+import { getCountFromServer, orderBy, Timestamp, where } from "firebase/firestore";
 
 @Injectable({ providedIn: 'root' })
 export class SolicitudService {
@@ -55,6 +55,18 @@ export class SolicitudService {
         const ref = collection(this.firestore, 'solicitudes');
         const queryAllAtendidas = query(ref, where('estado', '==', true), orderBy('fecha','desc'));
         return collectionData(queryAllAtendidas) as Observable<Solicitud[]>;
+    }
+
+    solicitudesAtendidas(){
+        const ref = collection(this.firestore, 'solicitudes');
+        const con = query(ref, where('estado',"==",true));
+        return getCountFromServer(con);
+    }
+
+    solicitudesPendientes(){
+        const ref = collection(this.firestore, 'solicitudes');
+        const con = query(ref, where('estado',"==",false));
+        return getCountFromServer(con);
     }
 
 }

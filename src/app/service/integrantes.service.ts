@@ -81,4 +81,9 @@ export class IntegranteService{
         const queryAllPendientes = query(ref, orderBy('puesto','desc'));
         return collectionData(queryAllPendientes) as Observable<Integrantes[]>;
     }
+
+    cantidadIntegrantes(){
+        const ref = collection(this.firestore, "integrantes");
+        return getCountFromServer(ref);
+    }
 }

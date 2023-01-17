@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { Firestore, collection, collectionData, docData, setDoc, doc, getFirestore, getDoc, query, where, getDocs, Timestamp } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, docData, setDoc, doc, getFirestore, getDoc, query, where, getDocs, Timestamp, getCountFromServer } from '@angular/fire/firestore';
 import { concatMap, map, Observable, take } from 'rxjs';
 import { Pagina } from "../model/pagina.model";
 import { Publicacion } from "../model/publicacion.model";
@@ -83,5 +83,34 @@ export class PaginaService{
     get getPag$(): Observable<Pagina|null>{
         const ref = doc(this.firestore, 'paginas', this.pagina);
         return docData(ref) as Observable<Pagina>;
+    }
+
+    publicaciones(){
+        const ref = collection(this.firestore, 'publicaciones');
+        return getCountFromServer(ref);
+    }
+
+    casaCultura(){
+        const ref = collection(this.firestore, 'publicaciones');
+        const con = query(ref, where('pagina_id',"==",'casa-de-cultura'));
+        return getCountFromServer(con);
+    }
+
+    comunicacion(){
+        const ref = collection(this.firestore, 'publicaciones');
+        const con = query(ref, where('pagina_id',"==",'comunicacion'));
+        return getCountFromServer(con);
+    }
+
+    leyes(){
+        const ref = collection(this.firestore, 'publicaciones');
+        const con = query(ref, where('pagina_id',"==",'leyes-y-reglamentos'));
+        return getCountFromServer(con);
+    }
+
+    seguridad(){
+        const ref = collection(this.firestore, 'publicaciones');
+        const con = query(ref, where('pagina_id',"==",'seguridad'));
+        return getCountFromServer(con);
     }
 }

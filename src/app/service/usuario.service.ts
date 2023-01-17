@@ -10,8 +10,10 @@ import {
     getDocs, 
     updateDoc, 
     collectionData,
-    deleteDoc
+    deleteDoc,
+    getCountFromServer
 } from '@angular/fire/firestore';
+import { where } from "firebase/firestore";
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import { Usuario } from "../model/usuario.model";
 import { AuthService } from "./auth.service";
@@ -152,6 +154,40 @@ export class UsuarioService {
             return docData(ref) as Observable<Usuario>;
           })
         );
+    }
+
+    usuariosActivos(){
+        const ref = collection(this.firestore, "usuarios");
+        return getCountFromServer(ref);
+    }
+
+    usuariosEliminados(){
+        const ref = collection(this.firestore, "usuarios_eliminados");
+        return getCountFromServer(ref);
+    }
+
+    usuariosAdmin(){
+        const ref = collection(this.firestore, 'usuarios');
+        const con = query(ref, where('rol',"==",'Administrador'));
+        return getCountFromServer(con);
+    }
+
+    usuariosHabi(){
+        const ref = collection(this.firestore, 'usuarios');
+        const con = query(ref, where('rol',"==",'Habitante'));
+        return getCountFromServer(con);
+    }
+
+    usuariosAdminDel(){
+        const ref = collection(this.firestore, 'usuarios_eliminados');
+        const con = query(ref, where('rol',"==",'Administrador'));
+        return getCountFromServer(con);
+    }
+
+    usuariosHabiDel(){
+        const ref = collection(this.firestore, 'usuarios_eliminados');
+        const con = query(ref, where('rol',"==",'Habitante'));
+        return getCountFromServer(con);
     }
     
 }
