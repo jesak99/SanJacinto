@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "san-jacinto-amilpas"
+    "default": "san-jacinto-amilpas-web",
+    "san-jacinto-amilpas-web": "san-jacinto-amilpas-web"
   },
   "targets": {
     "san-jacinto-amilpas": {
@@ -10,5 +11,6 @@
         ]
       }
     }
-  }
+  },
+  "etags": {}
 }
