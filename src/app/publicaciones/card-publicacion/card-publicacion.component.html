@@ -6,7 +6,7 @@
                 <button *ngIf="publicacion.duracion=='Indeterminado'" mat-icon-button matTooltip="{{texto}}" class="show-hide" matSuffix (click)="hide = !hide" [attr.aria-label]="'Publicacion oculta'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Eliminar publicación" class="delete"><mat-icon>close</mat-icon></button>
+                <button mat-icon-button matTooltip="Eliminar publicación" class="delete" (click)="delete(publicacion)"><mat-icon>close</mat-icon></button>
             </mat-card-header>
             <mat-card-header mat-card-image class="author">
                 <div mat-card-avatar class="image-perfil"></div>

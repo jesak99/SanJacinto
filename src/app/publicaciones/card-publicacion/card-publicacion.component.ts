@@ -4,6 +4,8 @@ import { Publicacion } from 'src/app/model/publicacion.model';
 import { PublicacionService } from 'src/app/service/publicacion.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { CrearPublicacionComponent } from '../crear-publicacion/crear-publicacion.component';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AvisoComponent } from 'src/app/aviso/aviso.component';
 
 @Component({
   selector: 'app-card-publicacion',
@@ -18,9 +20,10 @@ export class CardPublicacionComponent implements OnInit, AfterViewInit {
   usuario$ = this.usuarioService.currentUserProfile$;
 
   constructor(
-    private publicacionService : PublicacionService,
+    private publicacionService: PublicacionService,
     private usuarioService: UsuarioService,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +65,35 @@ export class CardPublicacionComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
+  }
+
+  async delete(publicacion:Publicacion){
+    this.snackBar.openFromComponent(AvisoComponent, {
+      data: {
+        texto: "Eliminando publicación ...",
+        clase: "toast-loading",
+        icono: "info",
+      },
+    });
+    await this.publicacionService.deletePublicacion(publicacion).then(response=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Se ha eliminado eliminado la publicación",
+          clase: "toast-warning",
+          icono: "info",
+        },
+      });
+    }).catch(error=>{
+      this.snackBar.openFromComponent(AvisoComponent, {
+        duration: 3000,
+        data: {
+          texto: "Ha ocurrido un error :(",
+          clase: "toast-error",
+          icono: "error",
+        },
+      });
+    })
   }
 
 }
