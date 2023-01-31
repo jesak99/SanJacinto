@@ -66,8 +66,11 @@
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button [disabled]="formPublicacion.invalid">
+        <button *ngIf="!editMode" mat-raised-button [disabled]="formPublicacion.invalid">
             <mat-icon>publish</mat-icon>Publicar
+        </button>
+        <button *ngIf="editMode" mat-raised-button [disabled]="formPublicacion.invalid">
+            <mat-icon>publish</mat-icon>Actualizar Publicacion
         </button>
     </mat-dialog-actions>
 </form>

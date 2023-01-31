@@ -28,7 +28,7 @@ export class CardPublicacionComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.hide = this.publicacion?.oculto;
-    this.ngAfterViewInit();
+    //this.ngAfterViewInit();
   }
 
   ngAfterViewInit(): void {

@@ -200,7 +200,46 @@ export class CrearPublicacionComponent implements OnInit, AfterViewInit {
 
 
     if(this.editMode){
-      
+      this.snackBar.openFromComponent(AvisoComponent, {
+        data: {
+          texto: "Actualizando publicación",
+          clase: "toast-loading",
+          icono: "info",
+        },
+      });
+      const pub: PublicacionTemporal = {
+        id: "",
+        descripcion: descripcion,
+        duracion: this.duracion, 
+        fecha_pub: new Date(), 
+        fecha_inicio: fecha_inicio, 
+        fecha_fin: fecha_fin, 
+        tipo_pub: this.tipo_pub, 
+        formato: formato, 
+        multimedia: multimedia, 
+        oculto: visibilidad, 
+        pagina_id: this.pagina_id
+      };
+      await this.publicacionService.updatePublicacion(pub).then(response=>{
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Se ha actualizado la publicación",
+            clase: "toast-success",
+            icono: "check",
+          },
+        });
+        this.dialogRef.close();
+      }).catch(error=>{
+        this.snackBar.openFromComponent(AvisoComponent, {
+          duration: 3000,
+          data: {
+            texto: "Ha ocurrido un error :(",
+            clase: "toast-error",
+            icono: "error",
+          },
+        });
+      })
     }else{
       this.snackBar.openFromComponent(AvisoComponent, {
         data: {

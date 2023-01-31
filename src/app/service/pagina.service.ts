@@ -1,8 +1,18 @@
-import { EventEmitter, Injectable } from "@angular/core";
-import { Firestore, collection, collectionData, docData, setDoc, doc, getFirestore, getDoc, query, where, getDocs, Timestamp, getCountFromServer } from '@angular/fire/firestore';
-import { concatMap, map, Observable, take } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { 
+    Firestore, 
+    collection, 
+    collectionData, 
+    docData, 
+    doc, 
+    getDoc, 
+    query, 
+    where, 
+    getCountFromServer, 
+    orderBy, 
+    updateDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Pagina } from "../model/pagina.model";
-import { Publicacion } from "../model/publicacion.model";
 
 @Injectable({ providedIn: 'root' })
 export class PaginaService{
@@ -17,35 +27,18 @@ export class PaginaService{
     /**   */
     get allPaginas$(): Observable<Pagina[]> {
         const ref = collection(this.firestore, 'paginas');
-        const queryAll = query(ref, where('id','!=','bienvenido'));
+        const queryAll = query(ref, where('posicion','!=','0'), orderBy('posicion','asc'));
         return collectionData(queryAll) as Observable<Pagina[]>;
     }
 
     updatePag(pagina: Pagina){
-        const convertir = {
-            toFirestore: (pagina: Pagina) => {
-                return {
-                    id: pagina.id,
-                    nombre : pagina.nombre,
-                    descripcion : pagina.descripcion,
-                    fondoEncabezado : pagina.fondoEncabezado,
-                    fondoPagina : pagina.fondoPagina
-                };
-            },
-            fromFirestore: (snapshot: any, options: any) => {
-                const data = snapshot.data(options);
-                return new Pagina(
-                    pagina.id,
-                    data.nombre,
-                    data.descripcion,
-                    data.fondoEncabezado,
-                    data.fondoPagina,
-                );
-            }
-        };
-
-        const upPag = doc(this.firestore, 'paginas', pagina.id).withConverter(convertir);
-        return setDoc(upPag, pagina);
+        const upPag = doc(this.firestore, 'paginas', pagina.id);
+        return updateDoc(upPag, {
+            nombre: pagina.nombre,
+            descripcion: pagina.descripcion,
+            fondoEncabezado: pagina.fondoEncabezado,
+            fondoPagina: pagina.fondoPagina
+        });
     }
 
     getPag(id: string){

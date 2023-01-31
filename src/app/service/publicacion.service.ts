@@ -57,7 +57,7 @@ export class PublicacionService{
         });
     }
 
-    updatePublicacion(publicacion: Publicacion){
+    updatePublicacion(publicacion: PublicacionTemporal){
         const ref = doc(this.firestore, "publicaciones", publicacion.id);
         return updateDoc(ref, {
             descripcion : publicacion.descripcion,
