@@ -63,9 +63,7 @@ export class PublicacionesComponent implements OnInit {
       }
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      
-    });
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
   openEditarPagina(pagina: Pagina): void {
@@ -79,9 +77,7 @@ export class PublicacionesComponent implements OnInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      
-    });
+    dialogRef.afterClosed().subscribe(result => {});
   }
 
 }

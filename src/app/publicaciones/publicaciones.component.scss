@@ -49,3 +49,15 @@ p {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    margin: auto;
+    max-width: 1280px;
+}
+
+iframe{
+    border-radius: 25px;
+}
